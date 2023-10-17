@@ -1,6 +1,6 @@
-pipeline "delete_disk" {
-  title       = "Delete Disk"
-  description = "Delete a disk."
+pipeline "delete_compute_disk" {
+  title       = "Delete Compute Disk"
+  description = "Delete a managed disk."
 
   param "subscription_id" {
     type        = string
@@ -12,7 +12,7 @@ pipeline "delete_disk" {
 
   param "tenant_id" {
     type        = string
-    description = "The Azure Tenant Id."
+    description = "The Microsoft Entra ID tenant (directory) ID."
     default     = var.tenant_id
     # TODO: Add once supported
     #sensitive   = true
@@ -20,7 +20,7 @@ pipeline "delete_disk" {
 
   param "client_secret" {
     type        = string
-    description = "The value of the Azure Client Secret."
+    description = "A client secret that was generated for the App Registration."
     default     = var.client_secret
     # TODO: Add once supported
     #sensitive   = true
@@ -28,7 +28,7 @@ pipeline "delete_disk" {
 
   param "client_id" {
     type        = string
-    description = "The Azure Client Id."
+    description = "The client (application) ID of an App Registration in the tenant."
     default     = var.client_id
     # TODO: Add once supported
     #sensitive   = true
@@ -45,10 +45,9 @@ pipeline "delete_disk" {
   param "disk_name" {
     type        = string
     description = "The name of the Disk."
-    default     = "test-flowpipe-disk"
   }
 
-  step "container" "delete_disk" {
+  step "container" "delete_compute_disk" {
     image = "my-azure-image"
     cmd   = ["disk", "delete", "--yes", "-g", param.resource_group, "-n", param.disk_name, "--subscription", param.subscription_id]
 
@@ -59,13 +58,13 @@ pipeline "delete_disk" {
     }
   }
 
-  output "disk_out" {
+  output "stdout" {
     description = "Disk details."
-    value       = step.container.delete_disk.stdout
+    value       = step.container.delete_compute_disk.stdout
   }
 
-  output "disk_err" {
+  output "stderr" {
     description = "Disk error."
-    value       = step.container.delete_disk.stderr
+    value       = step.container.delete_compute_disk.stderr
   }
 }

@@ -1,6 +1,6 @@
-pipeline "update_resource_tag" {
-  title       = "Update Resource Tag"
-  description = "Selectively update the set of tags on a specific resource."
+pipeline "create_storage_account" {
+  title       = "Create Storage Account"
+  description = "Create a storage account."
 
   param "tenant_id" {
     type        = string
@@ -26,9 +26,9 @@ pipeline "update_resource_tag" {
     #sensitive   = true
   }
 
-  param "operation" {
-    type        = string
-    description = "The update operation. Options are Merge, Replace and Delete."
+  param "create_tags" {
+    type        = map
+    description = "The resource Tags. Example tagKey:tagValue."
   }
 
   param "resource_id" {
@@ -36,16 +36,11 @@ pipeline "update_resource_tag" {
     description = "The resource identifier for the entity being tagged. A resource, a resource group or a subscription may be tagged."
   }
 
-  param "update_tags" {
-    type        = map
-    description = "The resource Tags. Example tagKey:tagValue."
-  }
-
-  step "container" "update_resource_tag" {
+  step "container" "create_storage_account" {
     image = "my-azure-image"
     cmd = concat(
-      ["tag", "update", "--resource-id", param.resource_id, "--operation", param.operation, "--tags"],
-      concat([for key, value in param.update_tags : "${key}=${value}"]),
+      ["tag", "create", "--resource-id", param.resource_id, "--tags"],
+      concat([for key, value in param.create_tags : "${key}=${value}"]),
     )
 
     env = {
@@ -56,12 +51,12 @@ pipeline "update_resource_tag" {
   }
 
   output "stdout" {
-    description = "Tag details."
-    value       = step.container.update_resource_tag.stdout
+    description = "Storage details."
+    value       = step.container.create_storage_account.stdout
   }
 
   output "stderr" {
-    description = "Tag error."
-    value       = step.container.update_resource_tag.stderr
+    description = "Storage error."
+    value       = step.container.create_storage_account.stderr
   }
 }

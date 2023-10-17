@@ -1,10 +1,10 @@
-pipeline "create_virtual_machine" {
+pipeline "create_compute_virtual_machine" {
   title       = "Create Virtual Machine"
-  description = "Create a new virtual machine."
+  description = "Create an Azure Virtual Machine."
 
   param "tenant_id" {
     type        = string
-    description = "The Azure Tenant Id."
+    description = "The Microsoft Entra ID tenant (directory) ID."
     default     = var.tenant_id
     # TODO: Add once supported
     #sensitive   = true
@@ -12,7 +12,7 @@ pipeline "create_virtual_machine" {
 
   param "client_secret" {
     type        = string
-    description = "The value of the Azure Client Secret."
+    description = "A client secret that was generated for the App Registration."
     default     = var.client_secret
     # TODO: Add once supported
     #sensitive   = true
@@ -20,7 +20,7 @@ pipeline "create_virtual_machine" {
 
   param "client_id" {
     type        = string
-    description = "The Azure Client Id."
+    description = "The client (application) ID of an App Registration in the tenant."
     default     = var.client_id
     # TODO: Add once supported
     #sensitive   = true
@@ -45,65 +45,74 @@ pipeline "create_virtual_machine" {
   param "vm_name" {
     type        = string
     description = "The name of the Virtual Machine."
-    default     = "testFlowpipe1"
   }
 
   param "vm_image" {
     type        = string
     description = "The OS image for the Virtual Machine."
-    default     = "Ubuntu2204"
   }
 
   param "admin_username" {
     type        = string
     description = "The administrator username for the Virtual Machine."
-    default     = "adminuser"
+    optional    = true
   }
 
   param "admin_password" {
     type        = string
     description = "The administrator password for the Virtual Machine."
-    default     = "Admin12345578!"
+    optional    = true
   }
 
   param "location" {
     type        = string
     description = "The Azure region where the Virtual Machine will be deployed."
-    default     = "East US"
+    optional    = true
   }
 
   param "vm_size" {
     type        = string
     description = "The size of the Virtual Machine."
-    default     = "Standard_DS2_v2"
+    optional    = true
   }
 
   param "authentication_type" {
     type        = string
     description = "The authentication type for the Virtual Machine (password or ssh)."
-    default     = "password"
+    optional    = true
   }
 
-  param "network_security_group" {
+  param "network_security_group_name" {
     type        = string
     description = "The name of the Network Security Group for the Virtual Machine."
-    default     = "testFlowpipe-nsg"
+    optional    = true
   }
 
-  step "container" "create_virtual_machine" {
+  param "generate_ssh_keys" {
+    type        = bool
+    description = "Generate SSH keys for the Virtual Machine."
+    optional    = true
+  }
+
+  param "no_wait" {
+    type        = bool
+    description = "Do not wait for the command output."
+    optional    = true
+  }
+
+  step "container" "create_compute_virtual_machine" {
     image = "my-azure-image"
-    cmd = [
-      "vm", "create",
-      "-g", param.resource_group,
-      "-n", param.vm_name,
-      "--image", param.vm_image,
-      "--admin-username", param.admin_username,
-      "--admin-password", param.admin_password,
-      "--location", param.location,
-      "--size", param.vm_size,
-      "--authentication-type", param.authentication_type,
-      "--nsg", param.network_security_group,
-    ]
+    cmd = concat(
+      ["vm", "create", "-g", param.resource_group, "-n", param.vm_name, "--image", param.vm_image],
+      param.admin_username != null ? concat(["--admin-username", param.admin_username]) : [],
+      param.admin_password != null ? concat(["--admin-password", param.admin_password]) : [],
+      param.location != null ? concat(["--location", param.location]) : [],
+      param.vm_size != null ? concat(["--size", param.vm_size]) : [],
+      param.authentication_type != null ? concat(["--authentication-type", param.authentication_type]) : [],
+      param.generate_ssh_keys == true ? concat(["--generate-ssh-keys"]) : [],
+      param.no_wait == true ? concat(["--no-wait"]) : [],
+      param.network_security_group_name != null ? concat(["--nsg", param.network_security_group_name]) : [],
+    )
 
     env = {
       AZURE_TENANT_ID     = param.tenant_id
@@ -112,13 +121,13 @@ pipeline "create_virtual_machine" {
     }
   }
 
-  output "vm_out" {
+  output "stdout" {
     description = "VM details."
-    value       = step.container.create_virtual_machine.stdout
+    value       = step.container.create_compute_virtual_machine.stdout
   }
 
-  output "vm_err" {
+  output "stderr" {
     description = "VM error."
-    value       = step.container.create_virtual_machine.stderr
+    value       = step.container.create_compute_virtual_machine.stderr
   }
 }

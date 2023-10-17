@@ -1,6 +1,6 @@
-pipeline "delete_virtual_machine" {
-  title       = "Delete Virtual Machine"
-  description = "Delete a virtual machine."
+pipeline "get_compute_virtual_machine" {
+  title       = "Get Compute Virtual Machine"
+  description = "Get the details of a VM."
 
   param "subscription_id" {
     type        = string
@@ -21,12 +21,11 @@ pipeline "delete_virtual_machine" {
   param "vm_name" {
     type        = string
     description = "The name of the Virtual Machine."
-    default     = "testFlowpipe1"
   }
 
   param "tenant_id" {
     type        = string
-    description = "The Azure Tenant Id."
+    description = "The Microsoft Entra ID tenant (directory) ID."
     default     = var.tenant_id
     # TODO: Add once supported
     #sensitive   = true
@@ -34,7 +33,7 @@ pipeline "delete_virtual_machine" {
 
   param "client_secret" {
     type        = string
-    description = "The value of the Azure Client Secret."
+    description = "A client secret that was generated for the App Registration."
     default     = var.client_secret
     # TODO: Add once supported
     #sensitive   = true
@@ -42,15 +41,15 @@ pipeline "delete_virtual_machine" {
 
   param "client_id" {
     type        = string
-    description = "The Azure Client Id."
+    description = "The client (application) ID of an App Registration in the tenant."
     default     = var.client_id
     # TODO: Add once supported
     #sensitive   = true
   }
 
-  step "container" "delete_virtual_machine" {
+  step "container" "get_compute_virtual_machine" {
     image = "my-azure-image"
-    cmd   = ["vm", "delete", "--yes", "-g", param.resource_group, "-n", param.vm_name, "--subscription", param.subscription_id]
+    cmd   = ["vm", "show", "-g", param.resource_group, "-n", param.vm_name, "--subscription", param.subscription_id]
 
     env = {
       AZURE_TENANT_ID     = param.tenant_id
@@ -59,13 +58,13 @@ pipeline "delete_virtual_machine" {
     }
   }
 
-  output "vm_out" {
+  output "stdout" {
     description = "VM details."
-    value       = step.container.delete_virtual_machine.stdout
+    value       = step.container.get_compute_virtual_machine.stdout
   }
 
-  output "vm_err" {
+  output "stderr" {
     description = "VM error."
-    value       = step.container.delete_virtual_machine.stderr
+    value       = step.container.get_compute_virtual_machine.stderr
   }
 }

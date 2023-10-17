@@ -1,6 +1,6 @@
-pipeline "get_virtual_machine" {
-  title       = "Get Virtual Machine"
-  description = "Get details of a virtual machine."
+pipeline "delete_storage_account" {
+  title       = "Delete Storage Account"
+  description = "Delete a storage account."
 
   param "subscription_id" {
     type        = string
@@ -18,15 +18,9 @@ pipeline "get_virtual_machine" {
     #sensitive   = true
   }
 
-  param "vm_name" {
-    type        = string
-    description = "The name of the Virtual Machine."
-    default     = "testFlowpipe"
-  }
-
   param "tenant_id" {
     type        = string
-    description = "The Azure Tenant Id."
+    description = "The Microsoft Entra ID tenant (directory) ID."
     default     = var.tenant_id
     # TODO: Add once supported
     #sensitive   = true
@@ -34,7 +28,7 @@ pipeline "get_virtual_machine" {
 
   param "client_secret" {
     type        = string
-    description = "The value of the Azure Client Secret."
+    description = "A client secret that was generated for the App Registration."
     default     = var.client_secret
     # TODO: Add once supported
     #sensitive   = true
@@ -42,15 +36,20 @@ pipeline "get_virtual_machine" {
 
   param "client_id" {
     type        = string
-    description = "The Azure Client Id."
+    description = "The client (application) ID of an App Registration in the tenant."
     default     = var.client_id
     # TODO: Add once supported
     #sensitive   = true
   }
 
-  step "container" "get_virtual_machine" {
+  param "account_name" {
+    type        = string
+    description = "The storage account name."
+  }
+
+  step "container" "delete_storage_account" {
     image = "my-azure-image"
-    cmd   = ["vm", "show", "-g", param.resource_group, "-n", param.vm_name, "--subscription", param.subscription_id]
+    cmd   = ["storage", "account", "delete", "--yes", "-g", param.resource_group, "-n", param.account_name, "--subscription", param.subscription_id]
 
     env = {
       AZURE_TENANT_ID     = param.tenant_id
@@ -59,13 +58,13 @@ pipeline "get_virtual_machine" {
     }
   }
 
-  output "vm_out" {
-    description = "VM details."
-    value       = step.container.get_virtual_machine.stdout
+  output "stdout" {
+    description = "Storage details."
+    value       = step.container.delete_storage_account.stdout
   }
 
-  output "vm_err" {
-    description = "VM error."
-    value       = step.container.get_virtual_machine.stderr
+  output "stderr" {
+    description = "Storage error."
+    value       = step.container.delete_storage_account.stderr
   }
 }

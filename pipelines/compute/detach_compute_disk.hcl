@@ -1,6 +1,6 @@
-pipeline "attach_disk" {
-  title       = "Attach Disk to Virtual Machine"
-  description = "Attach a disk to VM."
+pipeline "detach_compute_disk" {
+  title       = "Detach Compute Disk"
+  description = "Detach a managed disk from a VM."
 
   param "subscription_id" {
     type        = string
@@ -12,7 +12,7 @@ pipeline "attach_disk" {
 
   param "tenant_id" {
     type        = string
-    description = "The Azure Tenant Id."
+    description = "The Microsoft Entra ID tenant (directory) ID."
     default     = var.tenant_id
     # TODO: Add once supported
     #sensitive   = true
@@ -20,7 +20,7 @@ pipeline "attach_disk" {
 
   param "client_secret" {
     type        = string
-    description = "The value of the Azure Client Secret."
+    description = "A client secret that was generated for the App Registration."
     default     = var.client_secret
     # TODO: Add once supported
     #sensitive   = true
@@ -28,7 +28,7 @@ pipeline "attach_disk" {
 
   param "client_id" {
     type        = string
-    description = "The Azure Client Id."
+    description = "The client (application) ID of an App Registration in the tenant."
     default     = var.client_id
     # TODO: Add once supported
     #sensitive   = true
@@ -45,18 +45,16 @@ pipeline "attach_disk" {
   param "vm_name" {
     type        = string
     description = "The name of the VM."
-    default     = "testFlowpipe"
   }
 
   param "disk_name" {
     type        = string
     description = "The name of the Disk."
-    default     = "test-flowpipe-disk"
   }
 
-  step "container" "attach_disk" {
+  step "container" "detach_compute_disk" {
     image = "my-azure-image"
-    cmd   = ["vm", "disk", "attach", "--vm-name", param.vm_name, "-g", param.resource_group, "-n", param.disk_name, "--subscription", param.subscription_id]
+    cmd   = ["vm", "disk", "detach", "--vm-name", param.vm_name, "-g", param.resource_group, "-n", param.disk_name, "--subscription", param.subscription_id]
 
     env = {
       AZURE_TENANT_ID     = param.tenant_id
@@ -65,13 +63,13 @@ pipeline "attach_disk" {
     }
   }
 
-  output "disk_out" {
+  output "stdout" {
     description = "Disk details."
-    value       = step.container.attach_disk.stdout
+    value       = step.container.detach_compute_disk.stdout
   }
 
-  output "disk_err" {
+  output "stderr" {
     description = "Disk error."
-    value       = step.container.attach_disk.stderr
+    value       = step.container.detach_compute_disk.stderr
   }
 }

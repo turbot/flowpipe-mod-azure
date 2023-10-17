@@ -1,10 +1,10 @@
 pipeline "create_resource_tag" {
   title       = "Create Resource Tag"
-  description = "create a resource tag."
+  description = "Create tags on a specific resource."
 
   param "tenant_id" {
     type        = string
-    description = "The Azure Tenant Id."
+    description = "The Microsoft Entra ID tenant (directory) ID."
     default     = var.tenant_id
     # TODO: Add once supported
     #sensitive   = true
@@ -12,7 +12,7 @@ pipeline "create_resource_tag" {
 
   param "client_secret" {
     type        = string
-    description = "The value of the Azure Client Secret."
+    description = "A client secret that was generated for the App Registration."
     default     = var.client_secret
     # TODO: Add once supported
     #sensitive   = true
@@ -20,7 +20,7 @@ pipeline "create_resource_tag" {
 
   param "client_id" {
     type        = string
-    description = "The Azure Client Id."
+    description = "The client (application) ID of an App Registration in the tenant."
     default     = var.client_id
     # TODO: Add once supported
     #sensitive   = true
@@ -33,31 +33,30 @@ pipeline "create_resource_tag" {
 
   param "resource_id" {
     type        = string
-    description = "The resource id."
-    default     = "/subscriptions/d46d7416-f95f-4771-bbb5-529d4c76659c/resourceGroups/flowpipe/providers/Microsoft.Compute/virtualMachines/testFlowpipe"
+    description = "The resource identifier for the entity being tagged. A resource, a resource group or a subscription may be tagged."
   }
 
   step "container" "create_resource_tag" {
     image = "my-azure-image"
     cmd = concat(
       ["tag", "create", "--resource-id", param.resource_id, "--tags"],
-    concat(for key, value in param.create_tags : "tags.${key}=${value}"]),
-  )
+      concat([for key, value in param.create_tags : "${key}=${value}"]),
+    )
 
-  env = {
-    AZURE_TENANT_ID     = param.tenant_id
-    AZURE_CLIENT_ID     = param.client_id
-    AZURE_CLIENT_SECRET = param.client_secret
+    env = {
+      AZURE_TENANT_ID     = param.tenant_id
+      AZURE_CLIENT_ID     = param.client_id
+      AZURE_CLIENT_SECRET = param.client_secret
+    }
   }
-}
 
-output "disk_out" {
-  description = "Tag details."
-  value       = step.container.create_resource_tag.stdout
-}
+  output "stdout" {
+    description = "Tag details."
+    value       = step.container.create_resource_tag.stdout
+  }
 
-output "disk_err" {
-  description = "Tag error."
-  value       = step.container.create_resource_tag.stderr
-}
+  output "stderr" {
+    description = "Tag error."
+    value       = step.container.create_resource_tag.stderr
+  }
 }

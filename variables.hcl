@@ -12,23 +12,23 @@ variable "resource_group" {
   #sensitive  = true
 }
 
- variable "tenant_id" {
-    type        = string
-    description = "The Azure Tenant Id."
+variable "tenant_id" {
+  type        = string
+  description = "The Microsoft Entra ID tenant (directory) ID."
   # TODO: Add once supported
   #sensitive  = true
-  }
+}
 
-  variable "client_secret" {
-    type        = string
-    description = "The value of the Azure Client Secret."
-    # TODO: Add once supported
+variable "client_secret" {
+  type        = string
+  description = "A client secret that was generated for the App Registration."
+  # TODO: Add once supported
   #sensitive  = true
-  }
+}
 
-  variable "client_id" {
-    type        = string
-    description = "The Azure Client Id."
-    # TODO: Add once supported
+variable "client_id" {
+  type        = string
+  description = "The client (application) ID of an App Registration in the tenant."
+  # TODO: Add once supported
   #sensitive  = true
-  }
+}

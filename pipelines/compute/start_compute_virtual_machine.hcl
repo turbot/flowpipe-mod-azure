@@ -1,10 +1,10 @@
-pipeline "stop_virtual_machine" {
-  title       = "Stop Virtual Machine"
-  description = "Stop a virtual machine."
+pipeline "start_compute_virtual_machine" {
+  title       = "Start Compute Virtual Machine"
+  description = "Start a stopped VM."
 
   param "tenant_id" {
     type        = string
-    description = "The Azure Tenant Id."
+    description = "The Microsoft Entra ID tenant (directory) ID."
     default     = var.tenant_id
     # TODO: Add once supported
     #sensitive   = true
@@ -12,7 +12,7 @@ pipeline "stop_virtual_machine" {
 
   param "client_secret" {
     type        = string
-    description = "The value of the Azure Client Secret."
+    description = "A client secret that was generated for the App Registration."
     default     = var.client_secret
     # TODO: Add once supported
     #sensitive   = true
@@ -20,7 +20,7 @@ pipeline "stop_virtual_machine" {
 
   param "client_id" {
     type        = string
-    description = "The Azure Client Id."
+    description = "The client (application) ID of an App Registration in the tenant."
     default     = var.client_id
     # TODO: Add once supported
     #sensitive   = true
@@ -45,12 +45,11 @@ pipeline "stop_virtual_machine" {
   param "vm_name" {
     type        = string
     description = "The name of the Virtual Machine."
-    default     = "testFlowpipe"
   }
 
-  step "container" "stop_virtual_machine" {
+  step "container" "start_compute_virtual_machine" {
     image = "my-azure-image"
-    cmd   = ["vm", "stop", "-g", param.resource_group, "-n", param.vm_name, "--subscription", param.subscription_id]
+    cmd   = ["vm", "start", "-g", param.resource_group, "-n", param.vm_name, "--subscription", param.subscription_id]
 
     env = {
       AZURE_TENANT_ID     = param.tenant_id
@@ -59,13 +58,13 @@ pipeline "stop_virtual_machine" {
     }
   }
 
-  output "vm_out" {
+  output "stdout" {
     description = "VM details."
-    value       = step.container.stop_virtual_machine.stdout
+    value       = step.container.start_compute_virtual_machine.stdout
   }
 
-  output "vm_err" {
+  output "stderr" {
     description = "VM error."
-    value       = step.container.stop_virtual_machine.stderr
+    value       = step.container.start_compute_virtual_machine.stderr
   }
 }
