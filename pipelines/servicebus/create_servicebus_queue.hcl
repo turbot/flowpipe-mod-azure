@@ -1,6 +1,6 @@
-pipeline "create_storage_account" {
-  title       = "Create Storage Account"
-  description = "Create a storage account."
+pipeline "create_servicebus_queue" {
+  title       = "Create Servicebus Queue"
+  description = "Create a Service Bus queue."
 
   param "subscription_id" {
     type        = string
@@ -42,30 +42,19 @@ pipeline "create_storage_account" {
     #sensitive   = true
   }
 
-  param "account_name" {
+  param "queue_name" {
     type        = string
-    description = "The storage account name."
+    description = "The queue name."
   }
 
-  param "location" {
+  param "namespace_name" {
     type        = string
-    description = "The storage account location."
-    optional    = true
+    description = "The namespace name."
   }
 
-  param "sku" {
-    type        = string
-    description = "The storage account SKU."
-    optional    = true
-  }
-
-  step "container" "create_storage_account" {
+  step "container" "create_servicebus_queue" {
     image = "my-azure-image"
-    cmd = concat(
-      ["storage", "account", "create", "-g", param.resource_group, "--subscription", param.subscription_id, "-n", param.account_name],
-      param.location != null ? concat(["-l", param.location]) : [],
-      param.sku != null ? concat(["--sku", param.sku]) : []
-    )
+    cmd   = ["servicebus", "queue", "create", "-g", param.resource_group, "--subscription", param.subscription_id, "-n", param.queue_name, "--namespace-name", param.namespace_name]
 
     env = {
       AZURE_TENANT_ID     = param.tenant_id
@@ -75,12 +64,12 @@ pipeline "create_storage_account" {
   }
 
   output "stdout" {
-    description = "Storage details."
-    value       = step.container.create_storage_account.stdout
+    description = "Servicebus queue details."
+    value       = step.container.create_servicebus_queue.stdout
   }
 
   output "stderr" {
-    description = "Storage error."
-    value       = step.container.create_storage_account.stderr
+    description = "Servicebus queue error."
+    value       = step.container.create_servicebus_queue.stderr
   }
 }

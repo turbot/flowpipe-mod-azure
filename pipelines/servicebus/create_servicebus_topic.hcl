@@ -1,6 +1,6 @@
-pipeline "create_storage_account" {
-  title       = "Create Storage Account"
-  description = "Create a storage account."
+pipeline "create_servicebus_topic" {
+  title       = "Create Servicebus Topic"
+  description = "Create a topic in the specified namespace."
 
   param "subscription_id" {
     type        = string
@@ -42,30 +42,19 @@ pipeline "create_storage_account" {
     #sensitive   = true
   }
 
-  param "account_name" {
+  param "topic_name" {
     type        = string
-    description = "The storage account name."
+    description = "The topic name."
   }
 
-  param "location" {
+  param "namespace_name" {
     type        = string
-    description = "The storage account location."
-    optional    = true
+    description = "The namespace name."
   }
 
-  param "sku" {
-    type        = string
-    description = "The storage account SKU."
-    optional    = true
-  }
-
-  step "container" "create_storage_account" {
+  step "container" "create_servicebus_topic" {
     image = "my-azure-image"
-    cmd = concat(
-      ["storage", "account", "create", "-g", param.resource_group, "--subscription", param.subscription_id, "-n", param.account_name],
-      param.location != null ? concat(["-l", param.location]) : [],
-      param.sku != null ? concat(["--sku", param.sku]) : []
-    )
+    cmd   = ["servicebus", "topic", "create", "-g", param.resource_group, "--subscription", param.subscription_id, "-n", param.topic_name, "--namespace-name", param.namespace_name]
 
     env = {
       AZURE_TENANT_ID     = param.tenant_id
@@ -75,12 +64,12 @@ pipeline "create_storage_account" {
   }
 
   output "stdout" {
-    description = "Storage details."
-    value       = step.container.create_storage_account.stdout
+    description = "Servicebus topic details."
+    value       = step.container.create_servicebus_topic.stdout
   }
 
   output "stderr" {
-    description = "Storage error."
-    value       = step.container.create_storage_account.stderr
+    description = "Servicebus topic error."
+    value       = step.container.create_servicebus_topic.stderr
   }
 }
