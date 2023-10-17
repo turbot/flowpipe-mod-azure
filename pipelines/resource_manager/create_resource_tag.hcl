@@ -40,7 +40,7 @@ pipeline "create_resource_tag" {
     image = "my-azure-image"
     cmd = concat(
       ["tag", "create", "--resource-id", param.resource_id, "--tags"],
-      concat([for key, value in param.create_tags : "${key}=${value}"]),
+      [for key, value in param.create_tags : "${key}=${value}"],
     )
 
     env = {

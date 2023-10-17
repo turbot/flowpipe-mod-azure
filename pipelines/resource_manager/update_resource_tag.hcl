@@ -45,7 +45,7 @@ pipeline "update_resource_tag" {
     image = "my-azure-image"
     cmd = concat(
       ["tag", "update", "--resource-id", param.resource_id, "--operation", param.operation, "--tags"],
-      concat([for key, value in param.update_tags : "${key}=${value}"]),
+      [for key, value in param.update_tags : "${key}=${value}"],
     )
 
     env = {
