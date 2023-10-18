@@ -1,6 +1,6 @@
-pipeline "delete_ad_group" {
-  title       = "Delete AD Group"
-  description = "Delete a group from the directory."
+pipeline "delete_ad_user" {
+  title       = "Delete AD User"
+  description = "Delete a user from the directory."
 
   param "tenant_id" {
     type        = string
@@ -26,14 +26,14 @@ pipeline "delete_ad_group" {
     #sensitive   = true
   }
 
-  param "group" {
+  param "user_id" {
     type        = string
-    description = "Group's object id or display name."
+    description = "The object ID or principal name of the user for which to get information."
   }
 
-  step "container" "delete_ad_group" {
+  step "container" "delete_ad_user" {
     image = "my-azure-image"
-    cmd   = ["ad", "group", "delete", "--group", param.group]
+    cmd   = ["ad", "user", "delete", "--id", param.user_id]
 
     env = {
       AZURE_TENANT_ID     = param.tenant_id
@@ -43,12 +43,12 @@ pipeline "delete_ad_group" {
   }
 
   output "stdout" {
-    description = "Group details."
-    value       = step.container.delete_ad_group.stdout
+    description = "User details."
+    value       = step.container.delete_ad_user.stdout
   }
 
   output "stderr" {
-    description = "Group error."
-    value       = step.container.delete_ad_group.stderr
+    description = "User error."
+    value       = step.container.delete_ad_user.stderr
   }
 }

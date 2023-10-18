@@ -96,7 +96,7 @@ pipeline "create_compute_virtual_machine" {
 
   param "no_wait" {
     type        = bool
-    description = "Do not wait for the command output."
+    description = "Do not wait for the long-running operation to finish."
     optional    = true
   }
 

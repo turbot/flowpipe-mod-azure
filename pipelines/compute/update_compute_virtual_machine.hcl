@@ -59,19 +59,12 @@ pipeline "update_compute_virtual_machine" {
     optional    = true
   }
 
-  // param "os_disk_name" {
-  //   type        = string
-  //   description = "The os disk name of the Virtual Machine."
-  //   optional    = true
-  // }
-
   step "container" "update_compute_virtual_machine" {
     image = "my-azure-image"
     cmd = concat(
       ["vm", "update", "-g", param.resource_group, "-n", param.vm_name, "--subscription", param.subscription_id],
       param.set_tags != null ? concat(["--set"], [for key, value in param.set_tags : "tags.${key}=${value}"]) : [],
       param.license_type != null ? concat(["--license-type", param.license_type]) : [],
-      //param.os_disk_name != null ? concat(["--add", "osDisk"], ["name=${param.os_disk_name}"]) : [],
     )
 
     env = {
