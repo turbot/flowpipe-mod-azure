@@ -1,11 +1,19 @@
-pipeline "delete_compute_disk" {
-  title       = "Delete Compute Disk"
-  description = "Delete a managed disk."
+pipeline "get_storage_account" {
+  title       = "Get Storage Account"
+  description = "Get a storage account."
 
   param "subscription_id" {
     type        = string
     description = "Azure Subscription Id."
     default     = var.subscription_id
+    # TODO: Add once supported
+    #sensitive   = true
+  }
+
+  param "resource_group" {
+    type        = string
+    description = "Azure Resource Group."
+    default     = var.resource_group
     # TODO: Add once supported
     #sensitive   = true
   }
@@ -34,22 +42,14 @@ pipeline "delete_compute_disk" {
     #sensitive   = true
   }
 
-  param "resource_group" {
+  param "account_name" {
     type        = string
-    description = "Azure Resource Group."
-    default     = var.resource_group
-    # TODO: Add once supported
-    #sensitive   = true
+    description = "The storage account name."
   }
 
-  param "disk_name" {
-    type        = string
-    description = "The name of the Disk."
-  }
-
-  step "container" "delete_compute_disk" {
+  step "container" "get_storage_account" {
     image = "my-azure-image"
-    cmd   = ["disk", "delete", "--yes", "-g", param.resource_group, "-n", param.disk_name, "--subscription", param.subscription_id]
+    cmd   = ["storage", "account", "show", "-g", param.resource_group, "--subscription", param.subscription_id, "-n", param.account_name]
 
     env = {
       AZURE_TENANT_ID     = param.tenant_id
@@ -59,12 +59,12 @@ pipeline "delete_compute_disk" {
   }
 
   output "stdout" {
-    description = "Disk output."
-    value       = jsondecode(step.container.delete_compute_disk.stdout)
+    description = "Storage account output."
+    value       = jsondecode(step.container.get_storage_account.stdout)
   }
 
   output "stderr" {
-    description = "Disk error."
-    value       = step.container.delete_compute_disk.stderr
+    description = "Storage account error."
+    value       = step.container.get_storage_account.stderr
   }
 }

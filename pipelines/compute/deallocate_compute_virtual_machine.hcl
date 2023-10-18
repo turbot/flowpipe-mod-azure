@@ -59,7 +59,7 @@ pipeline "deallocate_compute_virtual_machine" {
   }
 
   output "stdout" {
-    description = "VM details."
+    description = "VM output."
     value       = jsondecode(step.container.deallocate_compute_virtual_machine.stdout)
   }
 

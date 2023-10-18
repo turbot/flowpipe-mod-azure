@@ -1,6 +1,6 @@
-pipeline "create_network_nat_gateway" {
-  title       = "Create Network Nat Gateway"
-  description = "Create a NAT gateway."
+pipeline "update_storage_account_public_network_access" {
+  title       = "Update Storage Account Public Network Access"
+  description = "Update the public network access of a storage account."
 
   param "subscription_id" {
     type        = string
@@ -42,14 +42,22 @@ pipeline "create_network_nat_gateway" {
     #sensitive   = true
   }
 
-  param "gateway_name" {
+  param "account_name" {
     type        = string
-    description = "Name of the NAT gateway."
+    description = "The storage account name."
   }
 
-  step "container" "create_network_nat_gateway" {
+  param "public_network_access" {
+    type        = bool
+    description = "Enable or disable public network access to the storage account."
+  }
+
+  step "container" "update_storage_account_public_network_access" {
     image = "my-azure-image"
-    cmd   = ["network", "nat", "gateway", "create", "-g", param.resource_group, "--subscription", param.subscription_id, "-n", param.gateway_name]
+    cmd = concat(
+      ["storage", "account", "update", "-g", param.resource_group, "--subscription", param.subscription_id, "-n", param.account_name],
+      param.public_network_access == true ? ["--public-network-access", "Enabled"] : ["--public-network-access", "Disabled"]
+    )
 
     env = {
       AZURE_TENANT_ID     = param.tenant_id
@@ -59,12 +67,12 @@ pipeline "create_network_nat_gateway" {
   }
 
   output "stdout" {
-    description = "Nat Gateway output."
-    value       = jsondecode(step.container.create_network_nat_gateway.stdout)
+    description = "Storage account public network access output."
+    value       = jsondecode(step.container.update_storage_account_public_network_access.stdout)
   }
 
   output "stderr" {
-    description = "Nat Gateway error."
-    value       = step.container.create_network_nat_gateway.stderr
+    description = "Storage account public network access error."
+    value       = step.container.update_storage_account_public_network_access.stderr
   }
 }

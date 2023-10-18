@@ -59,7 +59,7 @@ pipeline "delete_storage_account" {
   }
 
   output "stdout" {
-    description = "Storage details."
+    description = "Storage output."
     value       = jsondecode(step.container.delete_storage_account.stdout)
   }
 

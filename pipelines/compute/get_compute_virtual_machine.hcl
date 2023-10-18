@@ -59,7 +59,7 @@ pipeline "get_compute_virtual_machine" {
   }
 
   output "stdout" {
-    description = "VM details."
+    description = "VM output."
     value       = jsondecode(step.container.get_compute_virtual_machine.stdout)
   }
 

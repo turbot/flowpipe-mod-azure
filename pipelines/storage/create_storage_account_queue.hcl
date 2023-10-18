@@ -1,6 +1,6 @@
-pipeline "delete_compute_disk" {
-  title       = "Delete Compute Disk"
-  description = "Delete a managed disk."
+pipeline "create_storage_queue" {
+  title       = "Create Storage Queue"
+  description = "Create a queue under the given account."
 
   param "subscription_id" {
     type        = string
@@ -34,22 +34,19 @@ pipeline "delete_compute_disk" {
     #sensitive   = true
   }
 
-  param "resource_group" {
+  param "storage_queue_name" {
     type        = string
-    description = "Azure Resource Group."
-    default     = var.resource_group
-    # TODO: Add once supported
-    #sensitive   = true
+    description = "The queue name."
   }
 
-  param "disk_name" {
+  param "account_name" {
     type        = string
-    description = "The name of the Disk."
+    description = "The storage account name."
   }
 
-  step "container" "delete_compute_disk" {
+  step "container" "create_storage_queue" {
     image = "my-azure-image"
-    cmd   = ["disk", "delete", "--yes", "-g", param.resource_group, "-n", param.disk_name, "--subscription", param.subscription_id]
+    cmd   = ["storage", "queue", "create", "--subscription", param.subscription_id, "-n", param.storage_queue_name, "--account-name", param.account_name]
 
     env = {
       AZURE_TENANT_ID     = param.tenant_id
@@ -59,12 +56,12 @@ pipeline "delete_compute_disk" {
   }
 
   output "stdout" {
-    description = "Disk output."
-    value       = jsondecode(step.container.delete_compute_disk.stdout)
+    description = "Storage queue output."
+    value       = jsondecode(step.container.create_storage_queue.stdout)
   }
 
   output "stderr" {
-    description = "Disk error."
-    value       = step.container.delete_compute_disk.stderr
+    description = "Storage queue error."
+    value       = step.container.create_storage_queue.stderr
   }
 }

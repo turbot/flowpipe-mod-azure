@@ -64,7 +64,7 @@ pipeline "create_functions_functionapp_plan" {
   }
 
   output "stdout" {
-    description = "Function plan details."
+    description = "Function plan output."
     value       = jsondecode(step.container.create_functions_functionapp_plan.stdout)
   }
 

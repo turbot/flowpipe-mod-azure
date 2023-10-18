@@ -64,7 +64,7 @@ pipeline "attach_compute_disk" {
   }
 
   output "stdout" {
-    description = "Disk details."
+    description = "Disk output."
     value       = jsondecode(step.container.attach_compute_disk.stdout)
   }
 

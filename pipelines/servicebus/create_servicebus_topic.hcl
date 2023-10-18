@@ -64,7 +64,7 @@ pipeline "create_servicebus_topic" {
   }
 
   output "stdout" {
-    description = "Servicebus topic details."
+    description = "Servicebus topic output."
     value       = jsondecode(step.container.create_servicebus_topic.stdout)
   }
 

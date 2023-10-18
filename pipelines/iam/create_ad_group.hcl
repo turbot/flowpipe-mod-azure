@@ -48,7 +48,7 @@ pipeline "create_ad_group" {
   }
 
   output "stdout" {
-    description = "Group details."
+    description = "Group output."
     value       = jsondecode(step.container.create_ad_group.stdout)
   }
 

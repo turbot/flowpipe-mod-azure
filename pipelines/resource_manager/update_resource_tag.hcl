@@ -56,7 +56,7 @@ pipeline "update_resource_tag" {
   }
 
   output "stdout" {
-    description = "Tag details."
+    description = "Tag output."
     value       = jsondecode(step.container.update_resource_tag.stdout)
   }
 

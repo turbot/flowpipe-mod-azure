@@ -59,7 +59,7 @@ pipeline "delete_functions_functionapp_app" {
   }
 
   output "stdout" {
-    description = "Function app details."
+    description = "Function app output."
     value       = jsondecode(step.container.delete_functions_functionapp_app.stdout)
   }
 

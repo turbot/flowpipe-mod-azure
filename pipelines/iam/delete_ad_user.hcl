@@ -43,7 +43,7 @@ pipeline "delete_ad_user" {
   }
 
   output "stdout" {
-    description = "User details."
+    description = "User output."
     value       = jsondecode(step.container.delete_ad_user.stdout)
   }
 

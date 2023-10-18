@@ -1,11 +1,19 @@
-pipeline "delete_compute_disk" {
-  title       = "Delete Compute Disk"
-  description = "Delete a managed disk."
+pipeline "update_storage_account_access_tier" {
+  title       = "Update Storage Account Access Tier"
+  description = "Update the access tier of a storage account."
 
   param "subscription_id" {
     type        = string
     description = "Azure Subscription Id."
     default     = var.subscription_id
+    # TODO: Add once supported
+    #sensitive   = true
+  }
+
+  param "resource_group" {
+    type        = string
+    description = "Azure Resource Group."
+    default     = var.resource_group
     # TODO: Add once supported
     #sensitive   = true
   }
@@ -34,22 +42,19 @@ pipeline "delete_compute_disk" {
     #sensitive   = true
   }
 
-  param "resource_group" {
+  param "account_name" {
     type        = string
-    description = "Azure Resource Group."
-    default     = var.resource_group
-    # TODO: Add once supported
-    #sensitive   = true
+    description = "The storage account name."
   }
 
-  param "disk_name" {
+  param "access_tier" {
     type        = string
-    description = "The name of the Disk."
+    description = "The access tier is used for billing."
   }
 
-  step "container" "delete_compute_disk" {
+  step "container" "update_storage_account_access_tier" {
     image = "my-azure-image"
-    cmd   = ["disk", "delete", "--yes", "-g", param.resource_group, "-n", param.disk_name, "--subscription", param.subscription_id]
+    cmd   = ["storage", "account", "update", "-g", param.resource_group, "--subscription", param.subscription_id, "-n", param.account_name, "--access-tier", param.access_tier]
 
     env = {
       AZURE_TENANT_ID     = param.tenant_id
@@ -59,12 +64,12 @@ pipeline "delete_compute_disk" {
   }
 
   output "stdout" {
-    description = "Disk output."
-    value       = jsondecode(step.container.delete_compute_disk.stdout)
+    description = "Storage account access tier output."
+    value       = jsondecode(step.container.update_storage_account_access_tier.stdout)
   }
 
   output "stderr" {
-    description = "Disk error."
-    value       = step.container.delete_compute_disk.stderr
+    description = "Storage account access tier error."
+    value       = step.container.update_storage_account_access_tier.stderr
   }
 }

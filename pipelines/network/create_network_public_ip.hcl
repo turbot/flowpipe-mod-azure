@@ -68,7 +68,7 @@ pipeline "create_network_public_ip" {
   }
 
   output "stdout" {
-    description = "Public IP details."
+    description = "Public IP output."
     value       = jsondecode(step.container.create_network_public_ip.stdout)
   }
 

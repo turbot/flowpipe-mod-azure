@@ -59,7 +59,7 @@ pipeline "delete_network_firewall" {
   }
 
   output "stdout" {
-    description = "Firewall details."
+    description = "Firewall output."
     value       = jsondecode(step.container.delete_network_firewall.stdout)
   }
 

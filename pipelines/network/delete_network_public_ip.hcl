@@ -59,7 +59,7 @@ pipeline "delete_network_public_ip" {
   }
 
   output "stdout" {
-    description = "Public IP details."
+    description = "Public IP output."
     value       = jsondecode(step.container.delete_network_public_ip.stdout)
   }
 

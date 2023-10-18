@@ -74,7 +74,7 @@ pipeline "create_functions_functionapp_app" {
   }
 
   output "stdout" {
-    description = "Function app details."
+    description = "Function app output."
     value       = jsondecode(step.container.create_functions_functionapp_app.stdout)
   }
 

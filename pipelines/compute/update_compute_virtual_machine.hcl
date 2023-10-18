@@ -55,7 +55,7 @@ pipeline "update_compute_virtual_machine" {
 
   param "license_type" {
     type        = string
-    description = "The license type Virtual Machine."
+    description = "The license type of the Virtual Machine."
     optional    = true
   }
 
@@ -75,7 +75,7 @@ pipeline "update_compute_virtual_machine" {
   }
 
   output "stdout" {
-    description = "VM details."
+    description = "VM output."
     value       = jsondecode(step.container.update_compute_virtual_machine.stdout)
   }
 
