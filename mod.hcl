@@ -1,14 +1,14 @@
-mod "gitlab" {
-  title         = "GitLab Library"
-  description   = "Run pipelines to supercharge your GitLab workflows using Flowpipe."
+mod "azure" {
+  title         = "Azure Library"
+  description   = "Run pipelines to supercharge your Azure workflows using Flowpipe."
   color         = "#FCA121"
   documentation = file("./docs/index.md")
-  icon          = "/images/flowpipe/mods/turbot/gitlab.svg"
-  categories    = ["gitlab", "library"]
+  icon          = "/images/flowpipe/mods/turbot/azure.svg"
+  categories    = ["azure", "library"]
 
   opengraph {
-    title       = "GitLab Library Mod for Flowpipe"
-    description = "Run pipelines to supercharge your GitLab workflows using Flowpipe."
-    image       = "/images/flowpipe/mods/turbot/gitlab-social-graphic.png"
+    title       = "Azure Library Mod for Flowpipe"
+    description = "Run pipelines to supercharge your Azure workflows using Flowpipe."
+    image       = "/images/flowpipe/mods/turbot/azure-social-graphic.png"
   }
 }

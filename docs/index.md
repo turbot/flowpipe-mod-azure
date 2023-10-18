@@ -1,19 +1,19 @@
 ---
-repository: "https://github.com/turbot/flowpipe-mod-gitlab"
+repository: "https://github.com/turbot/flowpipe-mod-azure"
 ---
 
-# GitLab Mod for Flowpipe
+# Azure Mod for Flowpipe
 
 A collection of [Flowpipe](https://flowpipe.io) pipelines that can be used to:
-- Create issues
-- Close issues
-- Share projects with groups
+- Create virtual networks
+- Update resource tags
+- Stop virtual machines
 - And more!
 
 ## Documentation
 
-- **[Pipelines →](https://hub.flowpipe.io/mods/turbot/gitlab/pipelines)**
-- **[Triggers →](https://hub.flowpipe.io/mods/turbot/gitlab/triggers)**
+- **[Pipelines →](https://hub.flowpipe.io/mods/turbot/azure/pipelines)**
+- **[Triggers →](https://hub.flowpipe.io/mods/turbot/azure/triggers)**
 
 ## Getting started
 
@@ -29,8 +29,8 @@ brew install flowpipe
 Clone:
 
 ```sh
-git clone https://github.com/turbot/flowpipe-mod-gitlab.git
-cd flowpipe-mod-gitlab
+git clone https://github.com/turbot/flowpipe-mod-azure.git
+cd flowpipe-mod-azure
 ```
 
 ### Configuration
@@ -44,7 +44,7 @@ vi flowpipe.pvars
 
 It's recommended to configure credentials through [input variables](https://flowpipe.io/docs/using-flowpipe/mod-variables) by setting them in the `flowpipe.pvars` file.
 
-**Note:** Credentials can also be passed in each pipeline run with `--pipeline-args access_token=glpat_Token123`.
+**Note:** Credentials can also be passed in each pipeline run with `--pipeline-args client_id=e774c34-6391-46ce-b8a2-72d930c777`.
 
 Additional input variables may be defined in the mod's `variables.hcl` file that can be configured to better match your environment and requirements.
 
@@ -61,7 +61,7 @@ flowpipe service start
 Run a pipeline:
 
 ```sh
-flowpipe pipeline run list_projects
+flowpipe pipeline run get_compute_virtual_machine
 ```
 
 ## Passing pipeline arguments
@@ -69,7 +69,7 @@ flowpipe pipeline run list_projects
 To pass values into pipeline [parameters](https://flowpipe.io/docs/using-flowpipe/pipeline-parameters), use the following syntax:
 
 ```sh
-flowpipe pipeline run list_projects --pipeline-arg membership=true
+flowpipe pipeline run get_compute_virtual_machine --pipeline-arg vm_name="myVM"
 ```
 
 Multiple pipeline args can be passed in with separate `--pipeline-arg` flags.
@@ -87,10 +87,10 @@ Please see the [contribution guidelines](https://github.com/turbot/flowpipe/blob
 Want to help but not sure where to start? Pick up one of the `help wanted` issues:
 
 - [Flowpipe](https://github.com/turbot/flowpipe/labels/help%20wanted)
-- [GitLab Mod](https://github.com/turbot/flowpipe-mod-gitlab/labels/help%20wanted)
+- [Azure Mod](https://github.com/turbot/flowpipe-mod-azure/labels/help%20wanted)
 
 ## License
 
-This mod is licensed under the [Apache License 2.0](https://github.com/turbot/flowpipe-mod-gitlab/blob/main/LICENSE).
+This mod is licensed under the [Apache License 2.0](https://github.com/turbot/flowpipe-mod-azure/blob/main/LICENSE).
 
 Flowpipe is licensed under the [AGPLv3](https://github.com/turbot/flowpipe/blob/main/LICENSE).
