@@ -44,7 +44,7 @@ pipeline "delete_ad_group" {
 
   output "stdout" {
     description = "Group details."
-    value       = step.container.delete_ad_group.stdout
+    value       = jsondecode(step.container.delete_ad_group.stdout)
   }
 
   output "stderr" {

@@ -44,7 +44,7 @@ pipeline "detach_compute_disk" {
 
   param "vm_name" {
     type        = string
-    description = "The name of the VM."
+    description = "The name of the Virtual Machine."
   }
 
   param "disk_name" {
@@ -65,7 +65,7 @@ pipeline "detach_compute_disk" {
 
   output "stdout" {
     description = "Disk details."
-    value       = step.container.detach_compute_disk.stdout
+    value       = jsondecode(step.container.detach_compute_disk.stdout)
   }
 
   output "stderr" {

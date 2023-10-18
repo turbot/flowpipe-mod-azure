@@ -60,7 +60,7 @@ pipeline "get_compute_disk" {
 
   output "stdout" {
     description = "Disk details."
-    value       = step.container.get_compute_disk.stdout
+    value       = jsondecode(step.container.get_compute_disk.stdout)
   }
 
   output "stderr" {

@@ -60,7 +60,7 @@ pipeline "delete_network_vnet" {
 
   output "stdout" {
     description = "Vnet details."
-    value       = step.container.delete_network_vnet.stdout
+    value       = jsondecode(step.container.delete_network_vnet.stdout)
   }
 
   output "stderr" {

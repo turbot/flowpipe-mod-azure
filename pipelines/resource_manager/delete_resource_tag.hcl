@@ -44,7 +44,7 @@ pipeline "delete_resource_tag" {
 
   output "stdout" {
     description = "Tag details."
-    value       = step.container.delete_resource_tag.stdout
+    value       = jsondecode(step.container.delete_resource_tag.stdout)
   }
 
   output "stderr" {

@@ -54,7 +54,7 @@ pipeline "create_ad_user" {
 
   output "stdout" {
     description = "User creation details."
-    value       = step.container.create_ad_user.stdout
+    value       = jsondecode(step.container.create_ad_user.stdout)
   }
 
   output "stderr" {

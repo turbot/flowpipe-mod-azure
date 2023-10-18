@@ -76,7 +76,7 @@ pipeline "update_compute_virtual_machine" {
 
   output "stdout" {
     description = "VM details."
-    value       = step.container.update_compute_virtual_machine.stdout
+    value       = jsondecode(step.container.update_compute_virtual_machine.stdout)
   }
 
   output "stderr" {

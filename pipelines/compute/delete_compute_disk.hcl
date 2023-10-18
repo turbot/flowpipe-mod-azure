@@ -60,7 +60,7 @@ pipeline "delete_compute_disk" {
 
   output "stdout" {
     description = "Disk details."
-    value       = step.container.delete_compute_disk.stdout
+    value       = jsondecode(step.container.delete_compute_disk.stdout)
   }
 
   output "stderr" {

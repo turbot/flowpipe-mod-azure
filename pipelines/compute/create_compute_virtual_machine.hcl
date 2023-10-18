@@ -123,7 +123,7 @@ pipeline "create_compute_virtual_machine" {
 
   output "stdout" {
     description = "VM details."
-    value       = step.container.create_compute_virtual_machine.stdout
+    value       = jsondecode(step.container.create_compute_virtual_machine.stdout)
   }
 
   output "stderr" {

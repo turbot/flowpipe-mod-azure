@@ -65,7 +65,7 @@ pipeline "delete_servicebus_topic" {
 
   output "stdout" {
     description = "Servicebus topic details."
-    value       = step.container.delete_servicebus_topic.stdout
+    value       = jsondecode(step.container.delete_servicebus_topic.stdout)
   }
 
   output "stderr" {

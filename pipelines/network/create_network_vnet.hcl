@@ -60,7 +60,7 @@ pipeline "create_network_vnet" {
 
   output "stdout" {
     description = "Vnet details."
-    value       = step.container.create_network_vnet.stdout
+    value       = jsondecode(step.container.create_network_vnet.stdout)
   }
 
   output "stderr" {

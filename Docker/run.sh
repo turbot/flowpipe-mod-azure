@@ -19,7 +19,7 @@ if [ -z "$AZURE_CLIENT_SECRET" ]; then
 fi
 
 # set the env vars to az login
-az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET --tenant $AZURE_TENANT_ID
+az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET --tenant $AZURE_TENANT_ID --output none
 
 # Check if there are additional arguments (commands) passed to the script
 if [ $# -eq 0 ]; then
@@ -28,5 +28,4 @@ if [ $# -eq 0 ]; then
 fi
 
 # Prepend "az" to the provided command and execute it
-echo "Executing command: az $@"
 az "$@"
