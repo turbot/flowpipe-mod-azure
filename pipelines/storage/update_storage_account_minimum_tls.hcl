@@ -1,15 +1,6 @@
 pipeline "update_storage_account_minimum_tls" {
-  title       = "Update Storage Accoun Minimum TLS"
+  title       = "Update Storage Account Minimum TLS"
   description = "The minimum TLS version to be permitted on requests to storage. The default interpretation is TLS 1.0 for this property."
-
-
-  param "resource_group" {
-    type        = string
-    description = "Azure Resource Group."
-    default     = var.resource_group
-    # TODO: Add once supported
-    #sensitive   = true
-  }
 
   param "tenant_id" {
     type        = string
@@ -42,6 +33,15 @@ pipeline "update_storage_account_minimum_tls" {
     # TODO: Add once supported
     #sensitive   = true
   }
+
+  param "resource_group" {
+    type        = string
+    description = "Azure Resource Group."
+    default     = var.resource_group
+    # TODO: Add once supported
+    #sensitive   = true
+  }
+
   param "account_name" {
     type        = string
     description = "The storage account name."
@@ -62,7 +62,6 @@ pipeline "update_storage_account_minimum_tls" {
         "--name", param.account_name,
         "--min-tls-version", param.minimum_tls_version
       ],
-
     )
 
     env = {
