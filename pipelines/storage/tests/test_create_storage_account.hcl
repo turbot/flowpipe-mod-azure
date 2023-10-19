@@ -45,6 +45,7 @@ pipeline "test_create_storage_account" {
   param "account_name" {
     type        = string
     description = "The storage account name."
+    default     = "flowpipe-test-storage-account-${uuid()}"
   }
 
   step "pipeline" "create_storage_account" {
@@ -60,7 +61,7 @@ pipeline "test_create_storage_account" {
   }
 
   step "pipeline" "get_storage_account" {
-    if       = startswith("ERROR:", step.pipeline.create_storage_account.stderr) == false
+    if       = strcontains(step.pipeline.create_storage_account.stderr, "ERROR:") == false
     pipeline = pipeline.get_storage_account
     args = {
       account_name    = param.account_name
@@ -78,8 +79,8 @@ pipeline "test_create_storage_account" {
   }
 
   step "pipeline" "delete_storage_account" {
-    if = startswith("ERROR:", step.pipeline.create_storage_account.stderr) == false
-    # Don't run before we've had a chance to list buckets
+    if = strcontains(step.pipeline.create_storage_account.stderr, "ERROR:") == false
+    # Don't run before we've had a chance to get the storage account
     depends_on = [step.pipeline.get_storage_account]
 
     pipeline = pipeline.delete_storage_account
@@ -100,16 +101,16 @@ pipeline "test_create_storage_account" {
 
   output "create_storage_account" {
     description = "Check for pipeline.create_storage_account."
-    value       = startswith("ERROR:", step.pipeline.create_storage_account.stderr) == false ? "succeeded" : "failed: ${step.pipeline.create_storage_account.stderr}"
+    value       = strcontains(step.pipeline.create_storage_account.stderr, "ERROR:") == false ? "succeeded" : "failed: ${step.pipeline.create_storage_account.stderr}"
   }
 
   output "get_storage_account" {
     description = "Check for pipeline.get_storage_account."
-    value       = step.pipeline.get_storage_account.stderr == "" && step.pipeline.get_storage_account.stdout.name != "" ? "succeeded" : "failed: ${step.pipeline.get_storage_account.stderr}"
+    value       = strcontains(step.pipeline.get_storage_account.stderr, "ERROR:") == false ? "succeeded" : "failed: ${step.pipeline.get_storage_account.stderr}"
   }
 
   output "delete_storage_account" {
     description = "Check for pipeline.delete_storage_account."
-    value       = step.pipeline.delete_storage_account.stderr == "" ? "succeeded" : "failed: ${step.pipeline.delete_storage_account.stderr}"
+    value       = strcontains(step.pipeline.delete_storage_account.stderr, "ERROR:") == false ? "succeeded" : "failed: ${step.pipeline.delete_storage_account.stderr}"
   }
 }

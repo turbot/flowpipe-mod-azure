@@ -73,7 +73,7 @@ pipeline "test_update_storage_account" {
   }
 
   step "pipeline" "update_storage_account_public_network_access" {
-    if       = startswith("ERROR:", step.pipeline.create_storage_account.stderr) == false
+    if       = strcontains(step.pipeline.create_storage_account.stderr, "ERROR:") == false
     pipeline = pipeline.update_storage_account_public_network_access
     args = {
       account_name          = param.account_name
@@ -92,7 +92,7 @@ pipeline "test_update_storage_account" {
   }
 
   step "pipeline" "update_storage_account_access_tier" {
-    if       = startswith("ERROR:", step.pipeline.create_storage_account.stderr) == false
+    if       = strcontains(step.pipeline.create_storage_account.stderr, "ERROR:") == false
     pipeline = pipeline.update_storage_account_access_tier
     args = {
       account_name    = param.account_name
@@ -111,8 +111,8 @@ pipeline "test_update_storage_account" {
   }
 
   step "pipeline" "delete_storage_account" {
-    if = startswith("ERROR:", step.pipeline.create_storage_account.stderr) == false
-    # Don't run before we've had a chance to list buckets
+    if = strcontains(step.pipeline.create_storage_account.stderr, "ERROR:") == false
+    # Don't run before we've had a chance to update the storage account
     depends_on = [
       step.pipeline.update_storage_account_public_network_access,
       step.pipeline.update_storage_account_access_tier
@@ -136,17 +136,17 @@ pipeline "test_update_storage_account" {
 
   output "create_storage_account" {
     description = "Check for pipeline.create_storage_account."
-    value       = startswith("ERROR:", step.pipeline.create_storage_account.stderr) == false ? "succeeded" : "failed: ${step.pipeline.create_storage_account.stderr}"
+    value       = strcontains(step.pipeline.create_storage_account.stderr, "ERROR:") == false ? "succeeded" : "failed: ${step.pipeline.create_storage_account.stderr}"
   }
 
   output "update_storage_account_public_network_access" {
     description = "Check for pipeline.update_storage_account_public_network_access."
-    value       = startswith("ERROR:", step.pipeline.update_storage_account_public_network_access.stderr) == false ? "succeeded" : "failed: ${step.pipeline.update_storage_account_public_network_access.stderr}"
+    value       = strcontains(step.pipeline.update_storage_account_public_network_access.stderr, "ERROR:") == false ? "succeeded: ${step.pipeline.update_storage_account_public_network_access.stdout.publicNetworkAccess}" : "failed: ${step.pipeline.update_storage_account_public_network_access.stderr}"
   }
 
   output "update_storage_account_access_tier" {
     description = "Check for pipeline.update_storage_account_access_tier."
-    value       = startswith("ERROR:", step.pipeline.update_storage_account_access_tier.stderr) == false ? "succeeded" : "failed: ${step.pipeline.update_storage_account_access_tier.stderr}"
+    value       = strcontains(step.pipeline.update_storage_account_access_tier.stderr, "ERROR:") == false ? "succeeded ${step.pipeline.update_storage_account_access_tier.stdout.accessTier}" : "failed: ${step.pipeline.update_storage_account_access_tier.stderr}"
   }
 
   output "delete_storage_account" {
