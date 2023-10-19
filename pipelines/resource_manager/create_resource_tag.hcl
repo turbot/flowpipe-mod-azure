@@ -51,12 +51,12 @@ pipeline "create_resource_tag" {
   }
 
   output "stdout" {
-    description = "Tag output."
+    description = "Tag create output."
     value       = jsondecode(step.container.create_resource_tag.stdout)
   }
 
   output "stderr" {
-    description = "Tag error."
+    description = "Tag create error."
     value       = step.container.create_resource_tag.stderr
   }
 }

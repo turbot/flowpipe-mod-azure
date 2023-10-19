@@ -56,12 +56,12 @@ pipeline "update_resource_tag" {
   }
 
   output "stdout" {
-    description = "Tag output."
+    description = "Tag update output."
     value       = jsondecode(step.container.update_resource_tag.stdout)
   }
 
   output "stderr" {
-    description = "Tag error."
+    description = "Tag update error."
     value       = step.container.update_resource_tag.stderr
   }
 }

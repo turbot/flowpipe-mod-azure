@@ -59,12 +59,12 @@ pipeline "create_network_firewall" {
   }
 
   output "stdout" {
-    description = "Firewall output."
+    description = "Network firewall create output."
     value       = jsondecode(step.container.create_network_firewall.stdout)
   }
 
   output "stderr" {
-    description = "Firewall error."
+    description = "Network firewall create error."
     value       = step.container.create_network_firewall.stderr
   }
 }

@@ -59,12 +59,12 @@ pipeline "delete_servicebus_namespace" {
   }
 
   output "stdout" {
-    description = "Servicebus namespace output."
+    description = "Servicebus namespace delete output."
     value       = jsondecode(step.container.delete_servicebus_namespace.stdout)
   }
 
   output "stderr" {
-    description = "Servicebus namespace error."
+    description = "Servicebus namespace delete error."
     value       = step.container.delete_servicebus_namespace.stderr
   }
 }

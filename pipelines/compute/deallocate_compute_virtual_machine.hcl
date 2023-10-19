@@ -59,12 +59,12 @@ pipeline "deallocate_compute_virtual_machine" {
   }
 
   output "stdout" {
-    description = "VM output."
+    description = "Compute VM deallocate output."
     value       = jsondecode(step.container.deallocate_compute_virtual_machine.stdout)
   }
 
   output "stderr" {
-    description = "VM error."
+    description = "Compute VM deallocate error."
     value       = step.container.deallocate_compute_virtual_machine.stderr
   }
 }

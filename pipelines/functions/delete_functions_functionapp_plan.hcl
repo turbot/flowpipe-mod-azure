@@ -59,12 +59,12 @@ pipeline "delete_functions_functionapp_plan" {
   }
 
   output "stdout" {
-    description = "Function plan output."
+    description = "Function plan delete output."
     value       = jsondecode(step.container.delete_functions_functionapp_plan.stdout)
   }
 
   output "stderr" {
-    description = "Function plan error."
+    description = "Function plan delete error."
     value       = step.container.delete_functions_functionapp_plan.stderr
   }
 }

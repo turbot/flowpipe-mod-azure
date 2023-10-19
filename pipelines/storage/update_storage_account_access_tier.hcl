@@ -64,12 +64,12 @@ pipeline "update_storage_account_access_tier" {
   }
 
   output "stdout" {
-    description = "Storage account access tier output."
+    description = "Storage account access tier update output."
     value       = jsondecode(step.container.update_storage_account_access_tier.stdout)
   }
 
   output "stderr" {
-    description = "Storage account access tier error."
+    description = "Storage account access tier update error."
     value       = step.container.update_storage_account_access_tier.stderr
   }
 }

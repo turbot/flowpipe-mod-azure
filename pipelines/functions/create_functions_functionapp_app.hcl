@@ -74,12 +74,12 @@ pipeline "create_functions_functionapp_app" {
   }
 
   output "stdout" {
-    description = "Function app output."
+    description = "Function app create output."
     value       = jsondecode(step.container.create_functions_functionapp_app.stdout)
   }
 
   output "stderr" {
-    description = "Function app error."
+    description = "Function app create error."
     value       = step.container.create_functions_functionapp_app.stderr
   }
 }

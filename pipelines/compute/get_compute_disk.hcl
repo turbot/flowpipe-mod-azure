@@ -59,12 +59,12 @@ pipeline "get_compute_disk" {
   }
 
   output "stdout" {
-    description = "Disk output."
+    description = "Compute disk get output."
     value       = jsondecode(step.container.get_compute_disk.stdout)
   }
 
   output "stderr" {
-    description = "Disk error."
+    description = "Compute disk get error."
     value       = step.container.get_compute_disk.stderr
   }
 }

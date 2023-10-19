@@ -53,12 +53,12 @@ pipeline "create_ad_user" {
   }
 
   output "stdout" {
-    description = "User creation output."
+    description = "Ad user create output."
     value       = jsondecode(step.container.create_ad_user.stdout)
   }
 
   output "stderr" {
-    description = "User creation error."
+    description = "Ad user create error."
     value       = step.container.create_ad_user.stderr
   }
 }

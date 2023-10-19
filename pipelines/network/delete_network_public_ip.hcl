@@ -59,12 +59,12 @@ pipeline "delete_network_public_ip" {
   }
 
   output "stdout" {
-    description = "Public IP output."
+    description = "Network public IP delete output."
     value       = jsondecode(step.container.delete_network_public_ip.stdout)
   }
 
   output "stderr" {
-    description = "Public IP error."
+    description = "Network public IP delete error."
     value       = step.container.delete_network_public_ip.stderr
   }
 }

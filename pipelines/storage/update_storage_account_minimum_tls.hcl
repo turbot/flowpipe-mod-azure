@@ -54,7 +54,7 @@ pipeline "update_storage_account_minimum_tls" {
 
   step "container" "update_minimum_tls" {
     image = "my-azure-image"
-    cmd   = concat(
+    cmd = concat(
       [
         "storage", "account", "update",
         "--resource-group", param.resource_group,
@@ -72,12 +72,12 @@ pipeline "update_storage_account_minimum_tls" {
   }
 
   output "stdout" {
-    description = "Storage details."
+    description = "Storage account minimum TLS update output."
     value       = jsondecode(step.container.update_minimum_tls.stdout)
   }
 
   output "stderr" {
-    description = "Storage error."
+    description = "Storage account minimum TLS update error."
     value       = step.container.update_minimum_tls.stderr
   }
 }

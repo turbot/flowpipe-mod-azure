@@ -56,12 +56,12 @@ pipeline "create_storage_queue" {
   }
 
   output "stdout" {
-    description = "Storage queue output."
+    description = "Storage account queue create output."
     value       = jsondecode(step.container.create_storage_queue.stdout)
   }
 
   output "stderr" {
-    description = "Storage queue error."
+    description = "Storage account queue create error."
     value       = step.container.create_storage_queue.stderr
   }
 }

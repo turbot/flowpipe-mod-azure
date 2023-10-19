@@ -56,12 +56,12 @@ pipeline "delete_storage_queue" {
   }
 
   output "stdout" {
-    description = "Storage queue output."
+    description = "Storage account queue delete output."
     value       = jsondecode(step.container.delete_storage_queue.stdout)
   }
 
   output "stderr" {
-    description = "Storage queue error."
+    description = "Storage account queue delete error."
     value       = step.container.delete_storage_queue.stderr
   }
 }

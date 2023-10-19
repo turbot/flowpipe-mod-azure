@@ -59,12 +59,12 @@ pipeline "delete_network_firewall" {
   }
 
   output "stdout" {
-    description = "Firewall output."
+    description = "Network firewall delete output."
     value       = jsondecode(step.container.delete_network_firewall.stdout)
   }
 
   output "stderr" {
-    description = "Firewall error."
+    description = "Network firewall delete error."
     value       = step.container.delete_network_firewall.stderr
   }
 }

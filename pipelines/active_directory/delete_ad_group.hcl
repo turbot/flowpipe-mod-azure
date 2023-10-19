@@ -43,12 +43,12 @@ pipeline "delete_ad_group" {
   }
 
   output "stdout" {
-    description = "Group output."
+    description = "Ad group delete output."
     value       = jsondecode(step.container.delete_ad_group.stdout)
   }
 
   output "stderr" {
-    description = "Group error."
+    description = "AD group delete error."
     value       = step.container.delete_ad_group.stderr
   }
 }

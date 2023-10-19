@@ -59,12 +59,12 @@ pipeline "create_network_vnet" {
   }
 
   output "stdout" {
-    description = "Vnet output."
+    description = "Network VNet create output."
     value       = jsondecode(step.container.create_network_vnet.stdout)
   }
 
   output "stderr" {
-    description = "Vnet error."
+    description = "Network VNet create error."
     value       = step.container.create_network_vnet.stderr
   }
 }

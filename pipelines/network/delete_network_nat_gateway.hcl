@@ -59,12 +59,12 @@ pipeline "delete_network_nat_gateway" {
   }
 
   output "stdout" {
-    description = "Nat Gateway output."
+    description = "Network nat gateway delete output."
     value       = jsondecode(step.container.delete_network_nat_gateway.stdout)
   }
 
   output "stderr" {
-    description = "Nat Gateway error."
+    description = "Network nat gateway delete error."
     value       = step.container.delete_network_nat_gateway.stderr
   }
 }

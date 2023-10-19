@@ -64,12 +64,12 @@ pipeline "create_servicebus_topic" {
   }
 
   output "stdout" {
-    description = "Servicebus topic output."
+    description = "Servicebus topic create output."
     value       = jsondecode(step.container.create_servicebus_topic.stdout)
   }
 
   output "stderr" {
-    description = "Servicebus topic error."
+    description = "Servicebus topic create error."
     value       = step.container.create_servicebus_topic.stderr
   }
 }

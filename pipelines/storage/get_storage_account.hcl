@@ -59,12 +59,12 @@ pipeline "get_storage_account" {
   }
 
   output "stdout" {
-    description = "Storage account output."
+    description = "Storage account get output."
     value       = jsondecode(step.container.get_storage_account.stdout)
   }
 
   output "stderr" {
-    description = "Storage account error."
+    description = "Storage account get error."
     value       = step.container.get_storage_account.stderr
   }
 }

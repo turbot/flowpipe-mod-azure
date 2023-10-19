@@ -75,12 +75,12 @@ pipeline "update_compute_virtual_machine" {
   }
 
   output "stdout" {
-    description = "VM output."
+    description = "Compute VM update output."
     value       = jsondecode(step.container.update_compute_virtual_machine.stdout)
   }
 
   output "stderr" {
-    description = "VM error."
+    description = "Compute VM update error."
     value       = step.container.update_compute_virtual_machine.stderr
   }
 }

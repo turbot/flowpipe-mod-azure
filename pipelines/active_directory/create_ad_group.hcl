@@ -48,12 +48,12 @@ pipeline "create_ad_group" {
   }
 
   output "stdout" {
-    description = "Group output."
+    description = "AD group create output."
     value       = jsondecode(step.container.create_ad_group.stdout)
   }
 
   output "stderr" {
-    description = "Group error."
+    description = "Ad group create error."
     value       = step.container.create_ad_group.stderr
   }
 }

@@ -43,12 +43,12 @@ pipeline "delete_ad_user" {
   }
 
   output "stdout" {
-    description = "User output."
+    description = "AD user delete output."
     value       = jsondecode(step.container.delete_ad_user.stdout)
   }
 
   output "stderr" {
-    description = "User error."
+    description = "AD user delete error."
     value       = step.container.delete_ad_user.stderr
   }
 }

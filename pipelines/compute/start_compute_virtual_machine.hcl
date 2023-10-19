@@ -59,12 +59,12 @@ pipeline "start_compute_virtual_machine" {
   }
 
   output "stdout" {
-    description = "VM output."
+    description = "Compute VM start output."
     value       = jsondecode(step.container.start_compute_virtual_machine.stdout)
   }
 
   output "stderr" {
-    description = "VM error."
+    description = "Compute VM start error."
     value       = step.container.start_compute_virtual_machine.stderr
   }
 }

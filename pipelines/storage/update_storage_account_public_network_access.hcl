@@ -67,12 +67,12 @@ pipeline "update_storage_account_public_network_access" {
   }
 
   output "stdout" {
-    description = "Storage account public network access output."
+    description = "Storage account public network access update output."
     value       = jsondecode(step.container.update_storage_account_public_network_access.stdout)
   }
 
   output "stderr" {
-    description = "Storage account public network access error."
+    description = "Storage account public network access update error."
     value       = step.container.update_storage_account_public_network_access.stderr
   }
 }

@@ -64,12 +64,12 @@ pipeline "detach_compute_disk" {
   }
 
   output "stdout" {
-    description = "Disk output."
+    description = "Compute disk detach output."
     value       = jsondecode(step.container.detach_compute_disk.stdout)
   }
 
   output "stderr" {
-    description = "Disk error."
+    description = "Compute disk detach error."
     value       = step.container.detach_compute_disk.stderr
   }
 }

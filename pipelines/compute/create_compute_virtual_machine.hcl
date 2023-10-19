@@ -122,12 +122,12 @@ pipeline "create_compute_virtual_machine" {
   }
 
   output "stdout" {
-    description = "VM output."
+    description = "Compute VM create output."
     value       = jsondecode(step.container.create_compute_virtual_machine.stdout)
   }
 
   output "stderr" {
-    description = "VM error."
+    description = "Compute VM create error."
     value       = step.container.create_compute_virtual_machine.stderr
   }
 }

@@ -64,12 +64,12 @@ pipeline "create_functions_functionapp_plan" {
   }
 
   output "stdout" {
-    description = "Function plan output."
+    description = "Function plan create output."
     value       = jsondecode(step.container.create_functions_functionapp_plan.stdout)
   }
 
   output "stderr" {
-    description = "Function plan error."
+    description = "Function plan create error."
     value       = step.container.create_functions_functionapp_plan.stderr
   }
 }

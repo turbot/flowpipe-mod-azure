@@ -75,12 +75,12 @@ pipeline "create_storage_account" {
   }
 
   output "stdout" {
-    description = "Storage account output."
+    description = "Storage account create output."
     value       = jsondecode(step.container.create_storage_account.stdout)
   }
 
   output "stderr" {
-    description = "Storage account error."
+    description = "Storage account create error."
     value       = step.container.create_storage_account.stderr
   }
 }

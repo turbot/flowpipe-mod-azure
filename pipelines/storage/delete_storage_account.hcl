@@ -59,12 +59,12 @@ pipeline "delete_storage_account" {
   }
 
   output "stdout" {
-    description = "Storage output."
+    description = "Storage account delete output."
     value       = jsondecode(step.container.delete_storage_account.stdout)
   }
 
   output "stderr" {
-    description = "Storage error."
+    description = "Storage account delete error."
     value       = step.container.delete_storage_account.stderr
   }
 }

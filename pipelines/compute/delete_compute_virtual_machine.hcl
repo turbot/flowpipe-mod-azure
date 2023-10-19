@@ -59,12 +59,12 @@ pipeline "delete_compute_virtual_machine" {
   }
 
   output "stdout" {
-    description = "VM output."
+    description = "Compute VM delete output."
     value       = jsondecode(step.container.delete_compute_virtual_machine.stdout)
   }
 
   output "stderr" {
-    description = "VM error."
+    description = "Compute VM delete error."
     value       = step.container.delete_compute_virtual_machine.stderr
   }
 }

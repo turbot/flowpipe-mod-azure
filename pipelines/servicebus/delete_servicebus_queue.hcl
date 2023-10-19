@@ -64,12 +64,12 @@ pipeline "delete_servicebus_queue" {
   }
 
   output "stdout" {
-    description = "Servicebus queue output."
+    description = "Servicebus queue delete output."
     value       = jsondecode(step.container.delete_servicebus_queue.stdout)
   }
 
   output "stderr" {
-    description = "Servicebus queue error."
+    description = "Servicebus queue delete error."
     value       = step.container.delete_servicebus_queue.stderr
   }
 }

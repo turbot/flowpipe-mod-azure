@@ -59,12 +59,12 @@ pipeline "delete_network_vnet" {
   }
 
   output "stdout" {
-    description = "Vnet output."
+    description = "Network VNet delete output."
     value       = jsondecode(step.container.delete_network_vnet.stdout)
   }
 
   output "stderr" {
-    description = "Vnet error."
+    description = "Network VNet delete error."
     value       = step.container.delete_network_vnet.stderr
   }
 }
