@@ -42,8 +42,8 @@ pipeline "get_ad_user" {
     }
   }
 
-  output "stdout" {
-    description = "Ad user get output."
+  output "user" {
+    description = "AzureAD user details."
     value       = jsondecode(step.container.get_ad_user.stdout)
   }
 
