@@ -1,4 +1,4 @@
-pipeline "ad_user_account_status" {
+pipeline "user_account_status" {
   title       = "Disable or Enable AD User"
   description = "Update user account status in Azure AD."
 
@@ -49,6 +49,6 @@ pipeline "ad_user_account_status" {
 
   output "stderr" {
     description = "AD user update error."
-    value       = step.container.ad_user_account_status.stderr
+    value       = step.container.user_account_status.stderr
   }
 }
