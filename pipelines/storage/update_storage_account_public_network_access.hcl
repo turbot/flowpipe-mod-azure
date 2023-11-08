@@ -67,12 +67,12 @@ pipeline "update_storage_account_public_network_access" {
   }
 
   output "stdout" {
-    description = "Storage account public network access update output."
+    description = "The standard output stream from the Azure CLI."
     value       = jsondecode(step.container.update_storage_account_public_network_access.stdout)
   }
 
   output "stderr" {
-    description = "Storage account public network access update error."
+    description = "The standard error stream from the Azure CLI."
     value       = step.container.update_storage_account_public_network_access.stderr
   }
 }

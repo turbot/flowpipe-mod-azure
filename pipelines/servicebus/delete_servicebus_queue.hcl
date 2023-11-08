@@ -64,12 +64,12 @@ pipeline "delete_servicebus_queue" {
   }
 
   output "stdout" {
-    description = "Servicebus queue delete output."
+    description = "The standard output stream from the Azure CLI."
     value       = jsondecode(step.container.delete_servicebus_queue.stdout)
   }
 
   output "stderr" {
-    description = "Servicebus queue delete error."
+    description = "The standard error stream from the Azure CLI."
     value       = step.container.delete_servicebus_queue.stderr
   }
 }

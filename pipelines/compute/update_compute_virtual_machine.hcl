@@ -75,12 +75,12 @@ pipeline "update_compute_virtual_machine" {
   }
 
   output "stdout" {
-    description = "Compute VM update output."
+    description = "The standard output stream from the Azure CLI."
     value       = jsondecode(step.container.update_compute_virtual_machine.stdout)
   }
 
   output "stderr" {
-    description = "Compute VM update error."
+    description = "The standard error stream from the Azure CLI."
     value       = step.container.update_compute_virtual_machine.stderr
   }
 }

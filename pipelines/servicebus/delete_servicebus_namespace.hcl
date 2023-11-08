@@ -59,12 +59,12 @@ pipeline "delete_servicebus_namespace" {
   }
 
   output "stdout" {
-    description = "Servicebus namespace delete output."
+    description = "The standard output stream from the Azure CLI."
     value       = jsondecode(step.container.delete_servicebus_namespace.stdout)
   }
 
   output "stderr" {
-    description = "Servicebus namespace delete error."
+    description = "The standard error stream from the Azure CLI."
     value       = step.container.delete_servicebus_namespace.stderr
   }
 }

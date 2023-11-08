@@ -42,13 +42,13 @@ pipeline "get_ad_user" {
     }
   }
 
-  output "user" {
-    description = "AzureAD user details."
+  output "stdout" {
+    description = "The standard output stream from the Azure CLI."
     value       = jsondecode(step.container.get_ad_user.stdout)
   }
 
   output "stderr" {
-    description = "Ad user get error."
+    description = "The standard error stream from the Azure CLI."
     value       = step.container.get_ad_user.stderr
   }
 }

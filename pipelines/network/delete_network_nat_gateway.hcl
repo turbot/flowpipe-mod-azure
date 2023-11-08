@@ -59,12 +59,12 @@ pipeline "delete_network_nat_gateway" {
   }
 
   output "stdout" {
-    description = "Network nat gateway delete output."
+    description = "The standard output stream from the Azure CLI."
     value       = jsondecode(step.container.delete_network_nat_gateway.stdout)
   }
 
   output "stderr" {
-    description = "Network nat gateway delete error."
+    description = "The standard error stream from the Azure CLI."
     value       = step.container.delete_network_nat_gateway.stderr
   }
 }

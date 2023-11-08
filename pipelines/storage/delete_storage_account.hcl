@@ -59,12 +59,12 @@ pipeline "delete_storage_account" {
   }
 
   output "stdout" {
-    description = "Storage account delete output."
+    description = "The standard output stream from the Azure CLI."
     value       = jsondecode(step.container.delete_storage_account.stdout)
   }
 
   output "stderr" {
-    description = "Storage account delete error."
+    description = "The standard error stream from the Azure CLI."
     value       = step.container.delete_storage_account.stderr
   }
 }

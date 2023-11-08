@@ -43,12 +43,12 @@ pipeline "delete_resource_tag" {
   }
 
   output "stdout" {
-    description = "Tag delete output."
+    description = "The standard output stream from the Azure CLI."
     value       = jsondecode(step.container.delete_resource_tag.stdout)
   }
 
   output "stderr" {
-    description = "Tag delete error."
+    description = "The standard error stream from the Azure CLI."
     value       = step.container.delete_resource_tag.stderr
   }
 }

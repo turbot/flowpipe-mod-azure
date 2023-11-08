@@ -64,12 +64,12 @@ pipeline "update_storage_account_access_tier" {
   }
 
   output "stdout" {
-    description = "Storage account access tier update output."
+    description = "The standard output stream from the Azure CLI."
     value       = jsondecode(step.container.update_storage_account_access_tier.stdout)
   }
 
   output "stderr" {
-    description = "Storage account access tier update error."
+    description = "The standard error stream from the Azure CLI."
     value       = step.container.update_storage_account_access_tier.stderr
   }
 }

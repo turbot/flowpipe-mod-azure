@@ -64,12 +64,12 @@ pipeline "attach_compute_disk" {
   }
 
   output "stdout" {
-    description = "Compute disk attach output."
+    description = "The standard output stream from the Azure CLI."
     value       = jsondecode(step.container.attach_compute_disk.stdout)
   }
 
   output "stderr" {
-    description = "Compute disk attach error."
+    description = "The standard error stream from the Azure CLI."
     value       = step.container.attach_compute_disk.stderr
   }
 }

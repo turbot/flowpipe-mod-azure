@@ -59,12 +59,12 @@ pipeline "create_network_firewall" {
   }
 
   output "stdout" {
-    description = "Network firewall create output."
+    description = "The standard output stream from the Azure CLI."
     value       = jsondecode(step.container.create_network_firewall.stdout)
   }
 
   output "stderr" {
-    description = "Network firewall create error."
+    description = "The standard error stream from the Azure CLI."
     value       = step.container.create_network_firewall.stderr
   }
 }

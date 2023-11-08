@@ -59,12 +59,12 @@ pipeline "delete_functions_functionapp_plan" {
   }
 
   output "stdout" {
-    description = "Function plan delete output."
+    description = "The standard output stream from the Azure CLI."
     value       = jsondecode(step.container.delete_functions_functionapp_plan.stdout)
   }
 
   output "stderr" {
-    description = "Function plan delete error."
+    description = "The standard error stream from the Azure CLI."
     value       = step.container.delete_functions_functionapp_plan.stderr
   }
 }

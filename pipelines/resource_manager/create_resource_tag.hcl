@@ -51,12 +51,12 @@ pipeline "create_resource_tag" {
   }
 
   output "stdout" {
-    description = "Tag create output."
+    description = "The standard output stream from the Azure CLI."
     value       = jsondecode(step.container.create_resource_tag.stdout)
   }
 
   output "stderr" {
-    description = "Tag create error."
+    description = "The standard error stream from the Azure CLI."
     value       = step.container.create_resource_tag.stderr
   }
 }

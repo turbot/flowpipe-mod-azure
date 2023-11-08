@@ -59,12 +59,12 @@ pipeline "create_network_nat_gateway" {
   }
 
   output "stdout" {
-    description = "Network nat gateway create output."
+    description = "The standard output stream from the Azure CLI."
     value       = jsondecode(step.container.create_network_nat_gateway.stdout)
   }
 
   output "stderr" {
-    description = "Network nat gateway create error."
+    description = "The standard error stream from the Azure CLI."
     value       = step.container.create_network_nat_gateway.stderr
   }
 }

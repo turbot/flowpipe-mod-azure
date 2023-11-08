@@ -36,7 +36,7 @@ pipeline "user_account_status" {
     description = "User account status."
   }
 
-  step "container" "ad_user_account_status" {
+  step "container" "user_account_status" {
     image = "my-azure-image"
     cmd   = ["ad", "user", "update", "--id", param.user_id, "--account-enabled", param.account_enabled]
 
@@ -47,8 +47,13 @@ pipeline "user_account_status" {
     }
   }
 
+  output "stdout" {
+    description = "The standard output stream from the Azure CLI."
+    value       = jsondecode(step.container.user_account_status.stdout)
+  }
+
   output "stderr" {
-    description = "AD user update error."
+    description = "The standard error stream from the Azure CLI."
     value       = step.container.user_account_status.stderr
   }
 }

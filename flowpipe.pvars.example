@@ -1,5 +1,5 @@
 
-tenant_id="cdfeqweqwebeb-0a4c334d7f64"
-client_secret="qme8QqwwqWWsdfh335sSPxdoMkaNW"
-client_id="0e774c34-1234-46ce-b8a2-72ddfffdf7cf"
-subscription_id="dfdffg16-rtyu-1234-bbb5-529d4c76659c"
+tenant_id="YourTenantID"
+client_secret="YourClientSecret"
+client_id="YourClientID"
+subscription_id="SubscriptionID"

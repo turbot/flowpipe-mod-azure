@@ -59,12 +59,12 @@ pipeline "get_compute_disk" {
   }
 
   output "stdout" {
-    description = "Compute disk get output."
+    description = "The standard output stream from the Azure CLI."
     value       = jsondecode(step.container.get_compute_disk.stdout)
   }
 
   output "stderr" {
-    description = "Compute disk get error."
+    description = "The standard error stream from the Azure CLI."
     value       = step.container.get_compute_disk.stderr
   }
 }

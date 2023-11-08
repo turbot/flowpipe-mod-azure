@@ -59,12 +59,12 @@ pipeline "delete_compute_disk" {
   }
 
   output "stdout" {
-    description = "Compute disk delete output."
+    description = "The standard output stream from the Azure CLI."
     value       = jsondecode(step.container.delete_compute_disk.stdout)
   }
 
   output "stderr" {
-    description = "Compute disk delete error."
+    description = "The standard error stream from the Azure CLI."
     value       = step.container.delete_compute_disk.stderr
   }
 }

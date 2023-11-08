@@ -72,12 +72,12 @@ pipeline "update_storage_account_minimum_tls" {
   }
 
   output "stdout" {
-    description = "Storage account minimum TLS update output."
+    description = "The standard output stream from the Azure CLI."
     value       = jsondecode(step.container.update_minimum_tls.stdout)
   }
 
   output "stderr" {
-    description = "Storage account minimum TLS update error."
+    description = "The standard error stream from the Azure CLI."
     value       = step.container.update_minimum_tls.stderr
   }
 }

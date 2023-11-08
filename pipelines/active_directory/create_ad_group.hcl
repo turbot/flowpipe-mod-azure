@@ -1,6 +1,6 @@
 pipeline "create_ad_group" {
   title       = "Create AD Group"
-  description = "Create a group in the directory."
+  description = "Create a group in Microsoft Entra ID."
 
   param "tenant_id" {
     type        = string
@@ -48,12 +48,12 @@ pipeline "create_ad_group" {
   }
 
   output "stdout" {
-    description = "AD group create output."
+    description = "The standard output stream from the Azure CLI."
     value       = jsondecode(step.container.create_ad_group.stdout)
   }
 
   output "stderr" {
-    description = "Ad group create error."
+    description = "The standard error stream from the Azure CLI."
     value       = step.container.create_ad_group.stderr
   }
 }

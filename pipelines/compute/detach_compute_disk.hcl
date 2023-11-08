@@ -64,12 +64,12 @@ pipeline "detach_compute_disk" {
   }
 
   output "stdout" {
-    description = "Compute disk detach output."
+    description = "The standard output stream from the Azure CLI."
     value       = jsondecode(step.container.detach_compute_disk.stdout)
   }
 
   output "stderr" {
-    description = "Compute disk detach error."
+    description = "The standard error stream from the Azure CLI."
     value       = step.container.detach_compute_disk.stderr
   }
 }

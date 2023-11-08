@@ -64,12 +64,12 @@ pipeline "create_servicebus_topic" {
   }
 
   output "stdout" {
-    description = "Servicebus topic create output."
+    description = "The standard output stream from the Azure CLI."
     value       = jsondecode(step.container.create_servicebus_topic.stdout)
   }
 
   output "stderr" {
-    description = "Servicebus topic create error."
+    description = "The standard error stream from the Azure CLI."
     value       = step.container.create_servicebus_topic.stderr
   }
 }

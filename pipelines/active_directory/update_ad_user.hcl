@@ -49,12 +49,12 @@ pipeline "update_ad_user" {
   }
 
   output "stdout" {
-    description = "Ad user update output."
+    description = "The standard output stream from the Azure CLI."
     value       = jsondecode(step.container.update_ad_user.stdout)
   }
 
   output "stderr" {
-    description = "Ad user update error."
+    description = "The standard error stream from the Azure CLI."
     value       = step.container.update_ad_user.stderr
   }
 }

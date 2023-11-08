@@ -43,12 +43,12 @@ pipeline "delete_ad_user" {
   }
 
   output "stdout" {
-    description = "AD user delete output."
+    description = "The standard output stream from the Azure CLI."
     value       = jsondecode(step.container.delete_ad_user.stdout)
   }
 
   output "stderr" {
-    description = "AD user delete error."
+    description = "The standard error stream from the Azure CLI."
     value       = step.container.delete_ad_user.stderr
   }
 }

@@ -53,12 +53,12 @@ pipeline "create_ad_user" {
   }
 
   output "stdout" {
-    description = "Ad user create output."
+    description = "The standard output stream from the Azure CLI."
     value       = jsondecode(step.container.create_ad_user.stdout)
   }
 
   output "stderr" {
-    description = "Ad user create error."
+    description = "The standard error stream from the Azure CLI."
     value       = step.container.create_ad_user.stderr
   }
 }

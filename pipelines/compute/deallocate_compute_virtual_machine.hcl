@@ -59,12 +59,12 @@ pipeline "deallocate_compute_virtual_machine" {
   }
 
   output "stdout" {
-    description = "Compute VM deallocate output."
+    description = "The standard output stream from the Azure CLI."
     value       = jsondecode(step.container.deallocate_compute_virtual_machine.stdout)
   }
 
   output "stderr" {
-    description = "Compute VM deallocate error."
+    description = "The standard error stream from the Azure CLI."
     value       = step.container.deallocate_compute_virtual_machine.stderr
   }
 }

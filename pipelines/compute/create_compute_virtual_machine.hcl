@@ -122,12 +122,12 @@ pipeline "create_compute_virtual_machine" {
   }
 
   output "stdout" {
-    description = "Compute VM create output."
+    description = "The standard output stream from the Azure CLI."
     value       = jsondecode(step.container.create_compute_virtual_machine.stdout)
   }
 
   output "stderr" {
-    description = "Compute VM create error."
+    description = "The standard error stream from the Azure CLI."
     value       = step.container.create_compute_virtual_machine.stderr
   }
 }

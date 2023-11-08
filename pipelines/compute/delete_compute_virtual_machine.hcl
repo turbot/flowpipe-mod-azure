@@ -59,12 +59,12 @@ pipeline "delete_compute_virtual_machine" {
   }
 
   output "stdout" {
-    description = "Compute VM delete output."
+    description = "The standard output stream from the Azure CLI."
     value       = jsondecode(step.container.delete_compute_virtual_machine.stdout)
   }
 
   output "stderr" {
-    description = "Compute VM delete error."
+    description = "The standard error stream from the Azure CLI."
     value       = step.container.delete_compute_virtual_machine.stderr
   }
 }

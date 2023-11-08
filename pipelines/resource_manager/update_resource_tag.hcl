@@ -56,12 +56,12 @@ pipeline "update_resource_tag" {
   }
 
   output "stdout" {
-    description = "Tag update output."
+    description = "The standard output stream from the Azure CLI."
     value       = jsondecode(step.container.update_resource_tag.stdout)
   }
 
   output "stderr" {
-    description = "Tag update error."
+    description = "The standard error stream from the Azure CLI."
     value       = step.container.update_resource_tag.stderr
   }
 }

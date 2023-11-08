@@ -68,12 +68,12 @@ pipeline "create_network_public_ip" {
   }
 
   output "stdout" {
-    description = "Network public IP create output."
+    description = "The standard output stream from the Azure CLI."
     value       = jsondecode(step.container.create_network_public_ip.stdout)
   }
 
   output "stderr" {
-    description = "Network public IP create error."
+    description = "The standard error stream from the Azure CLI."
     value       = step.container.create_network_public_ip.stderr
   }
 }

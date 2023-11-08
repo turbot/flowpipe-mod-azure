@@ -64,12 +64,12 @@ pipeline "create_functions_functionapp_plan" {
   }
 
   output "stdout" {
-    description = "Function plan create output."
+    description = "The standard output stream from the Azure CLI."
     value       = jsondecode(step.container.create_functions_functionapp_plan.stdout)
   }
 
   output "stderr" {
-    description = "Function plan create error."
+    description = "The standard error stream from the Azure CLI."
     value       = step.container.create_functions_functionapp_plan.stderr
   }
 }

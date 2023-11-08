@@ -59,12 +59,12 @@ pipeline "create_servicebus_namespace" {
   }
 
   output "stdout" {
-    description = "Servicebus namespace create output."
+    description = "The standard output stream from the Azure CLI."
     value       = jsondecode(step.container.create_servicebus_namespace.stdout)
   }
 
   output "stderr" {
-    description = "Servicebus namespace create error."
+    description = "The standard error stream from the Azure CLI."
     value       = step.container.create_servicebus_namespace.stderr
   }
 }

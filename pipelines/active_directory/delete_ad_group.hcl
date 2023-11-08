@@ -43,12 +43,12 @@ pipeline "delete_ad_group" {
   }
 
   output "stdout" {
-    description = "Ad group delete output."
+    description = "The standard output stream from the Azure CLI."
     value       = jsondecode(step.container.delete_ad_group.stdout)
   }
 
   output "stderr" {
-    description = "AD group delete error."
+    description = "The standard error stream from the Azure CLI."
     value       = step.container.delete_ad_group.stderr
   }
 }

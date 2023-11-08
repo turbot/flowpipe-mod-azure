@@ -59,12 +59,12 @@ pipeline "create_network_vnet" {
   }
 
   output "stdout" {
-    description = "Network VNet create output."
+    description = "The standard output stream from the Azure CLI."
     value       = jsondecode(step.container.create_network_vnet.stdout)
   }
 
   output "stderr" {
-    description = "Network VNet create error."
+    description = "The standard error stream from the Azure CLI."
     value       = step.container.create_network_vnet.stderr
   }
 }

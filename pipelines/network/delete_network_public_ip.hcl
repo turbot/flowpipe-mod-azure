@@ -59,12 +59,12 @@ pipeline "delete_network_public_ip" {
   }
 
   output "stdout" {
-    description = "Network public IP delete output."
+    description = "The standard output stream from the Azure CLI."
     value       = jsondecode(step.container.delete_network_public_ip.stdout)
   }
 
   output "stderr" {
-    description = "Network public IP delete error."
+    description = "The standard error stream from the Azure CLI."
     value       = step.container.delete_network_public_ip.stderr
   }
 }

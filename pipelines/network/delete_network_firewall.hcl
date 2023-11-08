@@ -59,12 +59,12 @@ pipeline "delete_network_firewall" {
   }
 
   output "stdout" {
-    description = "Network firewall delete output."
+    description = "The standard output stream from the Azure CLI."
     value       = jsondecode(step.container.delete_network_firewall.stdout)
   }
 
   output "stderr" {
-    description = "Network firewall delete error."
+    description = "The standard error stream from the Azure CLI."
     value       = step.container.delete_network_firewall.stderr
   }
 }
