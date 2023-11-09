@@ -25,7 +25,7 @@ pipeline "deallocate_compute_virtual_machine" {
 
   param "tenant_id" {
     type        = string
-    description = "The Microsoft Entra ID tenant (directory) ID."
+    description = local.tenant_id_param_description
     default     = var.tenant_id
     # TODO: Add once supported
     #sensitive   = true
@@ -33,7 +33,7 @@ pipeline "deallocate_compute_virtual_machine" {
 
   param "client_secret" {
     type        = string
-    description = "A client secret that was generated for the App Registration."
+    description = local.client_secret_param_description
     default     = var.client_secret
     # TODO: Add once supported
     #sensitive   = true
@@ -41,7 +41,7 @@ pipeline "deallocate_compute_virtual_machine" {
 
   param "client_id" {
     type        = string
-    description = "The client (application) ID of an App Registration in the tenant."
+    description = local.client_id_param_description
     default     = var.client_id
     # TODO: Add once supported
     #sensitive   = true
