@@ -49,7 +49,7 @@ pipeline "update_user_status" {
 
   output "stdout" {
     description = "The standard output stream from the Azure CLI."
-    value       = jsondecode(step.container.update_user_status.stdout)
+    value       = step.container.update_user_status.stdout
   }
 
   output "stderr" {
