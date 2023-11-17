@@ -1,6 +1,6 @@
-pipeline "delete_compute_virtual_machine" {
-  title       = "Delete Compute Virtual Machine"
-  description = "Delete a VM."
+pipeline "list_compute_virtual_machines" {
+  title       = "Get Compute Virtual Machine"
+  description = "Get the details of a VM."
 
   param "subscription_id" {
     type        = string
@@ -16,11 +16,6 @@ pipeline "delete_compute_virtual_machine" {
     default     = var.resource_group
     # TODO: Add once supported
     #sensitive   = true
-  }
-
-  param "vm_name" {
-    type        = string
-    description = "The name of the Virtual Machine."
   }
 
   param "tenant_id" {
@@ -47,9 +42,18 @@ pipeline "delete_compute_virtual_machine" {
     #sensitive   = true
   }
 
-  step "container" "delete_compute_virtual_machine" {
+  param "query" {
+    type        = string
+    description = "A JMESPath query to use in filtering the response data."
+    optional    = true
+  }
+
+  step "container" "list_compute_virtual_machines" {
     image = "my-azure-image"
-    cmd   = ["vm", "delete", "--yes", "-g", param.resource_group, "-n", param.vm_name, "--subscription", param.subscription_id]
+    cmd = concat(
+      ["vm", "list", "-g", param.resource_group, "--subscription", param.subscription_id],
+      param.query != null ? ["--query", param.query] : [],
+    )
 
     env = {
       AZURE_TENANT_ID     = param.tenant_id
@@ -60,11 +64,11 @@ pipeline "delete_compute_virtual_machine" {
 
   output "stdout" {
     description = "The standard output stream from the Azure CLI."
-    value       = step.container.delete_compute_virtual_machine.stdout
+    value       = jsondecode(step.container.list_compute_virtual_machines.stdout)
   }
 
   output "stderr" {
     description = "The standard error stream from the Azure CLI."
-    value       = step.container.delete_compute_virtual_machine.stderr
+    value       = step.container.list_compute_virtual_machines.stderr
   }
 }

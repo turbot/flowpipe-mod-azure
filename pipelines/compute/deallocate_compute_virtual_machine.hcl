@@ -60,7 +60,7 @@ pipeline "deallocate_compute_virtual_machine" {
 
   output "stdout" {
     description = "The standard output stream from the Azure CLI."
-    value       = jsondecode(step.container.deallocate_compute_virtual_machine.stdout)
+    value       = step.container.deallocate_compute_virtual_machine.stdout
   }
 
   output "stderr" {
