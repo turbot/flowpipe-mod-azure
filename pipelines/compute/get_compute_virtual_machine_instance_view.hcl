@@ -1,10 +1,10 @@
-pipeline "get_compute_virtual_machine_status" {
-  title       = "Get Compute Virtual Machine Status"
-  description = "Get instance information about a VM."
+pipeline "get_compute_virtual_machine_instance_view" {
+  title       = "Get Compute Virtual Machine Instance View"
+  description = "Get the instance view of a compute virtual machine."
 
   param "subscription_id" {
     type        = string
-    description = "Azure Subscription Id."
+    description = local.subscription_id_param_description
     default     = var.subscription_id
     # TODO: Add once supported
     #sensitive   = true
@@ -12,10 +12,8 @@ pipeline "get_compute_virtual_machine_status" {
 
   param "resource_group" {
     type        = string
-    description = "Azure Resource Group."
+    description = local.resource_group_param_description
     default     = var.resource_group
-    # TODO: Add once supported
-    #sensitive   = true
   }
 
   param "vm_name" {
@@ -53,7 +51,7 @@ pipeline "get_compute_virtual_machine_status" {
     optional    = true
   }
 
-  step "container" "get_compute_virtual_machine_status" {
+  step "container" "get_compute_virtual_machine_instance_view" {
     image = "my-azure-image"
     cmd = concat(
       ["vm", "get-instance-view", "--name", param.vm_name, "-g", param.resource_group, "--subscription", param.subscription_id],
@@ -69,11 +67,11 @@ pipeline "get_compute_virtual_machine_status" {
 
   output "stdout" {
     description = "The standard output stream from the Azure CLI."
-    value       = jsondecode(step.container.get_compute_virtual_machine_status.stdout)
+    value       = jsondecode(step.container.get_compute_virtual_machine_instance_view.stdout)
   }
 
   output "stderr" {
     description = "The standard error stream from the Azure CLI."
-    value       = step.container.get_compute_virtual_machine_status.stderr
+    value       = step.container.get_compute_virtual_machine_instance_view.stderr
   }
 }
