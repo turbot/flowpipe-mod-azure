@@ -58,7 +58,9 @@ pipeline "deallocate_compute_virtual_machine" {
 
   output "stdout" {
     description = "The standard output stream from the Azure CLI."
-    value       = step.container.deallocate_compute_virtual_machine.stdout
+    # When the VM is deallocated, the standard output (stdout) becomes an empty string.
+    # Therefore, this situation deviates from the usual practice of utilizing jsondecode.
+    value = step.container.deallocate_compute_virtual_machine.stdout
   }
 
   output "stderr" {
