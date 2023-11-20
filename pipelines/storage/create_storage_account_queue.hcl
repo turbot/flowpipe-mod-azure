@@ -4,7 +4,7 @@ pipeline "create_storage_queue" {
 
   param "subscription_id" {
     type        = string
-    description = "Azure Subscription Id."
+    description = local.subscription_id_param_description
     default     = var.subscription_id
     # TODO: Add once supported
     #sensitive   = true

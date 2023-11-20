@@ -4,7 +4,7 @@ pipeline "delete_network_public_ip" {
 
   param "subscription_id" {
     type        = string
-    description = "Azure Subscription Id."
+    description = local.subscription_id_param_description
     default     = var.subscription_id
     # TODO: Add once supported
     #sensitive   = true
@@ -12,10 +12,8 @@ pipeline "delete_network_public_ip" {
 
   param "resource_group" {
     type        = string
-    description = "Azure Resource Group."
+    description = local.resource_group_param_description
     default     = var.resource_group
-    # TODO: Add once supported
-    #sensitive   = true
   }
 
   param "tenant_id" {

@@ -10,8 +10,6 @@ variable "subscription_id" {
 variable "resource_group" {
   type        = string
   description = "Azure Resource Group. Examples: my_resource_group."
-  # TODO: Add once supported
-  #sensitive  = true
 }
 
 variable "tenant_id" {

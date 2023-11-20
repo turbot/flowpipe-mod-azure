@@ -1,6 +1,6 @@
-pipeline "delete_functions_functionapp_plan" {
-  title       = "Delete Functions Functionapp Plan"
-  description = "Delete an App Service Plan."
+pipeline "list_compute_virtual_machines" {
+  title       = "List Compute Virtual Machines"
+  description = "List Compute Virtual Machines."
 
   param "subscription_id" {
     type        = string
@@ -40,14 +40,18 @@ pipeline "delete_functions_functionapp_plan" {
     #sensitive   = true
   }
 
-  param "plan_name" {
+  param "query" {
     type        = string
-    description = "The name of the app service plan."
+    description = "A JMESPath query to use in filtering the response data."
+    optional    = true
   }
 
-  step "container" "delete_functions_functionapp_plan" {
+  step "container" "list_compute_virtual_machines" {
     image = "my-azure-image"
-    cmd   = ["functionapp", "plan", "delete", "--yes", "-g", param.resource_group, "--subscription", param.subscription_id, "-n", param.plan_name]
+    cmd = concat(
+      ["vm", "list", "-g", param.resource_group, "--subscription", param.subscription_id],
+      param.query != null ? ["--query", param.query] : [],
+    )
 
     env = {
       AZURE_TENANT_ID     = param.tenant_id
@@ -58,11 +62,11 @@ pipeline "delete_functions_functionapp_plan" {
 
   output "stdout" {
     description = "The standard output stream from the Azure CLI."
-    value       = jsondecode(step.container.delete_functions_functionapp_plan.stdout)
+    value       = jsondecode(step.container.list_compute_virtual_machines.stdout)
   }
 
   output "stderr" {
     description = "The standard error stream from the Azure CLI."
-    value       = step.container.delete_functions_functionapp_plan.stderr
+    value       = step.container.list_compute_virtual_machines.stderr
   }
 }

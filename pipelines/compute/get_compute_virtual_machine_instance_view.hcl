@@ -1,6 +1,6 @@
-pipeline "delete_functions_functionapp_plan" {
-  title       = "Delete Functions Functionapp Plan"
-  description = "Delete an App Service Plan."
+pipeline "get_compute_virtual_machine_instance_view" {
+  title       = "Get Compute Virtual Machine Instance View"
+  description = "Get the instance view of a compute virtual machine."
 
   param "subscription_id" {
     type        = string
@@ -14,6 +14,11 @@ pipeline "delete_functions_functionapp_plan" {
     type        = string
     description = local.resource_group_param_description
     default     = var.resource_group
+  }
+
+  param "vm_name" {
+    type        = string
+    description = "The name of the Virtual Machine."
   }
 
   param "tenant_id" {
@@ -40,14 +45,18 @@ pipeline "delete_functions_functionapp_plan" {
     #sensitive   = true
   }
 
-  param "plan_name" {
+  param "query" {
     type        = string
-    description = "The name of the app service plan."
+    description = "A JMESPath query to use in filtering the response data."
+    optional    = true
   }
 
-  step "container" "delete_functions_functionapp_plan" {
+  step "container" "get_compute_virtual_machine_instance_view" {
     image = "my-azure-image"
-    cmd   = ["functionapp", "plan", "delete", "--yes", "-g", param.resource_group, "--subscription", param.subscription_id, "-n", param.plan_name]
+    cmd = concat(
+      ["vm", "get-instance-view", "--name", param.vm_name, "-g", param.resource_group, "--subscription", param.subscription_id],
+      param.query != null ? ["--query", param.query] : [],
+    )
 
     env = {
       AZURE_TENANT_ID     = param.tenant_id
@@ -58,11 +67,11 @@ pipeline "delete_functions_functionapp_plan" {
 
   output "stdout" {
     description = "The standard output stream from the Azure CLI."
-    value       = jsondecode(step.container.delete_functions_functionapp_plan.stdout)
+    value       = jsondecode(step.container.get_compute_virtual_machine_instance_view.stdout)
   }
 
   output "stderr" {
     description = "The standard error stream from the Azure CLI."
-    value       = step.container.delete_functions_functionapp_plan.stderr
+    value       = step.container.get_compute_virtual_machine_instance_view.stderr
   }
 }

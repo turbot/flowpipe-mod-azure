@@ -4,7 +4,7 @@ pipeline "delete_compute_virtual_machine" {
 
   param "subscription_id" {
     type        = string
-    description = "Azure Subscription Id."
+    description = local.subscription_id_param_description
     default     = var.subscription_id
     # TODO: Add once supported
     #sensitive   = true
@@ -12,10 +12,8 @@ pipeline "delete_compute_virtual_machine" {
 
   param "resource_group" {
     type        = string
-    description = "Azure Resource Group."
+    description = local.resource_group_param_description
     default     = var.resource_group
-    # TODO: Add once supported
-    #sensitive   = true
   }
 
   param "vm_name" {
@@ -60,7 +58,9 @@ pipeline "delete_compute_virtual_machine" {
 
   output "stdout" {
     description = "The standard output stream from the Azure CLI."
-    value       = jsondecode(step.container.delete_compute_virtual_machine.stdout)
+    # When the VM is deleted, the standard output (stdout) becomes an empty string.
+    # Therefore, this situation deviates from the usual practice of utilizing jsondecode.
+    value = step.container.delete_compute_virtual_machine.stdout
   }
 
   output "stderr" {
