@@ -5,7 +5,7 @@ pipeline "delete_ad_group" {
   tags = {
     type = "featured"
   }
-  
+
   param "tenant_id" {
     type        = string
     description = local.tenant_id_param_description
@@ -38,10 +38,5 @@ pipeline "delete_ad_group" {
       AZURE_CLIENT_ID     = param.client_id
       AZURE_CLIENT_SECRET = param.client_secret
     }
-  }
-
-  output "ad_group" {
-    description = "Information about the deleted AD Group."
-    value       = step.container.delete_ad_group.stdout
   }
 }

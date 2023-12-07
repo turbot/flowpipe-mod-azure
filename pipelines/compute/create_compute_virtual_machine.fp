@@ -5,7 +5,7 @@ pipeline "create_compute_virtual_machine" {
   tags = {
     type = "featured"
   }
-  
+
   param "tenant_id" {
     type        = string
     description = local.tenant_id_param_description
@@ -115,8 +115,8 @@ pipeline "create_compute_virtual_machine" {
     }
   }
 
-  output "compute_virtual_machine" {
+  output "virtual_machine" {
     description = "The created compute virtual machine details."
-    value       = step.container.create_compute_virtual_machine.stdout
+    value       = jsondecode(step.container.create_compute_virtual_machine.stdout)
   }
 }

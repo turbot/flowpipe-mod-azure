@@ -47,8 +47,8 @@ pipeline "delete_storage_queue" {
     }
   }
 
-  output "storage_queue" {
+  output "queue" {
     description = "The deleted storage queue details."
-    value       = step.container.delete_storage_queue.stdout
+    value       = jsondecode(step.container.delete_storage_queue.stdout)
   }
 }

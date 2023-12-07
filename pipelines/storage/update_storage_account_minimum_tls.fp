@@ -63,6 +63,6 @@ pipeline "update_storage_account_minimum_tls" {
 
   output "tls" {
     description = "The updated minimum TLS details."
-    value       = step.container.update_minimum_tls.stdout
+    value       = jsondecode(step.container.update_minimum_tls.stdout)
   }
 }

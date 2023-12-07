@@ -53,8 +53,8 @@ pipeline "delete_servicebus_queue" {
     }
   }
 
-  output "servicebus_queue" {
+  output "queue" {
     description = "The deleted servicebus queue details."
-    value       = step.container.delete_servicebus_queue.stdout
+    value       = jsondecode(step.container.delete_servicebus_queue.stdout)
   }
 }

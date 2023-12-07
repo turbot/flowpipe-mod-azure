@@ -53,8 +53,8 @@ pipeline "detach_compute_disk" {
     }
   }
 
-  output "compute_disk" {
+  output "disk" {
     description = "The detached compute disk details."
-    value       = step.container.detach_compute_disk.stdout
+    value       = jsondecode(step.container.detach_compute_disk.stdout)
   }
 }

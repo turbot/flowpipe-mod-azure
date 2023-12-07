@@ -5,7 +5,7 @@ pipeline "create_storage_account" {
   tags = {
     type = "featured"
   }
-  
+
   param "subscription_id" {
     type        = string
     description = local.subscription_id_param_description
@@ -68,8 +68,8 @@ pipeline "create_storage_account" {
     }
   }
 
-  output "storage_account" {
+  output "account" {
     description = "The created storage account details."
-    value       = step.container.create_storage_account.stdout
+    value       = jsondecode(step.container.create_storage_account.stdout)
   }
 }

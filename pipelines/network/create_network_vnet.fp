@@ -5,7 +5,7 @@ pipeline "create_network_vnet" {
   tags = {
     type = "featured"
   }
-  
+
   param "subscription_id" {
     type        = string
     description = local.subscription_id_param_description
@@ -52,8 +52,8 @@ pipeline "create_network_vnet" {
     }
   }
 
-  output "stdout" {
+  output "vnet" {
     description = "The created VNET details."
-    value       = step.container.create_network_vnet.stdout
+    value       = jsondecode(step.container.create_network_vnet.stdout)
   }
 }

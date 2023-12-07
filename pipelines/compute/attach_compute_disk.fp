@@ -53,8 +53,8 @@ pipeline "attach_compute_disk" {
     }
   }
 
-  output "compute_disk" {
+  output "disk" {
     description = "Attached compute disk details."
-    value       = step.container.attach_compute_disk.stdout
+    value       = jsondecode(step.container.attach_compute_disk.stdout)
   }
 }

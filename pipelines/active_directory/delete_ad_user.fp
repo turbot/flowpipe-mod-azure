@@ -35,9 +35,4 @@ pipeline "delete_ad_user" {
       AZURE_CLIENT_SECRET = param.client_secret
     }
   }
-
-  output "ad_user" {
-    description = "Information about the deleted AD User."
-    value       = step.container.delete_ad_user.stdout
-  }
 }

@@ -5,7 +5,7 @@ pipeline "delete_compute_virtual_machine" {
   tags = {
     type = "featured"
   }
-  
+
   param "subscription_id" {
     type        = string
     description = local.subscription_id_param_description
@@ -50,10 +50,5 @@ pipeline "delete_compute_virtual_machine" {
       AZURE_CLIENT_ID     = param.client_id
       AZURE_CLIENT_SECRET = param.client_secret
     }
-  }
-
-  output "compute_virtual_machine" {
-    description = "The deleted compute virtual machine details."
-    value       = step.container.delete_compute_virtual_machine.stdout
   }
 }

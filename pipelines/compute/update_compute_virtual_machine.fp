@@ -5,7 +5,7 @@ pipeline "update_compute_virtual_machine" {
   tags = {
     type = "featured"
   }
-  
+
   param "tenant_id" {
     type        = string
     description = local.tenant_id_param_description
@@ -68,8 +68,8 @@ pipeline "update_compute_virtual_machine" {
     }
   }
 
-  output "compute_virtual_machine" {
+  output "virtual_machine" {
     description = "The updated compute virtual machine."
-    value       = step.container.update_compute_virtual_machine.stdout
+    value       = jsondecode(step.container.update_compute_virtual_machine.stdout)
   }
 }

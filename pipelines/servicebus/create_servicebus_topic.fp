@@ -5,7 +5,7 @@ pipeline "create_servicebus_topic" {
   tags = {
     type = "featured"
   }
-  
+
   param "subscription_id" {
     type        = string
     description = local.subscription_id_param_description
@@ -57,8 +57,8 @@ pipeline "create_servicebus_topic" {
     }
   }
 
-  output "servicebus_topic" {
+  output "topic" {
     description = "The created servicebus topic details."
-    value       = step.container.create_servicebus_topic.stdout
+    value       = jsondecode(step.container.create_servicebus_topic.stdout)
   }
 }

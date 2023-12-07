@@ -53,8 +53,8 @@ pipeline "create_functions_functionapp_plan" {
     }
   }
 
-  output "function_app_plan" {
+  output "app_plan" {
     description = "The created app service plan details."
-    value       = step.container.create_functions_functionapp_plan.stdout
+    value       = jsondecode(step.container.create_functions_functionapp_plan.stdout)
   }
 }

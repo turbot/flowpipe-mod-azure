@@ -48,8 +48,8 @@ pipeline "delete_functions_functionapp_plan" {
     }
   }
 
-  output "stdout" {
+  output "app_plan" {
     description = "The deleted app service plan details."
-    value       = step.container.delete_functions_functionapp_plan.stdout
+    value       = jsondecode(step.container.delete_functions_functionapp_plan.stdout)
   }
 }

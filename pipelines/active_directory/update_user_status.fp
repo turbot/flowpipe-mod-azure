@@ -43,6 +43,6 @@ pipeline "update_user_status" {
 
   output "user_status" {
     description = "Updated AD user status."
-    value       = step.container.update_user_status.stdout
+    value       = jsondecode(step.container.update_user_status.stdout)
   }
 }

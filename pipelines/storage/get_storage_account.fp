@@ -48,8 +48,8 @@ pipeline "get_storage_account" {
     }
   }
 
-  output "storage_account" {
+  output "account" {
     description = "The storage account details."
-    value       = step.container.get_storage_account.stdout
+    value       = jsondecode(step.container.get_storage_account.stdout)
   }
 }

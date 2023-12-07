@@ -42,8 +42,8 @@ pipeline "update_ad_user" {
     }
   }
 
-  output "ad_user" {
+  output "user" {
     description = "Updated AD user details."
-    value       = step.container.update_ad_user.stdout
+    value       = jsondecode(step.container.update_ad_user.stdout)
   }
 }

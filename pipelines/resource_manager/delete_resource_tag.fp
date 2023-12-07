@@ -36,8 +36,8 @@ pipeline "delete_resource_tag" {
     }
   }
 
-  output "resource_tag" {
+  output "tag" {
     description = "The deleted resource tag."
-    value       = step.container.delete_resource_tag.stdout
+    value       = jsondecode(step.container.delete_resource_tag.stdout)
   }
 }

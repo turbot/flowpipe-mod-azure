@@ -5,7 +5,7 @@ pipeline "stop_compute_virtual_machine" {
   tags = {
     type = "featured"
   }
-  
+
   param "tenant_id" {
     type        = string
     description = local.tenant_id_param_description
@@ -52,8 +52,8 @@ pipeline "stop_compute_virtual_machine" {
     }
   }
 
-  output "compute_virtual_machine" {
+  output "virtual_machine" {
     description = "The stopped compute virtual machine."
-    value       = step.container.stop_compute_virtual_machine.stdout
+    value       = jsondecode(step.container.stop_compute_virtual_machine.stdout)
   }
 }

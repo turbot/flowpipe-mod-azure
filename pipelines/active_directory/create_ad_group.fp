@@ -5,7 +5,7 @@ pipeline "create_ad_group" {
   tags = {
     type = "featured"
   }
-  
+
   param "tenant_id" {
     type        = string
     description = local.tenant_id_param_description
@@ -45,8 +45,8 @@ pipeline "create_ad_group" {
     }
   }
 
-  output "ad_group" {
+  output "group" {
     description = "Information about the created AD Group."
-    value       = step.container.create_ad_group.stdout
+    value       = jsondecode(step.container.create_ad_group.stdout)
   }
 }

@@ -5,7 +5,7 @@ pipeline "get_compute_virtual_machine" {
   tags = {
     type = "featured"
   }
-  
+
   param "subscription_id" {
     type        = string
     description = local.subscription_id_param_description
@@ -52,8 +52,8 @@ pipeline "get_compute_virtual_machine" {
     }
   }
 
-  output "compute_virtual_machine" {
+  output "virtual_machine" {
     description = "The compute virtual machine details."
-    value       = step.container.get_compute_virtual_machine.stdout
+    value       = jsondecode(step.container.get_compute_virtual_machine.stdout)
   }
 }

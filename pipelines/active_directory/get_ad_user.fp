@@ -5,7 +5,7 @@ pipeline "get_ad_user" {
   tags = {
     type = "featured"
   }
-  
+
   param "tenant_id" {
     type        = string
     description = local.tenant_id_param_description
@@ -40,8 +40,8 @@ pipeline "get_ad_user" {
     }
   }
 
-  output "ad_user" {
+  output "user" {
     description = "Get an AD user details."
-    value       = step.container.get_ad_user.stdout
+    value       = jsondecode(step.container.get_ad_user.stdout)
   }
 }

@@ -5,7 +5,7 @@ pipeline "delete_network_vnet" {
   tags = {
     type = "featured"
   }
-  
+
   param "subscription_id" {
     type        = string
     description = local.subscription_id_param_description
@@ -54,6 +54,6 @@ pipeline "delete_network_vnet" {
 
   output "vnet" {
     description = "The deleted VNET details."
-    value       = step.container.delete_network_vnet.stdout
+    value       = jsondecode(step.container.delete_network_vnet.stdout)
   }
 }

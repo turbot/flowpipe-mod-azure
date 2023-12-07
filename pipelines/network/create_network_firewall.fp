@@ -5,7 +5,7 @@ pipeline "create_network_firewall" {
   tags = {
     type = "featured"
   }
-  
+
   param "subscription_id" {
     type        = string
     description = local.subscription_id_param_description
@@ -52,8 +52,8 @@ pipeline "create_network_firewall" {
     }
   }
 
-  output "network_firewall" {
+  output "firewall" {
     description = "The created network firewall."
-    value       = step.container.create_network_firewall.stdout
+    value       = jsondecode(step.container.create_network_firewall.stdout)
   }
 }

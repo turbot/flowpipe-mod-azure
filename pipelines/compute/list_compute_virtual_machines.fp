@@ -52,8 +52,8 @@ pipeline "list_compute_virtual_machines" {
     }
   }
 
-  output "compute_virtual_machines" {
+  output "virtual_machines" {
     description = "List of compute virtual machines."
-    value       = step.container.list_compute_virtual_machines.stdout
+    value       = jsondecode(step.container.list_compute_virtual_machines.stdout)
   }
 }

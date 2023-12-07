@@ -5,7 +5,7 @@ pipeline "delete_storage_account" {
   tags = {
     type = "featured"
   }
-  
+
   param "subscription_id" {
     type        = string
     description = local.subscription_id_param_description
@@ -52,8 +52,8 @@ pipeline "delete_storage_account" {
     }
   }
 
-  output "storage_account" {
+  output "account" {
     description = "The deleted storage account details."
-    value       = step.container.delete_storage_account.stdout
+    value       = jsondecode(step.container.delete_storage_account.stdout)
   }
 }

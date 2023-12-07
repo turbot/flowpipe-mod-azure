@@ -59,6 +59,6 @@ pipeline "get_compute_virtual_machine_instance_view" {
 
   output "instance_view" {
     description = "The compute virtual machine instance view."
-    value       = step.container.get_compute_virtual_machine_instance_view.stdout
+    value       = jsondecode(step.container.get_compute_virtual_machine_instance_view.stdout)
   }
 }

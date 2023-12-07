@@ -55,6 +55,6 @@ pipeline "update_storage_account_access_tier" {
 
   output "access_tier" {
     description = "The updated storage account access tier details."
-    value       = step.container.update_storage_account_access_tier.stdout
+    value       = jsondecode(step.container.update_storage_account_access_tier.stdout)
   }
 }

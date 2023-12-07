@@ -56,8 +56,8 @@ pipeline "update_storage_account_public_network_access" {
     }
   }
 
-  output "storage_account_public_network_access" {
+  output "account_public_network_access" {
     description = "The updated storage account public network access details."
-    value       = step.container.update_storage_account_public_network_access.stdout
+    value       = jsondecode(step.container.update_storage_account_public_network_access.stdout)
   }
 }

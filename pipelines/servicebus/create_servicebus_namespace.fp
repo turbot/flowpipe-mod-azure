@@ -48,8 +48,8 @@ pipeline "create_servicebus_namespace" {
     }
   }
 
-  output "servicebus_namespace" {
+  output "namespace" {
     description = "The created servicebus namespace details."
-    value       = step.container.create_servicebus_namespace.stdout
+    value       = jsondecode(step.container.create_servicebus_namespace.stdout)
   }
 }

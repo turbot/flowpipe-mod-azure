@@ -50,6 +50,6 @@ pipeline "create_network_nat_gateway" {
 
   output "nat_gateway" {
     description = "The created nat gateway details."
-    value       = step.container.create_network_nat_gateway.stdout
+    value       = jsondecode(step.container.create_network_nat_gateway.stdout)
   }
 }

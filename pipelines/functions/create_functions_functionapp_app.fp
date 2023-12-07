@@ -5,7 +5,7 @@ pipeline "create_functions_functionapp_app" {
   tags = {
     type = "featured"
   }
-  
+
   param "subscription_id" {
     type        = string
     description = local.subscription_id_param_description
@@ -67,8 +67,8 @@ pipeline "create_functions_functionapp_app" {
     }
   }
 
-  output "function_app" {
+  output "app" {
     description = "The created function app details."
-    value       = step.container.create_functions_functionapp_app.stdout
+    value       = jsondecode(step.container.create_functions_functionapp_app.stdout)
   }
 }

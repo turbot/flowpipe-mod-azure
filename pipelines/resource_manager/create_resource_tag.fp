@@ -5,7 +5,7 @@ pipeline "create_resource_tag" {
   tags = {
     type = "featured"
   }
-  
+
   param "tenant_id" {
     type        = string
     description = local.tenant_id_param_description
@@ -48,8 +48,8 @@ pipeline "create_resource_tag" {
     }
   }
 
-  output "resource_tag" {
+  output "tag" {
     description = "The created resource tag."
-    value       = step.container.create_resource_tag.stdout
+    value       = jsondecode(step.container.create_resource_tag.stdout)
   }
 }

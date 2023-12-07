@@ -47,8 +47,8 @@ pipeline "create_storage_queue" {
     }
   }
 
-  output "storage_queue" {
+  output "queue" {
     description = "The created storage queue details."
-    value       = step.container.create_storage_queue.stdout
+    value       = jsondecode(step.container.create_storage_queue.stdout)
   }
 }
