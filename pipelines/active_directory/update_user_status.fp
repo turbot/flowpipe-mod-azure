@@ -40,9 +40,4 @@ pipeline "update_user_status" {
       AZURE_CLIENT_SECRET = param.client_secret
     }
   }
-
-  output "user_status" {
-    description = "Updated AD user status."
-    value       = jsondecode(step.container.update_user_status.stdout)
-  }
 }
