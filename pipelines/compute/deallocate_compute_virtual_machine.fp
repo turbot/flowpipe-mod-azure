@@ -47,9 +47,4 @@ pipeline "deallocate_compute_virtual_machine" {
       AZURE_CLIENT_SECRET = param.client_secret
     }
   }
-
-  output "virtual_machine" {
-    description = "The deallocated compute virtual machine details."
-    value       = jsondecode(step.container.deallocate_compute_virtual_machine.stdout)
-  }
 }
