@@ -2,6 +2,10 @@ pipeline "delete_ad_group" {
   title       = "Delete AD Group"
   description = "Delete a group from the directory."
 
+  tags = {
+    type = "featured"
+  }
+  
   param "tenant_id" {
     type        = string
     description = local.tenant_id_param_description

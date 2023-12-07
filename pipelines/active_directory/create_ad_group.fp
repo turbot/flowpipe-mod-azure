@@ -2,6 +2,10 @@ pipeline "create_ad_group" {
   title       = "Create AD Group"
   description = "Create a group in Microsoft Entra ID."
 
+  tags = {
+    type = "featured"
+  }
+  
   param "tenant_id" {
     type        = string
     description = local.tenant_id_param_description

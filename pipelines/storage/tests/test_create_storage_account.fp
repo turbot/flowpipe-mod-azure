@@ -2,6 +2,10 @@ pipeline "test_create_storage_account" {
   title       = "Test Create Storage Account"
   description = "Test the create_storage_account pipeline."
 
+  tags = {
+    type = "test"
+  }
+
   param "subscription_id" {
     type        = string
     description = local.subscription_id_param_description

@@ -2,6 +2,10 @@ pipeline "start_compute_virtual_machine" {
   title       = "Start Compute Virtual Machine"
   description = "Start a stopped VM."
 
+  tags = {
+    type = "featured"
+  }
+  
   param "tenant_id" {
     type        = string
     description = local.tenant_id_param_description

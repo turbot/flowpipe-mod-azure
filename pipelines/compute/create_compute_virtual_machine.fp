@@ -2,6 +2,10 @@ pipeline "create_compute_virtual_machine" {
   title       = "Create Virtual Machine"
   description = "Create an Azure Virtual Machine."
 
+  tags = {
+    type = "featured"
+  }
+  
   param "tenant_id" {
     type        = string
     description = local.tenant_id_param_description

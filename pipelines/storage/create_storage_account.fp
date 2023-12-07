@@ -2,6 +2,10 @@ pipeline "create_storage_account" {
   title       = "Create Storage Account"
   description = "Create a storage account."
 
+  tags = {
+    type = "featured"
+  }
+  
   param "subscription_id" {
     type        = string
     description = local.subscription_id_param_description

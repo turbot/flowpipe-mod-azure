@@ -2,6 +2,10 @@ pipeline "stop_compute_virtual_machine" {
   title       = "Stop Compute Virtual Machine"
   description = "Power off (stop) a running VM."
 
+  tags = {
+    type = "featured"
+  }
+  
   param "tenant_id" {
     type        = string
     description = local.tenant_id_param_description

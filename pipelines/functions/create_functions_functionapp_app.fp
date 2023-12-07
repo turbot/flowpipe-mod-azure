@@ -2,6 +2,10 @@ pipeline "create_functions_functionapp_app" {
   title       = "Create Functions Functionapp App"
   description = "Create a function app."
 
+  tags = {
+    type = "featured"
+  }
+  
   param "subscription_id" {
     type        = string
     description = local.subscription_id_param_description

@@ -2,6 +2,10 @@ pipeline "test_create_compute_virtual_machine" {
   title       = "Test Create Compute Virtual Machine"
   description = "Test the create_compute_virtual_machine pipeline."
 
+  tags = {
+    type = "test"
+  }
+
   param "subscription_id" {
     type        = string
     description = local.subscription_id_param_description

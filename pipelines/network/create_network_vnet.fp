@@ -2,6 +2,10 @@ pipeline "create_network_vnet" {
   title       = "Create Network Vnet"
   description = "Create a virtual network."
 
+  tags = {
+    type = "featured"
+  }
+  
   param "subscription_id" {
     type        = string
     description = local.subscription_id_param_description

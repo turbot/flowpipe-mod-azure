@@ -2,6 +2,10 @@ pipeline "get_ad_user" {
   title       = "Get AD User"
   description = "Get a user in Azure AD."
 
+  tags = {
+    type = "featured"
+  }
+  
   param "tenant_id" {
     type        = string
     description = local.tenant_id_param_description

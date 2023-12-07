@@ -2,6 +2,10 @@ pipeline "create_resource_tag" {
   title       = "Create Resource Tag"
   description = "Create tags on a specific resource."
 
+  tags = {
+    type = "featured"
+  }
+  
   param "tenant_id" {
     type        = string
     description = local.tenant_id_param_description

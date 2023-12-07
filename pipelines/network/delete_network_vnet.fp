@@ -2,6 +2,10 @@ pipeline "delete_network_vnet" {
   title       = "Delete Network Vnet"
   description = "Delete a virtual network."
 
+  tags = {
+    type = "featured"
+  }
+  
   param "subscription_id" {
     type        = string
     description = local.subscription_id_param_description

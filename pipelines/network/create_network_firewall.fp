@@ -2,6 +2,10 @@ pipeline "create_network_firewall" {
   title       = "Create Network Firewall"
   description = "Create an Azure Firewall."
 
+  tags = {
+    type = "featured"
+  }
+  
   param "subscription_id" {
     type        = string
     description = local.subscription_id_param_description

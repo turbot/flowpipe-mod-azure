@@ -2,6 +2,10 @@ pipeline "create_servicebus_topic" {
   title       = "Create Servicebus Topic"
   description = "Create a topic in the specified namespace."
 
+  tags = {
+    type = "featured"
+  }
+  
   param "subscription_id" {
     type        = string
     description = local.subscription_id_param_description

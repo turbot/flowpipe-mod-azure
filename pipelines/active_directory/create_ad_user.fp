@@ -2,6 +2,10 @@ pipeline "create_ad_user" {
   title       = "Create AD User"
   description = "Create a user in Azure AD."
 
+  tags = {
+    type = "featured"
+  }
+  
   param "tenant_id" {
     type        = string
     description = local.tenant_id_param_description
