@@ -4,7 +4,7 @@ mod "azure" {
   color         = "#FCA121"
   documentation = file("./docs/index.md")
   icon          = "/images/flowpipe/mods/turbot/azure.svg"
-  categories    = ["azure", "library"]
+  categories    = ["public cloud"]
 
   opengraph {
     title       = "Azure Library Mod for Flowpipe"
