@@ -5,6 +5,7 @@ repository: "https://github.com/turbot/flowpipe-mod-azure"
 # Azure Mod for Flowpipe
 
 A collection of [Flowpipe](https://flowpipe.io) pipelines that can be used to:
+
 - Create virtual networks
 - Update resource tags
 - Stop virtual machines
@@ -13,7 +14,6 @@ A collection of [Flowpipe](https://flowpipe.io) pipelines that can be used to:
 ## Documentation
 
 - **[Pipelines →](https://hub.flowpipe.io/mods/turbot/azure/pipelines)**
-- **[Triggers →](https://hub.flowpipe.io/mods/turbot/azure/triggers)**
 
 ## Getting started
 
@@ -38,15 +38,15 @@ cd flowpipe-mod-azure
 Configure your credentials:
 
 ```sh
-cp flowpipe.pvars.example flowpipe.pvars
-vi flowpipe.pvars
+cp flowpipe.fpvars.example flowpipe.fpvars
+vi flowpipe.fpvars
 ```
 
-It's recommended to configure credentials through [input variables](https://flowpipe.io/docs/using-flowpipe/mod-variables) by setting them in the `flowpipe.pvars` file.
+It's recommended to configure credentials through [input variables](https://flowpipe.io/docs/using-flowpipe/mod-variables) by setting them in the `flowpipe.fpvars` file.
 
-**Note:** Credentials can also be passed in each pipeline run with `--pipeline-args client_id=e774c34-6391-46ce-b8a2-72d930c777`.
+**Note:** Credentials can also be passed in each pipeline run with `--arg client_id=e774c34-6391-46ce-b8a2-72d930c777`.
 
-Additional input variables may be defined in the mod's `variables.hcl` file that can be configured to better match your environment and requirements.
+Additional input variables may be defined in the mod's `variables.fp` file that can be configured to better match your environment and requirements.
 
 Variables with defaults set do not need to be explicitly set, but it may be helpful to override them.
 
@@ -55,7 +55,7 @@ Variables with defaults set do not need to be explicitly set, but it may be help
 Start the Flowpipe server to get started:
 
 ```sh
-flowpipe service start
+flowpipe server
 ```
 
 Run a pipeline:
@@ -69,12 +69,12 @@ flowpipe pipeline run get_compute_virtual_machine
 To pass values into pipeline [parameters](https://flowpipe.io/docs/using-flowpipe/pipeline-parameters), use the following syntax:
 
 ```sh
-flowpipe pipeline run get_compute_virtual_machine --pipeline-arg vm_name="myVM"
+flowpipe pipeline run get_compute_virtual_machine --arg vm_name="myVM"
 ```
 
-Multiple pipeline args can be passed in with separate `--pipeline-arg` flags.
+Multiple pipeline args can be passed in with separate `--arg` flags.
 
-For more information on passing arguments, please see [Pipeline Args](https://flowpipe.io/docs/using-flowpipe/pipeline-arguments).
+For more information on passing arguments, please see [Pipeline Args](https://flowpipe.io/docs/run/pipelines).
 
 ## Contributing
 
