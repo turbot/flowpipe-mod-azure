@@ -2,6 +2,10 @@ pipeline "delete_network_firewall" {
   title       = "Delete Network Firewall"
   description = "Delete an Azure Firewall."
 
+  tags = {
+    type = "featured"
+  }
+
   param "subscription_id" {
     type        = string
     description = local.subscription_id_param_description

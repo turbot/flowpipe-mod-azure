@@ -1,11 +1,7 @@
 pipeline "update_compute_virtual_machine" {
   title       = "Update Compute Virtual Machine"
   description = "Update the properties of a VM."
-
-  tags = {
-    type = "featured"
-  }
-
+  
   param "tenant_id" {
     type        = string
     description = local.tenant_id_param_description

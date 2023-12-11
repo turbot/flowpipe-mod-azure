@@ -2,10 +2,6 @@ pipeline "get_compute_virtual_machine" {
   title       = "Get Compute Virtual Machine"
   description = "Get the details of a VM."
 
-  tags = {
-    type = "featured"
-  }
-
   param "subscription_id" {
     type        = string
     description = local.subscription_id_param_description

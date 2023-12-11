@@ -2,10 +2,6 @@ pipeline "delete_compute_virtual_machine" {
   title       = "Delete Compute Virtual Machine"
   description = "Delete a VM."
 
-  tags = {
-    type = "featured"
-  }
-
   param "subscription_id" {
     type        = string
     description = local.subscription_id_param_description

@@ -2,10 +2,6 @@ pipeline "delete_servicebus_topic" {
   title       = "Delete Servicebus Topic"
   description = "Delete a topic in the specified namespace."
 
-  tags = {
-    type = "featured"
-  }
-
   param "subscription_id" {
     type        = string
     description = local.subscription_id_param_description
