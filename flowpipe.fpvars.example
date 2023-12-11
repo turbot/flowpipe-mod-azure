@@ -1,8 +1,3 @@
 # Required
-tenant_id="YourTenantID"
-client_secret="YourClientSecret"
-client_id="YourClientID"
-subscription_id="SubscriptionID"
-resource_group="ResourceGroupName"
-
-# Optional
+subscription_id = "SubscriptionID"
+resource_group  = "ResourceGroupName"

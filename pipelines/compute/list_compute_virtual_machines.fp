@@ -2,6 +2,12 @@ pipeline "list_compute_virtual_machines" {
   title       = "List Compute Virtual Machines"
   description = "List Compute Virtual Machines."
 
+  param "cred" {
+    type        = string
+    description = local.cred_param_description
+    default     = "default"
+  }
+
   param "subscription_id" {
     type        = string
     description = local.subscription_id_param_description
@@ -12,24 +18,6 @@ pipeline "list_compute_virtual_machines" {
     type        = string
     description = local.resource_group_param_description
     default     = var.resource_group
-  }
-
-  param "tenant_id" {
-    type        = string
-    description = local.tenant_id_param_description
-    default     = var.tenant_id
-  }
-
-  param "client_secret" {
-    type        = string
-    description = local.client_secret_param_description
-    default     = var.client_secret
-  }
-
-  param "client_id" {
-    type        = string
-    description = local.client_id_param_description
-    default     = var.client_id
   }
 
   param "query" {
@@ -45,11 +33,7 @@ pipeline "list_compute_virtual_machines" {
       param.query != null ? ["--query", param.query] : [],
     )
 
-    env = {
-      AZURE_TENANT_ID     = param.tenant_id
-      AZURE_CLIENT_ID     = param.client_id
-      AZURE_CLIENT_SECRET = param.client_secret
-    }
+    env = credential.azure[param.cred].env
   }
 
   output "virtual_machines" {

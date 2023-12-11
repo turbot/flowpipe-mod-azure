@@ -7,18 +7,3 @@ variable "resource_group" {
   type        = string
   description = "Azure Resource Group. Examples: my_resource_group."
 }
-
-variable "tenant_id" {
-  type        = string
-  description = "The Microsoft Entra ID tenant (directory) ID."
-}
-
-variable "client_secret" {
-  type        = string
-  description = "A client secret that was generated for the App Registration."
-}
-
-variable "client_id" {
-  type        = string
-  description = "The client (application) ID of an App Registration in the tenant."
-}
