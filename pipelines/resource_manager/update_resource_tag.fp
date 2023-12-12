@@ -2,22 +2,10 @@ pipeline "update_resource_tag" {
   title       = "Update Resource Tag"
   description = "Selectively update the set of tags on a specific resource."
 
-  param "tenant_id" {
+  param "cred" {
     type        = string
-    description = local.tenant_id_param_description
-    default     = var.tenant_id
-  }
-
-  param "client_secret" {
-    type        = string
-    description = local.client_secret_param_description
-    default     = var.client_secret
-  }
-
-  param "client_id" {
-    type        = string
-    description = local.client_id_param_description
-    default     = var.client_id
+    description = local.cred_param_description
+    default     = "default"
   }
 
   param "operation" {
@@ -30,23 +18,19 @@ pipeline "update_resource_tag" {
     description = "The resource identifier for the entity being tagged. A resource, a resource group or a subscription may be tagged."
   }
 
-  param "update_tags" {
+  param "tags" {
     type        = map
-    description = "The resource Tags. Example tagKey:tagValue."
+    description = "The tags to be updated on the resource. Example tagKey:tagValue."
   }
 
   step "container" "update_resource_tag" {
     image = "my-azure-image"
     cmd = concat(
       ["tag", "update", "--resource-id", param.resource_id, "--operation", param.operation, "--tags"],
-      [for key, value in param.update_tags : "${key}=${value}"],
+      [for key, value in param.tags : "${key}=${value}"],
     )
 
-    env = {
-      AZURE_TENANT_ID     = param.tenant_id
-      AZURE_CLIENT_ID     = param.client_id
-      AZURE_CLIENT_SECRET = param.client_secret
-    }
+    env = credential.azure[param.cred].env
   }
 
   output "tag" {

@@ -6,22 +6,10 @@ pipeline "create_compute_virtual_machine" {
     type = "featured"
   }
 
-  param "tenant_id" {
+  param "cred" {
     type        = string
-    description = local.tenant_id_param_description
-    default     = var.tenant_id
-  }
-
-  param "client_secret" {
-    type        = string
-    description = local.client_secret_param_description
-    default     = var.client_secret
-  }
-
-  param "client_id" {
-    type        = string
-    description = local.client_id_param_description
-    default     = var.client_id
+    description = local.cred_param_description
+    default     = "default"
   }
 
   param "subscription_id" {
@@ -38,53 +26,53 @@ pipeline "create_compute_virtual_machine" {
 
   param "vm_name" {
     type        = string
-    description = "The name of the Virtual Machine."
+    description = "Name of the virtual machine."
   }
 
   param "vm_image" {
     type        = string
-    description = "The OS image for the Virtual Machine."
+    description = "The name of the operating system image as a URN alias, URN, custom image name or ID, custom image version ID, or VHD blob URI."
   }
 
   param "admin_username" {
     type        = string
-    description = "The administrator username for the Virtual Machine."
+    description = "Username for the VM. Default value is current username of OS."
     optional    = true
   }
 
   param "admin_password" {
     type        = string
-    description = "The administrator password for the Virtual Machine."
+    description = "Password for the VM if authentication type is 'Password'."
     optional    = true
   }
 
   param "location" {
     type        = string
-    description = "The Azure region where the Virtual Machine will be deployed."
+    description = "Location in which to create VM and related resources. Default to the resource group's location."
     optional    = true
   }
 
   param "vm_size" {
     type        = string
-    description = "The size of the Virtual Machine."
+    description = "The VM size to be created."
     optional    = true
   }
 
   param "authentication_type" {
     type        = string
-    description = "The authentication type for the Virtual Machine (password or ssh)."
+    description = "Type of authentication to use with the VM."
     optional    = true
   }
 
   param "network_security_group_name" {
     type        = string
-    description = "The name of the Network Security Group for the Virtual Machine."
+    description = "The name to use when creating a new Network Security Group (default) or referencing an existing one."
     optional    = true
   }
 
   param "generate_ssh_keys" {
     type        = bool
-    description = "Generate SSH keys for the Virtual Machine."
+    description = "Generate SSH public and private key files if missing."
     optional    = true
   }
 
@@ -108,11 +96,7 @@ pipeline "create_compute_virtual_machine" {
       param.network_security_group_name != null ? concat(["--nsg", param.network_security_group_name]) : [],
     )
 
-    env = {
-      AZURE_TENANT_ID     = param.tenant_id
-      AZURE_CLIENT_ID     = param.client_id
-      AZURE_CLIENT_SECRET = param.client_secret
-    }
+    env = credential.azure[param.cred].env
   }
 
   output "virtual_machine" {

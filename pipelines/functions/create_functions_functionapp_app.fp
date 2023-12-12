@@ -2,6 +2,12 @@ pipeline "create_functions_functionapp_app" {
   title       = "Create Functions Functionapp App"
   description = "Create a function app."
 
+  param "cred" {
+    type        = string
+    description = local.cred_param_description
+    default     = "default"
+  }
+
   param "subscription_id" {
     type        = string
     description = local.subscription_id_param_description
@@ -12,24 +18,6 @@ pipeline "create_functions_functionapp_app" {
     type        = string
     description = local.resource_group_param_description
     default     = var.resource_group
-  }
-
-  param "tenant_id" {
-    type        = string
-    description = local.tenant_id_param_description
-    default     = var.tenant_id
-  }
-
-  param "client_secret" {
-    type        = string
-    description = local.client_secret_param_description
-    default     = var.client_secret
-  }
-
-  param "client_id" {
-    type        = string
-    description = local.client_id_param_description
-    default     = var.client_id
   }
 
   param "app_name" {
@@ -45,22 +33,23 @@ pipeline "create_functions_functionapp_app" {
   param "consumption_plan_location" {
     type        = string
     description = "Geographic location where function app will be hosted."
+    optional    = true
   }
 
   param "runtime" {
     type        = string
     description = "The functions runtime stack."
+    optional    = true
   }
 
   step "container" "create_functions_functionapp_app" {
     image = "my-azure-image"
-    cmd   = ["functionapp", "create", "-g", param.resource_group, "--subscription", param.subscription_id, "-n", param.app_name, "-s", param.storage_account, "-c", param.consumption_plan_location, "--runtime", param.runtime]
+    cmd = concat(["functionapp", "create", "-g", param.resource_group, "--subscription", param.subscription_id, "-n", param.app_name, "-s", param.storage_account],
+      param.consumption_plan_location != null ? concat(["--c", param.consumption_plan_location]) : [],
+      param.runtime != null ? concat(["--runtime", param.runtime]) : [],
+    )
 
-    env = {
-      AZURE_TENANT_ID     = param.tenant_id
-      AZURE_CLIENT_ID     = param.client_id
-      AZURE_CLIENT_SECRET = param.client_secret
-    }
+    env = credential.azure[param.cred].env
   }
 
   output "app" {

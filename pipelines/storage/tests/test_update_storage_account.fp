@@ -6,6 +6,12 @@ pipeline "test_update_storage_account" {
     type = "test"
   }
 
+  param "cred" {
+    type        = string
+    description = local.cred_param_description
+    default     = "default"
+  }
+
   param "subscription_id" {
     type        = string
     description = local.subscription_id_param_description
@@ -16,24 +22,6 @@ pipeline "test_update_storage_account" {
     type        = string
     description = local.resource_group_param_description
     default     = var.resource_group
-  }
-
-  param "tenant_id" {
-    type        = string
-    description = local.tenant_id_param_description
-    default     = var.tenant_id
-  }
-
-  param "client_secret" {
-    type        = string
-    description = local.client_secret_param_description
-    default     = var.client_secret
-  }
-
-  param "client_id" {
-    type        = string
-    description = local.client_id_param_description
-    default     = var.client_id
   }
 
   param "account_name" {
@@ -57,10 +45,8 @@ pipeline "test_update_storage_account" {
   step "pipeline" "create_storage_account" {
     pipeline = pipeline.create_storage_account
     args = {
+      cred            = param.cred
       account_name    = param.account_name
-      client_id       = param.client_id
-      client_secret   = param.client_secret
-      tenant_id       = param.tenant_id
       resource_group  = param.resource_group
       subscription_id = param.subscription_id
     }
@@ -70,10 +56,8 @@ pipeline "test_update_storage_account" {
     if       = is_error(step.pipeline.create_storage_account) == false
     pipeline = pipeline.update_storage_account_public_network_access
     args = {
+      cred                  = param.cred
       account_name          = param.account_name
-      client_id             = param.client_id
-      client_secret         = param.client_secret
-      tenant_id             = param.tenant_id
       resource_group        = param.resource_group
       subscription_id       = param.subscription_id
       public_network_access = param.public_network_access
@@ -89,10 +73,8 @@ pipeline "test_update_storage_account" {
     if       = is_error(step.pipeline.create_storage_account) == false
     pipeline = pipeline.update_storage_account_access_tier
     args = {
+      cred            = param.cred
       account_name    = param.account_name
-      client_id       = param.client_id
-      client_secret   = param.client_secret
-      tenant_id       = param.tenant_id
       resource_group  = param.resource_group
       subscription_id = param.subscription_id
       access_tier     = param.access_tier
@@ -114,10 +96,8 @@ pipeline "test_update_storage_account" {
 
     pipeline = pipeline.delete_storage_account
     args = {
+      cred            = param.cred
       account_name    = param.account_name
-      client_id       = param.client_id
-      client_secret   = param.client_secret
-      tenant_id       = param.tenant_id
       resource_group  = param.resource_group
       subscription_id = param.subscription_id
     }
