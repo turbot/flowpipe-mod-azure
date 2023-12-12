@@ -1,7 +1,7 @@
 mod "azure" {
   title         = "Azure"
   description   = "Run pipelines to supercharge your Azure workflows using Flowpipe."
-  color         = "#FCA121"
+  color         = "##0089D6"
   documentation = file("./README.md")
   icon          = "/images/mods/turbot/azure.svg"
   categories    = ["public cloud"]
