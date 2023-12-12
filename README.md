@@ -54,12 +54,6 @@ For more information on credentials in Flowpipe, please see [Managing Credential
 
 ### Usage
 
-Build the Docker image:
-
-```sh
-docker build -t my-azure-image -f Docker/Dockerfile ./Docker
-```
-
 List pipelines:
 
 ```sh
@@ -85,6 +79,10 @@ flowpipe pipeline run list_compute_virtual_machines --arg cred=azure_prod
 ```
 
 For more examples on how you can run pipelines, please see [Run Pipelines](https://flowpipe.io/docs/run/pipelines).
+
+### Configuration
+
+No additional configuration is required.
 
 ## Open Source & Contributing
 
