@@ -2,6 +2,12 @@ pipeline "update_storage_account_public_network_access" {
   title       = "Update Storage Account Public Network Access"
   description = "Update the public network access of a storage account."
 
+  param "cred" {
+    type        = string
+    description = local.cred_param_description
+    default     = "default"
+  }
+
   param "subscription_id" {
     type        = string
     description = local.subscription_id_param_description
@@ -12,24 +18,6 @@ pipeline "update_storage_account_public_network_access" {
     type        = string
     description = local.resource_group_param_description
     default     = var.resource_group
-  }
-
-  param "tenant_id" {
-    type        = string
-    description = local.tenant_id_param_description
-    default     = var.tenant_id
-  }
-
-  param "client_secret" {
-    type        = string
-    description = local.client_secret_param_description
-    default     = var.client_secret
-  }
-
-  param "client_id" {
-    type        = string
-    description = local.client_id_param_description
-    default     = var.client_id
   }
 
   param "account_name" {
@@ -49,11 +37,7 @@ pipeline "update_storage_account_public_network_access" {
       param.public_network_access == true ? ["--public-network-access", "Enabled"] : ["--public-network-access", "Disabled"]
     )
 
-    env = {
-      AZURE_TENANT_ID     = param.tenant_id
-      AZURE_CLIENT_ID     = param.client_id
-      AZURE_CLIENT_SECRET = param.client_secret
-    }
+    env = credential.azure[param.cred].env
   }
 
   output "account_public_network_access" {

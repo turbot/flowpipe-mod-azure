@@ -1,6 +1,12 @@
 pipeline "delete_servicebus_namespace" {
   title       = "Delete Servicebus Namespace"
-  description = "Delete a Service Bus namespace."
+  description = "Delete an existing namespace. This operation also removes all associated resources under the namespace."
+
+  param "cred" {
+    type        = string
+    description = local.cred_param_description
+    default     = "default"
+  }
 
   param "subscription_id" {
     type        = string
@@ -14,24 +20,6 @@ pipeline "delete_servicebus_namespace" {
     default     = var.resource_group
   }
 
-  param "tenant_id" {
-    type        = string
-    description = local.tenant_id_param_description
-    default     = var.tenant_id
-  }
-
-  param "client_secret" {
-    type        = string
-    description = local.client_secret_param_description
-    default     = var.client_secret
-  }
-
-  param "client_id" {
-    type        = string
-    description = local.client_id_param_description
-    default     = var.client_id
-  }
-
   param "namespace_name" {
     type        = string
     description = "The namespace name."
@@ -41,11 +29,7 @@ pipeline "delete_servicebus_namespace" {
     image = "my-azure-image"
     cmd   = ["servicebus", "namespace", "delete", "-g", param.resource_group, "--subscription", param.subscription_id, "-n", param.namespace_name]
 
-    env = {
-      AZURE_TENANT_ID     = param.tenant_id
-      AZURE_CLIENT_ID     = param.client_id
-      AZURE_CLIENT_SECRET = param.client_secret
-    }
+    env = credential.azure[param.cred].env
   }
 
   output "namespace" {

@@ -1,23 +1,11 @@
 pipeline "update_compute_virtual_machine" {
   title       = "Update Compute Virtual Machine"
   description = "Update the properties of a VM."
-  
-  param "tenant_id" {
-    type        = string
-    description = local.tenant_id_param_description
-    default     = var.tenant_id
-  }
 
-  param "client_secret" {
+  param "cred" {
     type        = string
-    description = local.client_secret_param_description
-    default     = var.client_secret
-  }
-
-  param "client_id" {
-    type        = string
-    description = local.client_id_param_description
-    default     = var.client_id
+    description = local.cred_param_description
+    default     = "default"
   }
 
   param "subscription_id" {
@@ -45,7 +33,7 @@ pipeline "update_compute_virtual_machine" {
 
   param "license_type" {
     type        = string
-    description = "The license type of the Virtual Machine."
+    description = "Specifies that the Windows image or disk was licensed on-premises."
     optional    = true
   }
 
@@ -57,11 +45,7 @@ pipeline "update_compute_virtual_machine" {
       param.license_type != null ? concat(["--license-type", param.license_type]) : [],
     )
 
-    env = {
-      AZURE_TENANT_ID     = param.tenant_id
-      AZURE_CLIENT_ID     = param.client_id
-      AZURE_CLIENT_SECRET = param.client_secret
-    }
+    env = credential.azure[param.cred].env
   }
 
   output "virtual_machine" {

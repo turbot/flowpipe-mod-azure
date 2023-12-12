@@ -2,22 +2,10 @@ pipeline "update_user_status" {
   title       = "Disable or Enable AD User"
   description = "Update user account status in Azure AD."
 
-  param "tenant_id" {
+  param "cred" {
     type        = string
-    description = local.tenant_id_param_description
-    default     = var.tenant_id
-  }
-
-  param "client_secret" {
-    type        = string
-    description = local.client_secret_param_description
-    default     = var.client_secret
-  }
-
-  param "client_id" {
-    type        = string
-    description = local.client_id_param_description
-    default     = var.client_id
+    description = local.cred_param_description
+    default     = "default"
   }
 
   param "user_id" {
@@ -34,10 +22,6 @@ pipeline "update_user_status" {
     image = "my-azure-image"
     cmd   = ["ad", "user", "update", "--id", param.user_id, "--account-enabled", param.account_enabled]
 
-    env = {
-      AZURE_TENANT_ID     = param.tenant_id
-      AZURE_CLIENT_ID     = param.client_id
-      AZURE_CLIENT_SECRET = param.client_secret
-    }
+    env = credential.azure[param.cred].env
   }
 }

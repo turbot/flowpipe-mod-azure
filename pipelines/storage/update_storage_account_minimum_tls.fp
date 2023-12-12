@@ -1,23 +1,11 @@
 pipeline "update_storage_account_minimum_tls" {
   title       = "Update Storage Account Minimum TLS"
-  description = "The minimum TLS version to be permitted on requests to storage. The default interpretation is TLS 1.0 for this property."
+  description = "Update the minimum TLS version of a storage account."
 
-  param "tenant_id" {
+  param "cred" {
     type        = string
-    description = local.tenant_id_param_description
-    default     = var.tenant_id
-  }
-
-  param "client_secret" {
-    type        = string
-    description = local.client_secret_param_description
-    default     = var.client_secret
-  }
-
-  param "client_id" {
-    type        = string
-    description = local.client_id_param_description
-    default     = var.client_id
+    description = local.cred_param_description
+    default     = "default"
   }
 
   param "subscription_id" {
@@ -39,7 +27,7 @@ pipeline "update_storage_account_minimum_tls" {
 
   param "minimum_tls_version" {
     type        = string
-    description = "Minimum TLS version. Accepted values: TLS1_0, TLS1_1, TLS1_2."
+    description = "The minimum TLS version to be permitted on requests to storage. The default interpretation is TLS 1.0 for this property. Accepted values: TLS1_0, TLS1_1, TLS1_2."
   }
 
   step "container" "update_minimum_tls" {
@@ -54,11 +42,7 @@ pipeline "update_storage_account_minimum_tls" {
       ],
     )
 
-    env = {
-      AZURE_TENANT_ID     = param.tenant_id
-      AZURE_CLIENT_ID     = param.client_id
-      AZURE_CLIENT_SECRET = param.client_secret
-    }
+    env = credential.azure[param.cred].env
   }
 
   output "tls" {

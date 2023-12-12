@@ -1,6 +1,12 @@
 pipeline "get_compute_virtual_machine_instance_view" {
   title       = "Get Compute Virtual Machine Instance View"
-  description = "Get the instance view of a compute virtual machine."
+  description = "Get instance information about a VM."
+
+  param "cred" {
+    type        = string
+    description = local.cred_param_description
+    default     = "default"
+  }
 
   param "subscription_id" {
     type        = string
@@ -19,27 +25,9 @@ pipeline "get_compute_virtual_machine_instance_view" {
     description = "The name of the Virtual Machine."
   }
 
-  param "tenant_id" {
-    type        = string
-    description = local.tenant_id_param_description
-    default     = var.tenant_id
-  }
-
-  param "client_secret" {
-    type        = string
-    description = local.client_secret_param_description
-    default     = var.client_secret
-  }
-
-  param "client_id" {
-    type        = string
-    description = local.client_id_param_description
-    default     = var.client_id
-  }
-
   param "query" {
     type        = string
-    description = "A JMESPath query to use in filtering the response data."
+    description = "JMESPath query string."
     optional    = true
   }
 
@@ -50,11 +38,7 @@ pipeline "get_compute_virtual_machine_instance_view" {
       param.query != null ? ["--query", param.query] : [],
     )
 
-    env = {
-      AZURE_TENANT_ID     = param.tenant_id
-      AZURE_CLIENT_ID     = param.client_id
-      AZURE_CLIENT_SECRET = param.client_secret
-    }
+    env = credential.azure[param.cred].env
   }
 
   output "instance_view" {

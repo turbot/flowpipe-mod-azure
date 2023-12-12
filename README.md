@@ -1,17 +1,16 @@
 # Azure Mod for Flowpipe
 
-A collection of [Flowpipe](https://flowpipe.io) pipelines that can be used to:
-
-- Create virtual networks
-- Update resource tags
-- Stop virtual machines
-- And more!
+Azure pipeline library for [Flowpipe](https://flowpipe.io), enabling seamless integration of Azure services into your workflows.
 
 ## Documentation
 
 - **[Pipelines →](https://hub.flowpipe.io/mods/turbot/azure/pipelines)**
 
-## Getting started
+## Getting Started
+
+### Requirements
+
+Docker daemon must be installed and running. Please see [Install Docker Engine](https://docs.docker.com/engine/install/) for more information.
 
 ### Installation
 
@@ -29,64 +28,75 @@ git clone https://github.com/turbot/flowpipe-mod-azure.git
 cd flowpipe-mod-azure
 ```
 
-### Configuration
+### Credentials
 
-Configure your credentials:
+By default, the following environment variables will be used for authentication:
+
+- `AZURE_CLIENT_ID`
+- `AZURE_CLIENT_SECRET`
+- `AZURE_TENANT_ID`
+
+You can also create `credential` resources in configuration files:
 
 ```sh
-cp flowpipe.fpvars.example flowpipe.fpvars
-vi flowpipe.fpvars
+vi ~/.flowpipe/config/azure.fpc
 ```
 
-It's recommended to configure credentials through [input variables](https://flowpipe.io/docs/using-flowpipe/mod-variables) by setting them in the `flowpipe.fpvars` file.
+```hcl
+credential "azure" "default" {
+  client_id     = "<your client id>"
+  client_secret = "<your client secret>"
+  tenant_id     = "<your tenant id>"
+}
+```
 
-**Note:** Credentials can also be passed in each pipeline run with `--arg client_id=e774c34-6391-46ce-b8a2-72d930c777`.
-
-Additional input variables may be defined in the mod's `variables.fp` file that can be configured to better match your environment and requirements.
-
-Variables with defaults set do not need to be explicitly set, but it may be helpful to override them.
+For more information on credentials in Flowpipe, please see [Managing Credentials](https://flowpipe.io/docs/run/credentials).
 
 ### Usage
 
-Start the Flowpipe server to get started:
+Build the Docker image:
 
 ```sh
-flowpipe server
+docker build -t my-azure-image -f Docker/Dockerfile ./Docker
+```
+
+List pipelines:
+
+```sh
+flowpipe pipeline list
 ```
 
 Run a pipeline:
 
 ```sh
-flowpipe pipeline run get_compute_virtual_machine
+flowpipe pipeline run list_compute_virtual_machines
 ```
 
-## Passing pipeline arguments
-
-To pass values into pipeline [parameters](https://flowpipe.io/docs/using-flowpipe/pipeline-parameters), use the following syntax:
+You can pass in pipeline arguments as well:
 
 ```sh
-flowpipe pipeline run get_compute_virtual_machine --arg vm_name="myVM"
+flowpipe pipeline run create_compute_virtual_machine --arg vm_name='VM Dev' --arg vm_image=Ubuntu2204
 ```
 
-Multiple pipeline args can be passed in with separate `--arg` flags.
+To use a specific `credential`, specify the `cred` pipeline argument:
 
-For more information on passing arguments, please see [Pipeline Args](https://flowpipe.io/docs/run/pipelines).
+```sh
+flowpipe pipeline run list_compute_virtual_machines --arg cred=azure_prod
+```
 
-## Contributing
+For more examples on how you can run pipelines, please see [Run Pipelines](https://flowpipe.io/docs/run/pipelines).
 
-If you have an idea for additional controls or just want to help maintain and extend this mod ([or others](https://github.com/topics/flowpipe-mod)) we would love you to join the community and start contributing.
+## Open Source & Contributing
 
-- **[Join #flowpipe in our Slack community ](https://flowpipe.io/community/join)**
+This repository is published under the [Apache 2.0 license](https://www.apache.org/licenses/LICENSE-2.0). Please see our [code of conduct](https://github.com/turbot/.github/blob/main/CODE_OF_CONDUCT.md). We look forward to collaborating with you!
 
-Please see the [contribution guidelines](https://github.com/turbot/flowpipe/blob/main/CONTRIBUTING.md) and our [code of conduct](https://github.com/turbot/flowpipe/blob/main/CODE_OF_CONDUCT.md).
+[Flowpipe](https://flowpipe.io) is a product produced from this open source software, exclusively by [Turbot HQ, Inc](https://turbot.com). It is distributed under our commercial terms. Others are allowed to make their own distribution of the software, but cannot use any of the Turbot trademarks, cloud services, etc. You can learn more in our [Open Source FAQ](https://turbot.com/open-source).
+
+## Get Involved
+
+**[Join #flowpipe on Slack →](https://flowpipe.io/community/join)**
 
 Want to help but not sure where to start? Pick up one of the `help wanted` issues:
 
 - [Flowpipe](https://github.com/turbot/flowpipe/labels/help%20wanted)
 - [Azure Mod](https://github.com/turbot/flowpipe-mod-azure/labels/help%20wanted)
-
-## License
-
-This mod is licensed under the [Apache License 2.0](https://github.com/turbot/flowpipe-mod-azure/blob/main/LICENSE).
-
-Flowpipe is licensed under the [AGPLv3](https://github.com/turbot/flowpipe/blob/main/LICENSE).

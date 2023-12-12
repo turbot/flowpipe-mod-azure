@@ -6,6 +6,12 @@ pipeline "test_create_compute_virtual_machine" {
     type = "test"
   }
 
+  param "cred" {
+    type        = string
+    description = local.cred_param_description
+    default     = "default"
+  }
+
   param "subscription_id" {
     type        = string
     description = local.subscription_id_param_description
@@ -16,24 +22,6 @@ pipeline "test_create_compute_virtual_machine" {
     type        = string
     description = local.resource_group_param_description
     default     = var.resource_group
-  }
-
-  param "tenant_id" {
-    type        = string
-    description = local.tenant_id_param_description
-    default     = var.tenant_id
-  }
-
-  param "client_secret" {
-    type        = string
-    description = local.client_secret_param_description
-    default     = var.client_secret
-  }
-
-  param "client_id" {
-    type        = string
-    description = local.client_id_param_description
-    default     = var.client_id
   }
 
   param "vm_name" {
@@ -63,13 +51,11 @@ pipeline "test_create_compute_virtual_machine" {
   step "pipeline" "create_compute_virtual_machine" {
     pipeline = pipeline.create_compute_virtual_machine
     args = {
+      cred              = param.cred
       vm_name           = param.vm_name
       vm_image          = param.vm_image
       no_wait           = param.no_wait
       generate_ssh_keys = param.generate_ssh_keys
-      client_id         = param.client_id
-      client_secret     = param.client_secret
-      tenant_id         = param.tenant_id
       resource_group    = param.resource_group
       subscription_id   = param.subscription_id
     }
@@ -86,10 +72,8 @@ pipeline "test_create_compute_virtual_machine" {
 
     pipeline = pipeline.get_compute_virtual_machine
     args = {
+      cred            = param.cred
       vm_name         = param.vm_name
-      client_id       = param.client_id
-      client_secret   = param.client_secret
-      tenant_id       = param.tenant_id
       resource_group  = param.resource_group
       subscription_id = param.subscription_id
     }
@@ -101,16 +85,15 @@ pipeline "test_create_compute_virtual_machine" {
   }
 
   step "pipeline" "delete_compute_virtual_machine" {
-    if = is_error(step.pipeline.create_compute_virtual_machine) == false
     # Don't run before we've had a chance to get the VM
     depends_on = [step.pipeline.get_compute_virtual_machine]
 
+    if = is_error(step.pipeline.create_compute_virtual_machine) == false
+
     pipeline = pipeline.delete_compute_virtual_machine
     args = {
+      cred            = param.cred
       vm_name         = param.vm_name
-      client_id       = param.client_id
-      client_secret   = param.client_secret
-      tenant_id       = param.tenant_id
       resource_group  = param.resource_group
       subscription_id = param.subscription_id
     }

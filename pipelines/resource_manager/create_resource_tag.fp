@@ -2,27 +2,15 @@ pipeline "create_resource_tag" {
   title       = "Create Resource Tag"
   description = "Create tags on a specific resource."
 
-  param "tenant_id" {
+  param "cred" {
     type        = string
-    description = local.tenant_id_param_description
-    default     = var.tenant_id
+    description = local.cred_param_description
+    default     = "default"
   }
 
-  param "client_secret" {
-    type        = string
-    description = local.client_secret_param_description
-    default     = var.client_secret
-  }
-
-  param "client_id" {
-    type        = string
-    description = local.client_id_param_description
-    default     = var.client_id
-  }
-
-  param "create_tags" {
+  param "tags" {
     type        = map
-    description = "The resource Tags. Example tagKey:tagValue."
+    description = "The tags to be applied on the resource. Example tagKey:tagValue."
   }
 
   param "resource_id" {
@@ -34,14 +22,10 @@ pipeline "create_resource_tag" {
     image = "my-azure-image"
     cmd = concat(
       ["tag", "create", "--resource-id", param.resource_id, "--tags"],
-      [for key, value in param.create_tags : "${key}=${value}"],
+      [for key, value in param.tags : "${key}=${value}"],
     )
 
-    env = {
-      AZURE_TENANT_ID     = param.tenant_id
-      AZURE_CLIENT_ID     = param.client_id
-      AZURE_CLIENT_SECRET = param.client_secret
-    }
+    env = credential.azure[param.cred].env
   }
 
   output "tag" {

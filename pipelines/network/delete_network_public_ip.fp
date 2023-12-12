@@ -2,6 +2,12 @@ pipeline "delete_network_public_ip" {
   title       = "Delete Network Public IP"
   description = "Delete a public IP address."
 
+  param "cred" {
+    type        = string
+    description = local.cred_param_description
+    default     = "default"
+  }
+
   param "subscription_id" {
     type        = string
     description = local.subscription_id_param_description
@@ -14,24 +20,6 @@ pipeline "delete_network_public_ip" {
     default     = var.resource_group
   }
 
-  param "tenant_id" {
-    type        = string
-    description = local.tenant_id_param_description
-    default     = var.tenant_id
-  }
-
-  param "client_secret" {
-    type        = string
-    description = local.client_secret_param_description
-    default     = var.client_secret
-  }
-
-  param "client_id" {
-    type        = string
-    description = local.client_id_param_description
-    default     = var.client_id
-  }
-
   param "public_ip_name" {
     type        = string
     description = "The name of the public IP address."
@@ -41,11 +29,7 @@ pipeline "delete_network_public_ip" {
     image = "my-azure-image"
     cmd   = ["network", "public-ip", "delete", "-g", param.resource_group, "--subscription", param.subscription_id, "-n", param.public_ip_name]
 
-    env = {
-      AZURE_TENANT_ID     = param.tenant_id
-      AZURE_CLIENT_ID     = param.client_id
-      AZURE_CLIENT_SECRET = param.client_secret
-    }
+    env = credential.azure[param.cred].env
   }
 
   output "public_ip" {
