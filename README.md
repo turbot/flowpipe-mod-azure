@@ -27,6 +27,7 @@ By default, the following environment variables will be used for authentication:
 
 - `AZURE_CLIENT_ID`
 - `AZURE_CLIENT_SECRET`
+- `AZURE_ENVIRONMENT`
 - `AZURE_TENANT_ID`
 
 You can also create `credential` resources in configuration files:
