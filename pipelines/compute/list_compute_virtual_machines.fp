@@ -20,18 +20,9 @@ pipeline "list_compute_virtual_machines" {
     default     = var.resource_group
   }
 
-  param "query" {
-    type        = string
-    description = "JMESPath query string."
-    optional    = true
-  }
-
   step "container" "list_compute_virtual_machines" {
     image = "ghcr.io/turbot/flowpipe-image-azure-cli"
-    cmd = concat(
-      ["vm", "list", "-g", param.resource_group, "--subscription", param.subscription_id],
-      param.query != null ? ["--query", param.query] : [],
-    )
+    cmd   = ["vm", "list", "-g", param.resource_group, "--subscription", param.subscription_id]
 
     env = credential.azure[param.cred].env
   }
