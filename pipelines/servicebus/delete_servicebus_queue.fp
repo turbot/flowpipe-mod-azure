@@ -1,5 +1,5 @@
 pipeline "delete_servicebus_queue" {
-  title       = "Delete Servicebus Queue"
+  title       = "Delete Service Bus Queue"
   description = "Delete a queue from the specified namespace in a resource group."
 
   param "cred" {
@@ -11,13 +11,11 @@ pipeline "delete_servicebus_queue" {
   param "subscription_id" {
     type        = string
     description = local.subscription_id_param_description
-    default     = var.subscription_id
   }
 
   param "resource_group" {
     type        = string
     description = local.resource_group_param_description
-    default     = var.resource_group
   }
 
   param "queue_name" {
@@ -38,7 +36,7 @@ pipeline "delete_servicebus_queue" {
   }
 
   output "queue" {
-    description = "The deleted servicebus queue details."
+    description = "The deleted queue details."
     value       = jsondecode(step.container.delete_servicebus_queue.stdout)
   }
 }

@@ -1,5 +1,5 @@
 pipeline "delete_servicebus_namespace" {
-  title       = "Delete Servicebus Namespace"
+  title       = "Delete Service Bus Namespace"
   description = "Delete an existing namespace. This operation also removes all associated resources under the namespace."
 
   param "cred" {
@@ -11,13 +11,11 @@ pipeline "delete_servicebus_namespace" {
   param "subscription_id" {
     type        = string
     description = local.subscription_id_param_description
-    default     = var.subscription_id
   }
 
   param "resource_group" {
     type        = string
     description = local.resource_group_param_description
-    default     = var.resource_group
   }
 
   param "namespace_name" {
@@ -33,7 +31,7 @@ pipeline "delete_servicebus_namespace" {
   }
 
   output "namespace" {
-    description = "The deleted servicebus namespace details."
+    description = "The deleted namespace details."
     value       = jsondecode(step.container.delete_servicebus_namespace.stdout)
   }
 }

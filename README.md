@@ -34,6 +34,7 @@ By default, the following environment variables will be used for authentication:
 
 - `AZURE_CLIENT_ID`
 - `AZURE_CLIENT_SECRET`
+- `AZURE_ENVIRONMENT`
 - `AZURE_TENANT_ID`
 
 You can also create `credential` resources in configuration files:
@@ -54,6 +55,54 @@ For more information on credentials in Flowpipe, please see [Managing Credential
 
 ### Usage
 
+[Initialize a mod](https://www.flowpipe.io/docs/mods/index#initializing-a-mod):
+
+```sh
+mkdir my_mod
+cd my_mod
+flowpipe mod init
+```
+
+[Install the Azure mod](https://www.flowpipe.io/docs/mods/mod-dependencies#mod-dependencies) as a dependency:
+
+```sh
+flowpipe mod install github.com/turbot/flowpipe-mod-azure
+```
+
+[Use the dependency](https://www.flowpipe.io/docs/mods/write-pipelines/index) in a pipeline step:
+
+```sh
+vi my_pipeline.fp
+```
+
+```hcl
+pipeline "my_pipeline" {
+
+  step "pipeline" "list_compute_virtual_machines" {
+    pipeline = azure.pipeline.list_compute_virtual_machines
+    args = {
+      resource_group  = "my-rg"
+      subscription_id = "abcdef01-2345-6789"
+    }
+  }
+}
+```
+
+[Run the pipeline](https://www.flowpipe.io/docs/run/pipelines):
+
+```sh
+flowpipe pipeline run my_pipeline
+```
+
+### Developing
+
+Clone:
+
+```sh
+git clone https://github.com/turbot/flowpipe-mod-azure.git
+cd flowpipe-mod-azure
+```
+
 List pipelines:
 
 ```sh
@@ -63,26 +112,16 @@ flowpipe pipeline list
 Run a pipeline:
 
 ```sh
-flowpipe pipeline run list_compute_virtual_machines
-```
-
-You can pass in pipeline arguments as well:
-
-```sh
-flowpipe pipeline run create_compute_virtual_machine --arg vm_name='VM Dev' --arg vm_image=Ubuntu2204
+flowpipe pipeline run create_compute_virtual_machine --arg vm_name='VM Dev' --arg vm_image=Ubuntu2204 --arg subscription_id=1234-5678-9012-3456 --arg resource_group=my-rg
 ```
 
 To use a specific `credential`, specify the `cred` pipeline argument:
 
 ```sh
-flowpipe pipeline run list_compute_virtual_machines --arg cred=azure_prod
+flowpipe pipeline run list_compute_virtual_machines --arg cred=azure_prod --arg subscription_id=1234-5678-9012-3456 --arg resource_group=my-rg
 ```
 
 For more examples on how you can run pipelines, please see [Run Pipelines](https://flowpipe.io/docs/run/pipelines).
-
-### Configuration
-
-No additional configuration is required.
 
 ## Open Source & Contributing
 

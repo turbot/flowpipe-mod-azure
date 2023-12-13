@@ -1,5 +1,5 @@
 pipeline "delete_servicebus_topic" {
-  title       = "Delete Servicebus Topic"
+  title       = "Delete Service Bus Topic"
   description = "Delete a topic from the specified namespace and resource group."
 
   param "cred" {
@@ -11,13 +11,11 @@ pipeline "delete_servicebus_topic" {
   param "subscription_id" {
     type        = string
     description = local.subscription_id_param_description
-    default     = var.subscription_id
   }
 
   param "resource_group" {
     type        = string
     description = local.resource_group_param_description
-    default     = var.resource_group
   }
 
   param "topic_name" {
@@ -38,7 +36,7 @@ pipeline "delete_servicebus_topic" {
   }
 
   output "topic" {
-    description = "The deleted servicebus topic details."
+    description = "The deleted topic details."
     value       = jsondecode(step.container.delete_servicebus_topic.stdout)
   }
 }

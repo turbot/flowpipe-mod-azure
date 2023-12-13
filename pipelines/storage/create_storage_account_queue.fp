@@ -11,7 +11,6 @@ pipeline "create_storage_queue" {
   param "subscription_id" {
     type        = string
     description = local.subscription_id_param_description
-    default     = var.subscription_id
   }
 
   param "storage_queue_name" {

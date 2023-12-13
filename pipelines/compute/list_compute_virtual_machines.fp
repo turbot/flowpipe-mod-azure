@@ -11,13 +11,11 @@ pipeline "list_compute_virtual_machines" {
   param "subscription_id" {
     type        = string
     description = local.subscription_id_param_description
-    default     = var.subscription_id
   }
 
   param "resource_group" {
     type        = string
     description = local.resource_group_param_description
-    default     = var.resource_group
   }
 
   step "container" "list_compute_virtual_machines" {

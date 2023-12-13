@@ -11,13 +11,11 @@ pipeline "delete_network_public_ip" {
   param "subscription_id" {
     type        = string
     description = local.subscription_id_param_description
-    default     = var.subscription_id
   }
 
   param "resource_group" {
     type        = string
     description = local.resource_group_param_description
-    default     = var.resource_group
   }
 
   param "public_ip_name" {

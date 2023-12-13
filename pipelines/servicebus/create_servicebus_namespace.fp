@@ -1,5 +1,5 @@
 pipeline "create_servicebus_namespace" {
-  title       = "Create Servicebus Namespace"
+  title       = "Create Service Bus Namespace"
   description = "Create a Service Bus namespace."
 
   param "cred" {
@@ -11,13 +11,11 @@ pipeline "create_servicebus_namespace" {
   param "subscription_id" {
     type        = string
     description = local.subscription_id_param_description
-    default     = var.subscription_id
   }
 
   param "resource_group" {
     type        = string
     description = local.resource_group_param_description
-    default     = var.resource_group
   }
 
   param "namespace_name" {
@@ -33,7 +31,7 @@ pipeline "create_servicebus_namespace" {
   }
 
   output "namespace" {
-    description = "The created servicebus namespace details."
+    description = "The created namespace details."
     value       = jsondecode(step.container.create_servicebus_namespace.stdout)
   }
 }

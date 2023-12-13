@@ -1,5 +1,5 @@
 pipeline "create_servicebus_queue" {
-  title       = "Create Servicebus Queue"
+  title       = "Create Service Bus Queue"
   description = "Create a Service Bus queue. This operation is idempotent"
 
   param "cred" {
@@ -11,13 +11,11 @@ pipeline "create_servicebus_queue" {
   param "subscription_id" {
     type        = string
     description = local.subscription_id_param_description
-    default     = var.subscription_id
   }
 
   param "resource_group" {
     type        = string
     description = local.resource_group_param_description
-    default     = var.resource_group
   }
 
   param "queue_name" {
@@ -38,7 +36,7 @@ pipeline "create_servicebus_queue" {
   }
 
   output "queue" {
-    description = "The created servicebus queue details."
+    description = "The created queue details."
     value       = jsondecode(step.container.create_servicebus_queue.stdout)
   }
 }
