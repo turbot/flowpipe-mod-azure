@@ -21,20 +21,12 @@ brew tap turbot/tap
 brew install flowpipe
 ```
 
-Clone:
-
-```sh
-git clone https://github.com/turbot/flowpipe-mod-azure.git
-cd flowpipe-mod-azure
-```
-
 ### Credentials
 
 By default, the following environment variables will be used for authentication:
 
 - `AZURE_CLIENT_ID`
 - `AZURE_CLIENT_SECRET`
-- `AZURE_ENVIRONMENT`
 - `AZURE_TENANT_ID`
 
 You can also create `credential` resources in configuration files:
@@ -50,8 +42,6 @@ credential "azure" "default" {
   tenant_id     = "<your tenant id>"
 }
 ```
-
-For more information on credentials in Flowpipe, please see [Managing Credentials](https://flowpipe.io/docs/run/credentials).
 
 ### Usage
 
