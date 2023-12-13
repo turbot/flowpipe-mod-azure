@@ -55,7 +55,7 @@ For more information on credentials in Flowpipe, please see [Managing Credential
 
 ### Usage
 
-[Initialize a mod](https://www.flowpipe.io/docs/mods/index#initializing-a-mod):
+[Initialize a mod](https://flowpipe.io/docs/build/index#initializing-a-mod):
 
 ```sh
 mkdir my_mod
@@ -63,13 +63,13 @@ cd my_mod
 flowpipe mod init
 ```
 
-[Install the Azure mod](https://www.flowpipe.io/docs/mods/mod-dependencies#mod-dependencies) as a dependency:
+[Install the Azure mod](https://flowpipe.io/docs/build/mod-dependencies#mod-dependencies) as a dependency:
 
 ```sh
 flowpipe mod install github.com/turbot/flowpipe-mod-azure
 ```
 
-[Use the dependency](https://www.flowpipe.io/docs/mods/write-pipelines/index) in a pipeline step:
+[Use the dependency](https://flowpipe.io/docs/build/write-pipelines/index) in a pipeline step:
 
 ```sh
 vi my_pipeline.fp
@@ -88,7 +88,7 @@ pipeline "my_pipeline" {
 }
 ```
 
-[Run the pipeline](https://www.flowpipe.io/docs/run/pipelines):
+[Run the pipeline](https://flowpipe.io/docs/run/pipelines):
 
 ```sh
 flowpipe pipeline run my_pipeline
@@ -120,8 +120,6 @@ To use a specific `credential`, specify the `cred` pipeline argument:
 ```sh
 flowpipe pipeline run list_compute_virtual_machines --arg cred=azure_prod --arg subscription_id=1234-5678-9012-3456 --arg resource_group=my-rg
 ```
-
-For more examples on how you can run pipelines, please see [Run Pipelines](https://flowpipe.io/docs/run/pipelines).
 
 ## Open Source & Contributing
 
