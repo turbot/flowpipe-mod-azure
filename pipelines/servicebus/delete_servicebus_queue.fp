@@ -31,7 +31,7 @@ pipeline "delete_servicebus_queue" {
   }
 
   step "container" "delete_servicebus_queue" {
-    image = "my-azure-image"
+    image = "ghcr.io/turbot/flowpipe-image-azure-cli"
     cmd   = ["servicebus", "queue", "delete", "-g", param.resource_group, "--subscription", param.subscription_id, "-n", param.queue_name, "--namespace-name", param.namespace_name]
 
     env = credential.azure[param.cred].env

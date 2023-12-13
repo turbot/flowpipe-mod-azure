@@ -26,7 +26,7 @@ pipeline "get_storage_account" {
   }
 
   step "container" "get_storage_account" {
-    image = "my-azure-image"
+    image = "ghcr.io/turbot/flowpipe-image-azure-cli"
     cmd   = ["storage", "account", "show", "-g", param.resource_group, "--subscription", param.subscription_id, "-n", param.account_name]
 
     env = credential.azure[param.cred].env

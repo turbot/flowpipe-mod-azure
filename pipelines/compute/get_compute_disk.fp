@@ -26,7 +26,7 @@ pipeline "get_compute_disk" {
   }
 
   step "container" "get_compute_disk" {
-    image = "my-azure-image"
+    image = "ghcr.io/turbot/flowpipe-image-azure-cli"
     cmd   = ["disk", "show", "-g", param.resource_group, "-n", param.disk_name, "--subscription", param.subscription_id]
 
     env = credential.azure[param.cred].env

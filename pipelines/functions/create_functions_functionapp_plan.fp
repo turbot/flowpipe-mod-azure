@@ -31,7 +31,7 @@ pipeline "create_functions_functionapp_plan" {
   }
 
   step "container" "create_functions_functionapp_plan" {
-    image = "my-azure-image"
+    image = "ghcr.io/turbot/flowpipe-image-azure-cli"
     cmd   = ["functionapp", "plan", "create", "-g", param.resource_group, "--subscription", param.subscription_id, "-n", param.plan_name, "--sku", param.sku]
 
     env = credential.azure[param.cred].env

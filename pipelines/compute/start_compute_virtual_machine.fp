@@ -26,7 +26,7 @@ pipeline "start_compute_virtual_machine" {
   }
 
   step "container" "start_compute_virtual_machine" {
-    image = "my-azure-image"
+    image = "ghcr.io/turbot/flowpipe-image-azure-cli"
     cmd   = ["vm", "start", "-g", param.resource_group, "-n", param.vm_name, "--subscription", param.subscription_id]
 
     env = credential.azure[param.cred].env

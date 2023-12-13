@@ -26,7 +26,7 @@ pipeline "delete_functions_functionapp_plan" {
   }
 
   step "container" "delete_functions_functionapp_plan" {
-    image = "my-azure-image"
+    image = "ghcr.io/turbot/flowpipe-image-azure-cli"
     cmd   = ["functionapp", "plan", "delete", "--yes", "-g", param.resource_group, "--subscription", param.subscription_id, "-n", param.plan_name]
 
     env = credential.azure[param.cred].env

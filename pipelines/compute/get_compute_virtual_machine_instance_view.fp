@@ -32,7 +32,7 @@ pipeline "get_compute_virtual_machine_instance_view" {
   }
 
   step "container" "get_compute_virtual_machine_instance_view" {
-    image = "my-azure-image"
+    image = "ghcr.io/turbot/flowpipe-image-azure-cli"
     cmd = concat(
       ["vm", "get-instance-view", "--name", param.vm_name, "-g", param.resource_group, "--subscription", param.subscription_id],
       param.query != null ? ["--query", param.query] : [],

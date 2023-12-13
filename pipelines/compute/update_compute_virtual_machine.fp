@@ -38,7 +38,7 @@ pipeline "update_compute_virtual_machine" {
   }
 
   step "container" "update_compute_virtual_machine" {
-    image = "my-azure-image"
+    image = "ghcr.io/turbot/flowpipe-image-azure-cli"
     cmd = concat(
       ["vm", "update", "-g", param.resource_group, "-n", param.vm_name, "--subscription", param.subscription_id],
       param.set_tags != null ? concat(["--set"], [for key, value in param.set_tags : "tags.${key}=${value}"]) : [],

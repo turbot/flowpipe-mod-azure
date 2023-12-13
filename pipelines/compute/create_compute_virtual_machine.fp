@@ -83,7 +83,7 @@ pipeline "create_compute_virtual_machine" {
   }
 
   step "container" "create_compute_virtual_machine" {
-    image = "my-azure-image"
+    image = "ghcr.io/turbot/flowpipe-image-azure-cli"
     cmd = concat(
       ["vm", "create", "-g", param.resource_group, "-n", param.vm_name, "--image", param.vm_image],
       param.admin_username != null ? concat(["--admin-username", param.admin_username]) : [],

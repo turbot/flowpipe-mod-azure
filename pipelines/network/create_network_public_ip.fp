@@ -32,7 +32,7 @@ pipeline "create_network_public_ip" {
   }
 
   step "container" "create_network_public_ip" {
-    image = "my-azure-image"
+    image = "ghcr.io/turbot/flowpipe-image-azure-cli"
     cmd = concat(
       ["network", "public-ip", "create", "-g", param.resource_group, "--subscription", param.subscription_id, "-n", param.public_ip_name],
       param.sku != null ? concat(["--sku", param.sku]) : []

@@ -31,7 +31,7 @@ pipeline "update_storage_account_access_tier" {
   }
 
   step "container" "update_storage_account_access_tier" {
-    image = "my-azure-image"
+    image = "ghcr.io/turbot/flowpipe-image-azure-cli"
     cmd   = ["storage", "account", "update", "-g", param.resource_group, "--subscription", param.subscription_id, "-n", param.account_name, "--access-tier", param.access_tier]
 
     env = credential.azure[param.cred].env

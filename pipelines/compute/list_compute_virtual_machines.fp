@@ -27,7 +27,7 @@ pipeline "list_compute_virtual_machines" {
   }
 
   step "container" "list_compute_virtual_machines" {
-    image = "my-azure-image"
+    image = "ghcr.io/turbot/flowpipe-image-azure-cli"
     cmd = concat(
       ["vm", "list", "-g", param.resource_group, "--subscription", param.subscription_id],
       param.query != null ? ["--query", param.query] : [],

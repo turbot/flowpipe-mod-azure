@@ -26,7 +26,7 @@ pipeline "delete_compute_disk" {
   }
 
   step "container" "delete_compute_disk" {
-    image = "my-azure-image"
+    image = "ghcr.io/turbot/flowpipe-image-azure-cli"
     cmd   = ["disk", "delete", "--yes", "-g", param.resource_group, "-n", param.disk_name, "--subscription", param.subscription_id]
 
     env = credential.azure[param.cred].env

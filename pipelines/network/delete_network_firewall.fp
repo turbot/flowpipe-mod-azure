@@ -30,7 +30,7 @@ pipeline "delete_network_firewall" {
   }
 
   step "container" "delete_network_firewall" {
-    image = "my-azure-image"
+    image = "ghcr.io/turbot/flowpipe-image-azure-cli"
     cmd   = ["network", "firewall", "delete", "-g", param.resource_group, "--subscription", param.subscription_id, "-n", param.firewall_name]
 
     env = credential.azure[param.cred].env

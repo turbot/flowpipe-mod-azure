@@ -43,7 +43,7 @@ pipeline "create_functions_functionapp_app" {
   }
 
   step "container" "create_functions_functionapp_app" {
-    image = "my-azure-image"
+    image = "ghcr.io/turbot/flowpipe-image-azure-cli"
     cmd = concat(["functionapp", "create", "-g", param.resource_group, "--subscription", param.subscription_id, "-n", param.app_name, "-s", param.storage_account],
       param.consumption_plan_location != null ? concat(["--c", param.consumption_plan_location]) : [],
       param.runtime != null ? concat(["--runtime", param.runtime]) : [],

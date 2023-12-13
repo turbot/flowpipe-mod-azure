@@ -31,7 +31,7 @@ pipeline "update_storage_account_minimum_tls" {
   }
 
   step "container" "update_minimum_tls" {
-    image = "my-azure-image"
+    image = "ghcr.io/turbot/flowpipe-image-azure-cli"
     cmd = concat(
       [
         "storage", "account", "update",

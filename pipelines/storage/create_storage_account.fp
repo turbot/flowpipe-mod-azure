@@ -42,7 +42,7 @@ pipeline "create_storage_account" {
   }
 
   step "container" "create_storage_account" {
-    image = "my-azure-image"
+    image = "ghcr.io/turbot/flowpipe-image-azure-cli"
     cmd = concat(
       ["storage", "account", "create", "-g", param.resource_group, "--subscription", param.subscription_id, "-n", param.account_name],
       param.location != null ? concat(["-l", param.location]) : [],

@@ -24,7 +24,7 @@ pipeline "update_resource_tag" {
   }
 
   step "container" "update_resource_tag" {
-    image = "my-azure-image"
+    image = "ghcr.io/turbot/flowpipe-image-azure-cli"
     cmd = concat(
       ["tag", "update", "--resource-id", param.resource_id, "--operation", param.operation, "--tags"],
       [for key, value in param.tags : "${key}=${value}"],

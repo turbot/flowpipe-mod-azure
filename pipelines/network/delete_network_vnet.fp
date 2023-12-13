@@ -26,7 +26,7 @@ pipeline "delete_network_vnet" {
   }
 
   step "container" "delete_network_vnet" {
-    image = "my-azure-image"
+    image = "ghcr.io/turbot/flowpipe-image-azure-cli"
     cmd   = ["network", "vnet", "delete", "-g", param.resource_group, "--subscription", param.subscription_id, "-n", param.vnet_name]
 
     env = credential.azure[param.cred].env

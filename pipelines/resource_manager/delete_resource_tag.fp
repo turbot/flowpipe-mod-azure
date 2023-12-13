@@ -20,7 +20,7 @@ pipeline "delete_resource_tag" {
   }
 
   step "container" "delete_resource_tag" {
-    image = "my-azure-image"
+    image = "ghcr.io/turbot/flowpipe-image-azure-cli"
     cmd = concat(["tag", "delete", "--yes", "--resource-id", param.resource_id],
       param.tag != null ? ["--name", param.tag] : []
     )

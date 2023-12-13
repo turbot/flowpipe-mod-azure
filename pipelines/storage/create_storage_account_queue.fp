@@ -25,7 +25,7 @@ pipeline "create_storage_queue" {
   }
 
   step "container" "create_storage_queue" {
-    image = "my-azure-image"
+    image = "ghcr.io/turbot/flowpipe-image-azure-cli"
     cmd   = ["storage", "queue", "create", "--subscription", param.subscription_id, "-n", param.storage_queue_name, "--account-name", param.account_name]
 
     env = credential.azure[param.cred].env

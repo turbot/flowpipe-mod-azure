@@ -26,7 +26,7 @@ pipeline "delete_network_public_ip" {
   }
 
   step "container" "delete_network_public_ip" {
-    image = "my-azure-image"
+    image = "ghcr.io/turbot/flowpipe-image-azure-cli"
     cmd   = ["network", "public-ip", "delete", "-g", param.resource_group, "--subscription", param.subscription_id, "-n", param.public_ip_name]
 
     env = credential.azure[param.cred].env

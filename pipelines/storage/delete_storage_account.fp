@@ -26,7 +26,7 @@ pipeline "delete_storage_account" {
   }
 
   step "container" "delete_storage_account" {
-    image = "my-azure-image"
+    image = "ghcr.io/turbot/flowpipe-image-azure-cli"
     cmd   = ["storage", "account", "delete", "--yes", "-g", param.resource_group, "-n", param.account_name, "--subscription", param.subscription_id]
 
     env = credential.azure[param.cred].env

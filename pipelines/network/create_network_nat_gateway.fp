@@ -26,7 +26,7 @@ pipeline "create_network_nat_gateway" {
   }
 
   step "container" "create_network_nat_gateway" {
-    image = "my-azure-image"
+    image = "ghcr.io/turbot/flowpipe-image-azure-cli"
     cmd   = ["network", "nat", "gateway", "create", "-g", param.resource_group, "--subscription", param.subscription_id, "-n", param.gateway_name]
 
     env = credential.azure[param.cred].env
