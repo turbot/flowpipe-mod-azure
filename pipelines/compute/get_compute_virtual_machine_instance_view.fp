@@ -23,9 +23,19 @@ pipeline "get_compute_virtual_machine_instance_view" {
     description = "The name of the Virtual Machine."
   }
 
+  param "query" {
+    type        = string
+    description = "JMESPath query string."
+    optional    = true
+  }
+
   step "container" "get_compute_virtual_machine_instance_view" {
     image = "ghcr.io/turbot/flowpipe-image-azure-cli"
-    cmd   = ["vm", "get-instance-view", "--name", param.vm_name, "-g", param.resource_group, "--subscription", param.subscription_id]
+
+    cmd = concat(
+      ["vm", "get-instance-view", "--name", param.vm_name, "-g", param.resource_group, "--subscription", param.subscription_id],
+      param.query != null ? ["--query", param.query] : [],
+    )
 
     env = credential.azure[param.cred].env
   }
