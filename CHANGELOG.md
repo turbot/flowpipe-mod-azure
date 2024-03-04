@@ -1,3 +1,9 @@
+## v0.1.1 [2024-03-04]
+
+_Bug fixes_
+
+- Fixed mismatched types for `generate_ssh_keys` param in various Compute VM test pipelines.
+
 ## v0.1.0 [2023-12-14]
 
 _What's new?_

@@ -35,7 +35,7 @@ pipeline "test_create_compute_virtual_machine" {
   }
 
   param "generate_ssh_keys" {
-    type        = string
+    type        = bool
     description = "Generate SSH keys for the Virtual Machine."
     default     = true
   }
