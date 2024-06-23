@@ -11,13 +11,11 @@ pipeline "delete_virtual_machine_scale_set" {
  	param "subscription_id" {
     type        = string
     description = "The Azure subscription ID."
-		default     = "d46d7416-f95f-4771-bbb5-529d4c76659c"
   }
 
   param "resource_group" {
     type        = string
     description = "The name of the resource group that contains the App Service Plan."
-		default     = "demo"
   }
 
   param "vmss_name" {

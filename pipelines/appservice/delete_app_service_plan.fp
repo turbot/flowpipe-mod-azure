@@ -11,19 +11,16 @@ pipeline "delete_app_service_plan" {
   param "subscription_id" {
     type        = string
     description = "The Azure subscription ID."
-		default     = "d46d7416-f95f-4771-bbb5-529d4c76659c"
   }
 
   param "resource_group" {
     type        = string
     description = "The name of the resource group that contains the App Service Plan."
-		default     = "demo"
   }
 
   param "service_plan_name" {
     type        = string
     description = "The name of the App Service Plan that is being deleted."
-		default     = "demo9"
   }
 
   step "container" "delete_app_service_plan" {
