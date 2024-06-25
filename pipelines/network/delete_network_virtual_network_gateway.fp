@@ -29,10 +29,5 @@ pipeline "delete_network_virtual_network_gateway" {
 
     env = credential.azure[param.cred].env
   }
-
-  output "gateway" {
-    description = "The deleted virtual network gateway details."
-    value       = jsondecode(step.container.delete_virtual_network_gateway.stdout)
-  }
 }
 
