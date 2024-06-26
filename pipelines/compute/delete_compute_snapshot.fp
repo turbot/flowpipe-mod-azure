@@ -25,7 +25,7 @@ pipeline "delete_compute_snapshot" {
 
   step "container" "delete_compute_snapshot" {
     image = "ghcr.io/turbot/flowpipe-image-azure-cli"
-    cmd   = ["snapshot", "delete", "--yes", "-g", param.resource_group, "-n", param.snapshot_name, "--subscription", param.subscription_id]
+    cmd   = ["snapshot", "delete", "-g", param.resource_group, "-n", param.snapshot_name, "--subscription", param.subscription_id]
 
     env = credential.azure[param.cred].env
   }
