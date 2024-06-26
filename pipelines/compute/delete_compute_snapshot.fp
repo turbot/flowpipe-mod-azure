@@ -30,8 +30,4 @@ pipeline "delete_compute_snapshot" {
     env = credential.azure[param.cred].env
   }
 
-  output "snapshot" {
-    description = "The deleted compute snapshot details."
-    value       = jsondecode(step.container.delete_compute_snapshot.stdout)
-  }
 }
