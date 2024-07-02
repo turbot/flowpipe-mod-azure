@@ -5,22 +5,25 @@ pipeline "get_storage_account" {
   param "cred" {
     type        = string
     description = local.cred_param_description
-    default     = "default"
+    default     = "azure"
   }
 
   param "subscription_id" {
     type        = string
     description = local.subscription_id_param_description
+     default     = "d46d7416-f95f-4771-bbb5-529d4c76659c"
   }
 
   param "resource_group" {
     type        = string
     description = local.resource_group_param_description
+     default     = "nist-test_group"
   }
 
   param "account_name" {
     type        = string
     description = "The storage account name."
+    default = "testimmutablecontainer"
   }
 
   step "container" "get_storage_account" {

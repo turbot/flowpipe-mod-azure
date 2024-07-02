@@ -1,6 +1,6 @@
-pipeline "delete_compute_disk" {
-  title       = "Delete Compute Disk"
-  description = "Delete a managed disk."
+pipeline "stop_network_application_gateway" {
+  title       = "Stop Network Application Gateway"
+  description = "Stop an Azure Application Gateway."
 
   param "cred" {
     type        = string
@@ -18,14 +18,14 @@ pipeline "delete_compute_disk" {
     description = local.resource_group_param_description
   }
 
-  param "disk_name" {
+  param "application_gateway_name" {
     type        = string
-    description = "The name of the managed disk that is being deleted."
+    description = "The Application Gateway name."
   }
 
-  step "container" "delete_compute_disk" {
+  step "container" "stop_network_application_gateway" {
     image = "ghcr.io/turbot/flowpipe-image-azure-cli"
-    cmd   = ["disk", "delete", "--yes", "-g", param.resource_group, "-n", param.disk_name, "--subscription", param.subscription_id]
+    cmd   = ["network", "application-gateway", "stop", "-g", param.resource_group, "--subscription", param.subscription_id, "-n", param.application_gateway_name]
 
     env = credential.azure[param.cred].env
   }
