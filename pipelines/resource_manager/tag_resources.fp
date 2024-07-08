@@ -1,4 +1,4 @@
-pipeline "apply_resource_tags" {
+pipeline "tag_resources" {
   title       = "Apply Resource Tags"
   description = "Apply tags to a specific Azure resource."
 
@@ -18,7 +18,7 @@ pipeline "apply_resource_tags" {
     description = "The resource identifier for the entity being tagged. A resource, a resource group or a subscription may be tagged."
   }
 
-  step "container" "apply_resource_tags" {
+  step "container" "tag_resources" {
     image = "ghcr.io/turbot/flowpipe-image-azure-cli"
     cmd = concat(
       ["resource", "tag", "--ids", param.resource_id, "--tags"],
@@ -30,6 +30,6 @@ pipeline "apply_resource_tags" {
 
   output "tag" {
     description = "The applied resource tags."
-    value       = jsondecode(step.container.apply_resource_tags.stdout)
+    value       = jsondecode(step.container.tag_resources.stdout)
   }
 }
