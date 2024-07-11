@@ -18,10 +18,16 @@ pipeline "tag_resources" {
     description = "The resource identifier for the entity being tagged. A resource, a resource group or a subscription may be tagged."
   }
 
+  param "incremental" {
+    type        = bool
+    description = "If true, the tags will be merged with the existing tags. If false, the existing tags will be replaced with the new tags."
+    default     = true
+  }
+
   step "container" "tag_resources" {
     image = "ghcr.io/turbot/flowpipe-image-azure-cli"
     cmd = concat(
-      ["resource", "tag", "-i", "--ids", param.resource_id, "--tags"],
+      ["resource", "tag", param.incremental ? "-i" : "", "--ids", param.resource_id, "--tags"],
       [for key, value in param.tags : "${key}=${value}"]
     )
 
