@@ -29,9 +29,4 @@ pipeline "delete_network_public_ip" {
 
     env = credential.azure[param.cred].env
   }
-
-  output "public_ip" {
-    description = "The deleted public IP details."
-    value       = jsondecode(step.container.delete_network_public_ip.stdout)
-  }
 }
