@@ -36,18 +36,9 @@ pipeline "update_storage_account_logging" {
     default     = 90
   }
 
-	step "query" "get_storage_account_key" {
-    database = var.database
-    sql = <<-EOQ
-      select
-        k ->> 'Value' as access_key
-      from
-        azure_storage_account,
-				jsonb_array_elements(access_keys) as k
-      where
-        name = '${param.account_name}'
-				and subscription_id = '${param.subscription_id}' limit 1;
-    EOQ
+  param "access_key" {
+    type        = string
+    description = "Access Key for logging."
   }
 
   step "container" "update_storage_account_logging" {
@@ -56,7 +47,7 @@ pipeline "update_storage_account_logging" {
     cmd   = [
       "storage", "logging", "update",
       "--account-name", param.account_name,
-      "--account-key", step.query.get_storage_account_key.rows[0].access_key,
+      "--account-key", param.access_key,
       "--services", param.services,
       "--log", param.log,
       "--retention", tostring(param.retention),
