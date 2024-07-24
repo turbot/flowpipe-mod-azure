@@ -30,8 +30,4 @@ pipeline "delete_compute_disk" {
     env = credential.azure[param.cred].env
   }
 
-  output "disk" {
-    description = "The deleted compute disk details."
-    value       = jsondecode(step.container.delete_compute_disk.stdout)
-  }
 }

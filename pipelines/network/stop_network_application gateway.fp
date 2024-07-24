@@ -1,6 +1,6 @@
-pipeline "delete_network_public_ip" {
-  title       = "Delete Network Public IP"
-  description = "Delete a public IP address."
+pipeline "stop_network_application_gateway" {
+  title       = "Stop Network Application Gateway"
+  description = "Stop an Azure Application Gateway."
 
   param "cred" {
     type        = string
@@ -18,15 +18,16 @@ pipeline "delete_network_public_ip" {
     description = local.resource_group_param_description
   }
 
-  param "public_ip_name" {
+  param "application_gateway_name" {
     type        = string
-    description = "The name of the public IP address."
+    description = "The Application Gateway name."
   }
 
-  step "container" "delete_network_public_ip" {
+  step "container" "stop_network_application_gateway" {
     image = "ghcr.io/turbot/flowpipe-image-azure-cli"
-    cmd   = ["network", "public-ip", "delete", "-g", param.resource_group, "--subscription", param.subscription_id, "-n", param.public_ip_name]
+    cmd   = ["network", "application-gateway", "stop", "-g", param.resource_group, "--subscription", param.subscription_id, "-n", param.application_gateway_name]
 
     env = credential.azure[param.cred].env
   }
+
 }

@@ -1,3 +1,9 @@
+## v0.2.0 [2024-07-24]
+
+_What's new?_
+
+- Added 36 new pipelines for seamless integration with your App Service, Compute, IAM, Key Vault, Network resources, and more.
+
 ## v0.1.1 [2024-03-04]
 
 _Bug fixes_
