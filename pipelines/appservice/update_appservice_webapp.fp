@@ -1,5 +1,5 @@
 pipeline "update_appservice_webapp" {
-  title       = "Update Web App"
+  title       = "Update AppService Web App"
   description = "Update setting for an Azure Web App."
 
   tags = {

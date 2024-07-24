@@ -1,5 +1,5 @@
 pipeline "assign_appservice_webapp_identity" {
-  title       = "Assign Managed Identity to Web App"
+  title       = "Assign Managed Identity to AppService Web App"
   description = "Assign a managed identity to an Azure AppService Web App."
 
   tags = {

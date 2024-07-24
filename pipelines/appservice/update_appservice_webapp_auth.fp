@@ -1,5 +1,5 @@
 pipeline "update_appservice_webapp_auth" {
-  title       = "Update Web App Authentication"
+  title       = "Update AppService Web App Authentication"
   description = "Update the authentication settings of an Azure Web App."
 
   tags = {

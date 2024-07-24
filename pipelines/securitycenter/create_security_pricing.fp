@@ -1,5 +1,5 @@
 pipeline "create_security_pricing" {
-	title       = "Create Security Pricing"
+  title       = "Create Security Pricing"
   description = "Set the pricing tier for Azure Security Center on a specific resource type."
 
   param "cred" {

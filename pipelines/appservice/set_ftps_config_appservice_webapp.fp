@@ -1,5 +1,5 @@
 pipeline "set_config_appservice_webapp" {
-  title       = "Set Configuration for Web App"
+  title       = "Set Configuration for AppService Web App"
   description = "Set the configuration for an Azure Web App."
 
   tags = {
