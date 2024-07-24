@@ -42,7 +42,6 @@ pipeline "update_storage_account_logging" {
   }
 
   step "container" "update_storage_account_logging" {
-		depends_on = [step.query.get_storage_account_key]
     image = "ghcr.io/turbot/flowpipe-image-azure-cli"
     cmd   = [
       "storage", "logging", "update",
