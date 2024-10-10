@@ -108,10 +108,10 @@ Run a pipeline:
 flowpipe pipeline run create_compute_virtual_machine --arg vm_name='VM Dev' --arg vm_image=Ubuntu2204 --arg subscription_id=1234-5678-9012-3456 --arg resource_group=my-rg
 ```
 
-To use a specific `credential`, specify the `cred` pipeline argument:
+To use a specific `connection`, specify the `conn` pipeline argument:
 
 ```sh
-flowpipe pipeline run list_compute_virtual_machines --arg cred=azure_prod --arg subscription_id=1234-5678-9012-3456 --arg resource_group=my-rg
+flowpipe pipeline run list_compute_virtual_machines --arg conn=azure_prod --arg subscription_id=1234-5678-9012-3456 --arg resource_group=my-rg
 ```
 
 ## Open Source & Contributing
