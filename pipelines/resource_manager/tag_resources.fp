@@ -2,10 +2,10 @@ pipeline "tag_resources" {
   title       = "Apply Resource Tags"
   description = "Apply tags to a specific Azure resource."
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.azure
+    description = local.conn_param_description
+    default     = connection.azure.default
   }
 
   param "tags" {
@@ -32,7 +32,7 @@ pipeline "tag_resources" {
       [for key, value in param.tags : "${key}=${value}"]
     )
 
-    env = credential.azure[param.cred].env
+    env = param.conn.env
   }
 
   output "tag" {

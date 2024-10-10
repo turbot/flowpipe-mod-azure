@@ -6,10 +6,10 @@ pipeline "stop_compute_virtual_machine" {
     type = "featured"
   }
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.azure
+    description = local.conn_param_description
+    default     = connection.azure.default
   }
 
   param "subscription_id" {
@@ -31,7 +31,7 @@ pipeline "stop_compute_virtual_machine" {
     image = "ghcr.io/turbot/flowpipe-image-azure-cli"
     cmd   = ["vm", "stop", "-g", param.resource_group, "-n", param.vm_name, "--subscription", param.subscription_id]
 
-    env = credential.azure[param.cred].env
+    env = param.conn.env
   }
 
   output "virtual_machine" {

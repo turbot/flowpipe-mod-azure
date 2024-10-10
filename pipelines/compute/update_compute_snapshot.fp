@@ -2,10 +2,10 @@ pipeline "update_compute_snapshot" {
   title       = "Update Compute Snapshot"
   description = "Update a compute snapshot."
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.azure
+    description = local.conn_param_description
+    default     = connection.azure.default
   }
 
   param "subscription_id" {
@@ -32,7 +32,7 @@ pipeline "update_compute_snapshot" {
     image = "ghcr.io/turbot/flowpipe-image-azure-cli"
     cmd   = ["snapshot", "update", "-g", param.resource_group, "-n", param.snapshot_name, "--subscription", param.subscription_id, "--sku", param.sku]
 
-    env = credential.azure[param.cred].env
+    env = param.conn.env
   }
 
 }

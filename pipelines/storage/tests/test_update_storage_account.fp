@@ -6,10 +6,10 @@ pipeline "test_update_storage_account" {
     type = "test"
   }
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.azure
+    description = local.conn_param_description
+    default     = connection.azure.default
   }
 
   param "subscription_id" {
@@ -43,7 +43,7 @@ pipeline "test_update_storage_account" {
   step "pipeline" "create_storage_account" {
     pipeline = pipeline.create_storage_account
     args = {
-      cred            = param.cred
+      conn            = param.conn
       account_name    = param.account_name
       resource_group  = param.resource_group
       subscription_id = param.subscription_id
@@ -54,7 +54,7 @@ pipeline "test_update_storage_account" {
     if       = is_error(step.pipeline.create_storage_account) == false
     pipeline = pipeline.update_storage_account_public_network_access
     args = {
-      cred                  = param.cred
+      conn                  = param.conn
       account_name          = param.account_name
       resource_group        = param.resource_group
       subscription_id       = param.subscription_id
@@ -71,7 +71,7 @@ pipeline "test_update_storage_account" {
     if       = is_error(step.pipeline.create_storage_account) == false
     pipeline = pipeline.update_storage_account_access_tier
     args = {
-      cred            = param.cred
+      conn            = param.conn
       account_name    = param.account_name
       resource_group  = param.resource_group
       subscription_id = param.subscription_id
@@ -94,7 +94,7 @@ pipeline "test_update_storage_account" {
 
     pipeline = pipeline.delete_storage_account
     args = {
-      cred            = param.cred
+      conn            = param.conn
       account_name    = param.account_name
       resource_group  = param.resource_group
       subscription_id = param.subscription_id

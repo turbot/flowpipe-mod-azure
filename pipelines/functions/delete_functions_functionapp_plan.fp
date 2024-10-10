@@ -12,10 +12,10 @@ pipeline "delete_functions_functionapp_plan" {
     description = local.resource_group_param_description
   }
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.azure
+    description = local.conn_param_description
+    default     = connection.azure.default
   }
 
   param "plan_name" {
@@ -27,7 +27,7 @@ pipeline "delete_functions_functionapp_plan" {
     image = "ghcr.io/turbot/flowpipe-image-azure-cli"
     cmd   = ["functionapp", "plan", "delete", "--yes", "-g", param.resource_group, "--subscription", param.subscription_id, "-n", param.plan_name]
 
-    env = credential.azure[param.cred].env
+    env = param.conn.env
   }
 
   output "app_plan" {

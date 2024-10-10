@@ -7,10 +7,10 @@ pipeline "delete_iam_role" {
     description = local.subscription_id_param_description
   }
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.azure
+    description = local.conn_param_description
+    default     = connection.azure.default
   }
 
   param "role_name" {
@@ -26,7 +26,7 @@ pipeline "delete_iam_role" {
       "--subscription", param.subscription_id
     ]
 
-    env = credential.azure[param.cred].env
+    env = param.conn.env
   }
 
   output "iam_role" {

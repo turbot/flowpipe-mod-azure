@@ -6,10 +6,10 @@ pipeline "update_appservice_webapp_auth" {
     type = "featured"
   }
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.azure
+    description = local.conn_param_description
+    default     = connection.azure.default
   }
 
   param "subscription_id" {
@@ -38,7 +38,7 @@ pipeline "update_appservice_webapp_auth" {
       ["webapp", "auth", "update", "--resource-group", param.resource_group, "--name", param.app_name, "--enabled", tostring(param.enabled)]
     )
 
-    env = credential.azure[param.cred].env
+    env = param.conn.env
   }
 
   output "webapp_auth" {

@@ -2,10 +2,10 @@ pipeline "delete_servicebus_namespace" {
   title       = "Delete Service Bus Namespace"
   description = "Delete an existing namespace. This operation also removes all associated resources under the namespace."
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.azure
+    description = local.conn_param_description
+    default     = connection.azure.default
   }
 
   param "subscription_id" {
@@ -27,7 +27,7 @@ pipeline "delete_servicebus_namespace" {
     image = "ghcr.io/turbot/flowpipe-image-azure-cli"
     cmd   = ["servicebus", "namespace", "delete", "-g", param.resource_group, "--subscription", param.subscription_id, "-n", param.namespace_name]
 
-    env = credential.azure[param.cred].env
+    env = param.conn.env
   }
 
   output "namespace" {

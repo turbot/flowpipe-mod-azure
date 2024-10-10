@@ -2,10 +2,10 @@ pipeline "delete_service_fabric_cluster" {
   title       = "Delete Service Fabric Cluster"
   description = "Delete a Service Fabric Cluster from the specified resource group."
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.azure
+    description = local.conn_param_description
+    default     = connection.azure.default
   }
 
   param "subscription_id" {
@@ -33,7 +33,7 @@ pipeline "delete_service_fabric_cluster" {
       "--subscription", param.subscription_id
     ]
 
-    env = credential.azure[param.cred].env
+    env = param.conn.env
   }
 
 }

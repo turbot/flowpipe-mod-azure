@@ -2,10 +2,10 @@ pipeline "delete_network_public_ip" {
   title       = "Delete Network Public IP"
   description = "Delete a public IP address."
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.azure
+    description = local.conn_param_description
+    default     = connection.azure.default
   }
 
   param "subscription_id" {
@@ -27,6 +27,6 @@ pipeline "delete_network_public_ip" {
     image = "ghcr.io/turbot/flowpipe-image-azure-cli"
     cmd   = ["network", "public-ip", "delete", "-g", param.resource_group, "--subscription", param.subscription_id, "-n", param.public_ip_name]
 
-    env = credential.azure[param.cred].env
+    env = param.conn.env
   }
 }

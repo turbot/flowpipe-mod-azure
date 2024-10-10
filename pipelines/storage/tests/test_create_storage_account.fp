@@ -6,10 +6,10 @@ pipeline "test_create_storage_account" {
     type = "test"
   }
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.azure
+    description = local.conn_param_description
+    default     = connection.azure.default
   }
 
   param "subscription_id" {
@@ -31,7 +31,7 @@ pipeline "test_create_storage_account" {
   step "pipeline" "create_storage_account" {
     pipeline = pipeline.create_storage_account
     args = {
-      cred            = param.cred
+      conn            = param.conn
       account_name    = param.account_name
       resource_group  = param.resource_group
       subscription_id = param.subscription_id
@@ -43,7 +43,7 @@ pipeline "test_create_storage_account" {
     depends_on = [step.pipeline.create_storage_account]
     pipeline   = pipeline.get_storage_account
     args = {
-      cred            = param.cred
+      conn            = param.conn
       account_name    = param.account_name
       resource_group  = param.resource_group
       subscription_id = param.subscription_id
@@ -62,7 +62,7 @@ pipeline "test_create_storage_account" {
 
     pipeline = pipeline.delete_storage_account
     args = {
-      cred            = param.cred
+      conn            = param.conn
       account_name    = param.account_name
       resource_group  = param.resource_group
       subscription_id = param.subscription_id

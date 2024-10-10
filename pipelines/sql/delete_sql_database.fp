@@ -2,10 +2,10 @@ pipeline "delete_sql_database" {
   title       = "Delete Azure SQL Database"
   description = "Delete an Azure SQL Database."
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.azure
+    description = local.conn_param_description
+    default     = connection.azure.default
   }
 
   param "subscription_id" {
@@ -39,7 +39,7 @@ pipeline "delete_sql_database" {
       "--yes"
     ]
 
-    env = credential.azure[param.cred].env
+    env = param.conn.env
   }
 
 }

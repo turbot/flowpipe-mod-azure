@@ -6,10 +6,10 @@ pipeline "assign_appservice_webapp_identity" {
     type = "featured"
   }
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.azure
+    description = local.conn_param_description
+    default     = connection.azure.default
   }
 
   param "subscription_id" {
@@ -35,7 +35,7 @@ pipeline "assign_appservice_webapp_identity" {
       "--name", param.app_name
     ]
 
-    env = credential.azure[param.cred].env
+    env = param.conn.env
   }
 
   output "assign_appservice_webapp_identity" {

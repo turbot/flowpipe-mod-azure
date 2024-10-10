@@ -2,10 +2,10 @@ pipeline "list_compute_virtual_machines" {
   title       = "List Compute Virtual Machines"
   description = "List details of Virtual Machines."
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.azure
+    description = local.conn_param_description
+    default     = connection.azure.default
   }
 
   param "subscription_id" {
@@ -32,7 +32,7 @@ pipeline "list_compute_virtual_machines" {
        param.query != null ? ["--query", param.query] : [],
     )
 
-    env = credential.azure[param.cred].env
+    env = param.conn.env
   }
 
   output "virtual_machines" {

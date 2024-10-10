@@ -2,10 +2,10 @@ pipeline "delete_network_nsg_rule" {
   title       = "Delete Network NSG Rule"
   description = "Delete a rule from a Network Security Group (NSG) in Azure."
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.azure
+    description = local.conn_param_description
+    default     = connection.azure.default
   }
 
   param "subscription_id" {
@@ -38,7 +38,7 @@ pipeline "delete_network_nsg_rule" {
       "-n", param.nsg_rule_name
     ]
 
-    env = credential.azure[param.cred].env
+    env = param.conn.env
   }
 
    output "firewall" {

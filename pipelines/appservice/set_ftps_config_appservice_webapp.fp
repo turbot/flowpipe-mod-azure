@@ -6,10 +6,10 @@ pipeline "set_config_appservice_webapp" {
     type = "featured"
   }
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.azure
+    description = local.conn_param_description
+    default     = connection.azure.default
   }
 
   param "subscription_id" {
@@ -53,7 +53,7 @@ pipeline "set_config_appservice_webapp" {
       param.enable_http2 != null ? ["--http20-enabled", "true"] : [],
       param.tls_version != null ? concat(["--min-tls-version", param.tls_version]) : []
     )
-    env = credential.azure[param.cred].env
+    env = param.conn.env
   }
 
   output "config_webapp" {
