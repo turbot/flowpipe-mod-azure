@@ -3,7 +3,7 @@ pipeline "create_storage_account" {
   description = "Create a storage account."
 
   tags = {
-    type = "featured"
+    recommended = "true"
   }
 
   param "conn" {

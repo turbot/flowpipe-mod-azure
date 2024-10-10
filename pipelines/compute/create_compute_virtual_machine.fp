@@ -3,7 +3,7 @@ pipeline "create_compute_virtual_machine" {
   description = "Create an Azure Virtual Machine."
 
   tags = {
-    type = "featured"
+    recommended = "true"
   }
 
   param "conn" {

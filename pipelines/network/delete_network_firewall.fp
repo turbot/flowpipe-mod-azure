@@ -3,7 +3,7 @@ pipeline "delete_network_firewall" {
   description = "Delete an Azure Firewall."
 
   tags = {
-    type = "featured"
+    recommended = "true"
   }
 
   param "conn" {

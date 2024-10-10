@@ -3,7 +3,7 @@ pipeline "set_config_appservice_webapp" {
   description = "Set the configuration for an Azure Web App."
 
   tags = {
-    type = "featured"
+    recommended = "true"
   }
 
   param "conn" {

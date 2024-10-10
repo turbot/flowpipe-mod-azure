@@ -3,7 +3,7 @@ pipeline "stop_compute_virtual_machine" {
   description = "Power off (stop) a running VM."
 
   tags = {
-    type = "featured"
+    recommended = "true"
   }
 
   param "conn" {

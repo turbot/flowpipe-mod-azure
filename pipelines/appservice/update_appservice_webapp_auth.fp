@@ -3,7 +3,7 @@ pipeline "update_appservice_webapp_auth" {
   description = "Update the authentication settings of an Azure Web App."
 
   tags = {
-    type = "featured"
+    recommended = "true"
   }
 
   param "conn" {

@@ -3,7 +3,7 @@ pipeline "update_appservice_webapp" {
   description = "Update setting for an Azure Web App."
 
   tags = {
-    type = "featured"
+    recommended = "true"
   }
 
   param "conn" {

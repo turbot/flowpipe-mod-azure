@@ -3,7 +3,7 @@ pipeline "assign_appservice_webapp_identity" {
   description = "Assign a managed identity to an Azure AppService Web App."
 
   tags = {
-    type = "featured"
+    recommended = "true"
   }
 
   param "conn" {
