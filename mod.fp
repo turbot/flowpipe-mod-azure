@@ -11,4 +11,10 @@ mod "azure" {
     description = "Run pipelines to supercharge your Azure workflows using Flowpipe."
     image       = "/images/mods/turbot/azure-social-graphic.png"
   }
+
+  require {
+    flowpipe {
+      min_version = "1.0.0"
+    }
+  }
 }
