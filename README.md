@@ -111,7 +111,7 @@ flowpipe pipeline run create_compute_virtual_machine --arg vm_name='VM Dev' --ar
 To use a specific `connection`, specify the `conn` pipeline argument:
 
 ```sh
-flowpipe pipeline run list_compute_virtual_machines --arg conn=azure_prod --arg subscription_id=1234-5678-9012-3456 --arg resource_group=my-rg
+flowpipe pipeline run list_compute_virtual_machines --arg conn=connection.azure.azure_prod --arg subscription_id=1234-5678-9012-3456 --arg resource_group=my-rg
 ```
 
 ## Open Source & Contributing
