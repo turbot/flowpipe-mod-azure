@@ -3,7 +3,7 @@ pipeline "test_start_compute_virtual_machine" {
   description = "Test the start_compute_virtual_machine pipeline."
 
   tags = {
-    type = "test"
+    folder = "Tests"
   }
 
   param "conn" {

@@ -3,7 +3,7 @@ pipeline "test_update_storage_account" {
   description = "Test the update_storage_account pipeline."
 
   tags = {
-    type = "test"
+    folder = "Tests"
   }
 
   param "conn" {
