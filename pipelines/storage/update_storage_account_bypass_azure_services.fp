@@ -2,10 +2,10 @@ pipeline "update_storage_account_bypass_azure_services" {
   title       = "Update Storage Account Bypass Azure Services"
   description = "Update the bypass setting of a storage account to bypass Azure services."
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.azure
+    description = local.conn_param_description
+    default     = connection.azure.default
   }
 
   param "subscription_id" {
@@ -33,7 +33,7 @@ pipeline "update_storage_account_bypass_azure_services" {
       "--subscription", param.subscription_id
     ]
 
-    env = credential.azure[param.cred].env
+    env = param.conn.env
   }
 
   output "bypass_azure_services" {

@@ -2,10 +2,10 @@ pipeline "delete_storage_account" {
   title       = "Delete Storage Account"
   description = "Delete a storage account."
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.azure
+    description = local.conn_param_description
+    default     = connection.azure.default
   }
 
   param "subscription_id" {
@@ -27,7 +27,7 @@ pipeline "delete_storage_account" {
     image = "ghcr.io/turbot/flowpipe-image-azure-cli"
     cmd   = ["storage", "account", "delete", "--yes", "-g", param.resource_group, "-n", param.account_name, "--subscription", param.subscription_id]
 
-    env = credential.azure[param.cred].env
+    env = param.conn.env
   }
 
   output "account" {

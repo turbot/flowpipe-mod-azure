@@ -2,10 +2,10 @@ pipeline "update_storage_account_https_only" {
   title       = "Update Storage Account HTTPS-Only Setting"
   description = "Update the HTTPS-only setting of a storage account."
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.azure
+    description = local.conn_param_description
+    default     = connection.azure.default
   }
 
   param "subscription_id" {
@@ -38,7 +38,7 @@ pipeline "update_storage_account_https_only" {
       "--https-only", tostring(param.https_only)
     ]
 
-    env = credential.azure[param.cred].env
+    env = param.conn.env
   }
 
   output "https_only" {

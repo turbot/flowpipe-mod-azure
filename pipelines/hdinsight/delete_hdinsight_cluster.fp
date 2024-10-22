@@ -12,10 +12,10 @@ pipeline "delete_hdinsight_cluster" {
     description = local.resource_group_param_description
   }
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.azure
+    description = local.conn_param_description
+    default     = connection.azure.default
   }
 
   param "cluster_name" {
@@ -27,6 +27,6 @@ pipeline "delete_hdinsight_cluster" {
     image = "ghcr.io/turbot/flowpipe-image-azure-cli"
     cmd   = [ "hdinsight", "delete", "-g", param.resource_group, "--subscription", param.subscription_id, "-n", param.cluster_name, "--yes"]
 
-    env = credential.azure[param.cred].env
+    env = param.conn.env
   }
 }

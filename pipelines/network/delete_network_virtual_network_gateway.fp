@@ -2,10 +2,10 @@ pipeline "delete_network_virtual_network_gateway" {
   title       = "Delete Virtual Network Gateway"
   description = "Delete a Virtual Network Gateway."
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "azure"
+  param "conn" {
+    type        = connection.azure
+    description = local.conn_param_description
+    default     = connection.azure.default
   }
 
   param "subscription_id" {
@@ -27,7 +27,7 @@ pipeline "delete_network_virtual_network_gateway" {
     image = "ghcr.io/turbot/flowpipe-image-azure-cli"
     cmd   = ["network", "vnet-gateway", "delete", "-g", param.resource_group, "-n", param.network_gateway_name, "--subscription", param.subscription_id]
 
-    env = credential.azure[param.cred].env
+    env = param.conn.env
   }
 }
 

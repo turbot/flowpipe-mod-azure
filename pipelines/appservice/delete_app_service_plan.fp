@@ -2,10 +2,10 @@ pipeline "delete_app_service_plan" {
   title       = "Delete App Service Plan"
   description = "Delete an Azure App Service Plan."
 
-  param "cred" {
-    type        = string
-    description = "The credentials to use for authentication."
-    default     = "default"
+  param "conn" {
+    type        = connection.azure
+    description = local.conn_param_description
+    default     = connection.azure.default
   }
 
   param "subscription_id" {
@@ -27,6 +27,6 @@ pipeline "delete_app_service_plan" {
     image = "ghcr.io/turbot/flowpipe-image-azure-cli"
     cmd   = ["appservice", "plan", "delete", "--yes", "-g", param.resource_group, "--subscription", param.subscription_id, "-n", param.service_plan_name]
 
-    env = credential.azure[param.cred].env
+    env = param.conn.env
   }
 }

@@ -2,10 +2,10 @@ pipeline "stop_network_application_gateway" {
   title       = "Stop Network Application Gateway"
   description = "Stop an Azure Application Gateway."
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.azure
+    description = local.conn_param_description
+    default     = connection.azure.default
   }
 
   param "subscription_id" {
@@ -27,7 +27,7 @@ pipeline "stop_network_application_gateway" {
     image = "ghcr.io/turbot/flowpipe-image-azure-cli"
     cmd   = ["network", "application-gateway", "stop", "-g", param.resource_group, "--subscription", param.subscription_id, "-n", param.application_gateway_name]
 
-    env = credential.azure[param.cred].env
+    env = param.conn.env
   }
 
 }

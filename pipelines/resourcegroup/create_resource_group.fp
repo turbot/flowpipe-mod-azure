@@ -2,10 +2,10 @@ pipeline "create_resource_group" {
   title       = "Create Resource Group"
   description = "Create a resource group in Azure."
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.azure
+    description = local.conn_param_description
+    default     = connection.azure.default
   }
 
   param "resource_group" {
@@ -32,7 +32,7 @@ pipeline "create_resource_group" {
       "--subscription", param.subscription_id
     ]
 
-    env = credential.azure[param.cred].env
+    env = param.conn.env
   }
 
   output "resource_group" {

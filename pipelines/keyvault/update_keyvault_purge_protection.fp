@@ -2,10 +2,10 @@ pipeline "update_azure_key_vault_purge_protection" {
   title       = "Update Azure Key Vault Purge Protection"
   description = "Enable or disable purge protection for the specified Azure Key Vault."
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.azure
+    description = local.conn_param_description
+    default     = connection.azure.default
   }
 
   param "subscription_id" {
@@ -35,7 +35,7 @@ pipeline "update_azure_key_vault_purge_protection" {
       param.enable_purge_protection ? ["--enable-purge-protection", "true"] : ["--enable-purge-protection", "false"]
     )
 
-    env = credential.azure[param.cred].env
+    env = param.conn.env
   }
 
   output "key_vault" {

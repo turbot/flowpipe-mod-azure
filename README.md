@@ -21,7 +21,7 @@ brew tap turbot/tap
 brew install flowpipe
 ```
 
-### Credentials
+### Connections
 
 By default, the following environment variables will be used for authentication:
 
@@ -30,21 +30,21 @@ By default, the following environment variables will be used for authentication:
 - `AZURE_ENVIRONMENT`
 - `AZURE_TENANT_ID`
 
-You can also create `credential` resources in configuration files:
+You can also create `connection` resources in configuration files:
 
 ```sh
 vi ~/.flowpipe/config/azure.fpc
 ```
 
 ```hcl
-credential "azure" "default" {
+connection "azure" "default" {
   client_id     = "<your client id>"
   client_secret = "<your client secret>"
   tenant_id     = "<your tenant id>"
 }
 ```
 
-For more information on credentials in Flowpipe, please see [Managing Credentials](https://flowpipe.io/docs/run/credentials).
+For more information on connections in Flowpipe, please see [Managing Connections](https://flowpipe.io/docs/run/connections).
 
 ### Usage
 
@@ -108,10 +108,10 @@ Run a pipeline:
 flowpipe pipeline run create_compute_virtual_machine --arg vm_name='VM Dev' --arg vm_image=Ubuntu2204 --arg subscription_id=1234-5678-9012-3456 --arg resource_group=my-rg
 ```
 
-To use a specific `credential`, specify the `cred` pipeline argument:
+To use a specific `connection`, specify the `conn` pipeline argument:
 
 ```sh
-flowpipe pipeline run list_compute_virtual_machines --arg cred=azure_prod --arg subscription_id=1234-5678-9012-3456 --arg resource_group=my-rg
+flowpipe pipeline run list_compute_virtual_machines --arg conn=connection.azure.azure_prod --arg subscription_id=1234-5678-9012-3456 --arg resource_group=my-rg
 ```
 
 ## Open Source & Contributing

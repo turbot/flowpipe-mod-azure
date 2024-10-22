@@ -2,10 +2,10 @@ pipeline "create_network_public_ip" {
   title       = "Create Network Public IP"
   description = "Create a public IP address."
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.azure
+    description = local.conn_param_description
+    default     = connection.azure.default
   }
 
   param "subscription_id" {
@@ -36,7 +36,7 @@ pipeline "create_network_public_ip" {
       param.sku != null ? concat(["--sku", param.sku]) : []
     )
 
-    env = credential.azure[param.cred].env
+    env = param.conn.env
   }
 
   output "public_ip" {

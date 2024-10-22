@@ -3,13 +3,13 @@ pipeline "test_create_compute_virtual_machine" {
   description = "Test the create_compute_virtual_machine pipeline."
 
   tags = {
-    type = "test"
+    folder = "Tests"
   }
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.azure
+    description = local.conn_param_description
+    default     = connection.azure.default
   }
 
   param "subscription_id" {
@@ -49,7 +49,7 @@ pipeline "test_create_compute_virtual_machine" {
   step "pipeline" "create_compute_virtual_machine" {
     pipeline = pipeline.create_compute_virtual_machine
     args = {
-      cred              = param.cred
+      conn              = param.conn
       vm_name           = param.vm_name
       vm_image          = param.vm_image
       no_wait           = param.no_wait
@@ -70,7 +70,7 @@ pipeline "test_create_compute_virtual_machine" {
 
     pipeline = pipeline.get_compute_virtual_machine
     args = {
-      cred            = param.cred
+      conn            = param.conn
       vm_name         = param.vm_name
       resource_group  = param.resource_group
       subscription_id = param.subscription_id
@@ -90,7 +90,7 @@ pipeline "test_create_compute_virtual_machine" {
 
     pipeline = pipeline.delete_compute_virtual_machine
     args = {
-      cred            = param.cred
+      conn            = param.conn
       vm_name         = param.vm_name
       resource_group  = param.resource_group
       subscription_id = param.subscription_id

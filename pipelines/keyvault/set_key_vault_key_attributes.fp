@@ -3,10 +3,10 @@ pipeline "set_key_vault_key_attributes" {
   title       = "Set Key Vault Key Attributes"
   description = "Set attributes for a key in the specified Azure Key Vault."
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.azure
+    description = local.conn_param_description
+    default     = connection.azure.default
   }
 
   param "subscription_id" {
@@ -39,7 +39,7 @@ pipeline "set_key_vault_key_attributes" {
       "--subscription", param.subscription_id
     ]
 
-    env = credential.azure[param.cred].env
+    env = param.conn.env
   }
 
   output "key_attributes" {

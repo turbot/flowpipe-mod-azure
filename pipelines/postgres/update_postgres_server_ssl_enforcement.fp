@@ -2,10 +2,10 @@ pipeline "update_postgres_server_ssl_enforcement" {
   title       = "Update PostgreSQL Server SSL Enforcement"
   description = "Update the SSL enforcement configuration of a PostgreSQL server."
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.azure
+    description = local.conn_param_description
+    default     = connection.azure.default
   }
 
   param "subscription_id" {
@@ -38,7 +38,7 @@ pipeline "update_postgres_server_ssl_enforcement" {
       "--subscription", param.subscription_id
     ]
 
-    env = credential.azure[param.cred].env
+    env = param.conn.env
   }
 
   output "server_ssl_enforcement" {

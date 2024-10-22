@@ -2,10 +2,10 @@ pipeline "resize_compute_virtual_machine" {
   title       = "Resize Compute Virtual Machine"
   description = "Resize the properties of a VM."
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "azure"
+  param "conn" {
+    type        = connection.azure
+    description = local.conn_param_description
+    default     = connection.azure.default
   }
 
   param "subscription_id" {
@@ -38,7 +38,7 @@ pipeline "resize_compute_virtual_machine" {
       "--size", param.new_size
     ]
 
-    env = credential.azure[param.cred].env
+    env = param.conn.env
   }
 
   output "virtual_machine" {

@@ -2,10 +2,10 @@ pipeline "update_resource_tag" {
   title       = "Update Resource Tag"
   description = "Selectively update the set of tags on a specific resource."
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.azure
+    description = local.conn_param_description
+    default     = connection.azure.default
   }
 
   param "operation" {
@@ -30,7 +30,7 @@ pipeline "update_resource_tag" {
       [for key, value in param.tags : "${key}=${value}"],
     )
 
-    env = credential.azure[param.cred].env
+    env = param.conn.env
   }
 
   output "tag" {
