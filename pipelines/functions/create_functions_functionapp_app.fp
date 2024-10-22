@@ -2,10 +2,10 @@ pipeline "create_functions_functionapp_app" {
   title       = "Create Functions Functionapp App"
   description = "Create a function app."
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.azure
+    description = local.conn_param_description
+    default     = connection.azure.default
   }
 
   param "subscription_id" {
@@ -47,7 +47,7 @@ pipeline "create_functions_functionapp_app" {
       param.runtime != null ? concat(["--runtime", param.runtime]) : [],
     )
 
-    env = credential.azure[param.cred].env
+    env = param.conn.env
   }
 
   output "app" {

@@ -2,10 +2,10 @@ pipeline "update_monitor_log_profile_retention_policy" {
   title       = "Update Monitor Log Profile Retention Policy"
   description = "Update the retention policy of an Azure Monitor log profile."
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.azure
+    description = local.conn_param_description
+    default     = connection.azure.default
   }
 
   param "subscription_id" {
@@ -45,7 +45,7 @@ pipeline "update_monitor_log_profile_retention_policy" {
       "--set", format("location=%s retentionPolicy.enabled=%s retentionPolicy.days=%d", param.location, param.retention_enabled ? "true" : "false", param.retention_days)
     ]
 
-    env = credential.azure[param.cred].env
+    env = param.conn.env
   }
 
   output "log_profile" {

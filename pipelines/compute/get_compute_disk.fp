@@ -2,10 +2,10 @@ pipeline "get_compute_disk" {
   title       = "Get Compute Disk"
   description = "Get information about a disk."
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.azure
+    description = local.conn_param_description
+    default     = connection.azure.default
   }
 
   param "subscription_id" {
@@ -27,7 +27,7 @@ pipeline "get_compute_disk" {
     image = "ghcr.io/turbot/flowpipe-image-azure-cli"
     cmd   = ["disk", "show", "-g", param.resource_group, "-n", param.disk_name, "--subscription", param.subscription_id]
 
-    env = credential.azure[param.cred].env
+    env = param.conn.env
   }
 
   output "disk" {

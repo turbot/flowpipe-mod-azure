@@ -2,10 +2,10 @@ pipeline "update_compute_virtual_machine" {
   title       = "Update Compute Virtual Machine"
   description = "Update the properties of a VM."
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.azure
+    description = local.conn_param_description
+    default     = connection.azure.default
   }
 
   param "subscription_id" {
@@ -43,7 +43,7 @@ pipeline "update_compute_virtual_machine" {
       param.license_type != null ? concat(["--license-type", param.license_type]) : [],
     )
 
-    env = credential.azure[param.cred].env
+    env = param.conn.env
   }
 
   output "virtual_machine" {

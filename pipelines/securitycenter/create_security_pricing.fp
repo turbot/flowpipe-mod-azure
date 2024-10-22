@@ -2,10 +2,10 @@ pipeline "create_security_pricing" {
   title       = "Create Security Pricing"
   description = "Set the pricing tier for Azure Security Center on a specific resource type."
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.azure
+    description = local.conn_param_description
+    default     = connection.azure.default
   }
 
   param "resource_type" {
@@ -32,7 +32,7 @@ pipeline "create_security_pricing" {
       "--subscription", param.subscription_id
     ]
 
-    env = credential.azure[param.cred].env
+    env = param.conn.env
   }
 
   output "security_pricing" {

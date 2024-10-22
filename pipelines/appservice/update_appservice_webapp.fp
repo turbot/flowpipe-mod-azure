@@ -3,13 +3,13 @@ pipeline "update_appservice_webapp" {
   description = "Update setting for an Azure Web App."
 
   tags = {
-    type = "featured"
+    recommended = "true"
   }
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.azure
+    description = local.conn_param_description
+    default     = connection.azure.default
   }
 
   param "subscription_id" {
@@ -41,7 +41,7 @@ pipeline "update_appservice_webapp" {
       "--set", "httpsOnly=${param.https_only}"
     ]
 
-    env = credential.azure[param.cred].env
+    env = param.conn.env
   }
 
   output "update_appservice_webapp" {

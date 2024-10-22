@@ -2,10 +2,10 @@ pipeline "update_storage_account_logging" {
   title       = "Update Storage Account Logging"
   description = "Update the logging settings of a storage account."
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.azure
+    description = local.conn_param_description
+    default     = connection.azure.default
   }
 
   param "subscription_id" {
@@ -53,7 +53,7 @@ pipeline "update_storage_account_logging" {
       "--subscription", param.subscription_id
     ]
 
-    env = credential.azure[param.cred].env
+    env = param.conn.env
   }
 
 }

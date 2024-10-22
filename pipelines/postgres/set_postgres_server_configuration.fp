@@ -2,10 +2,10 @@ pipeline "set_postgres_server_configuration" {
   title       = "Set PostgreSQL Server Configuration"
   description = "Set a configuration value for a PostgreSQL server."
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.azure
+    description = local.conn_param_description
+    default     = connection.azure.default
   }
 
   param "subscription_id" {
@@ -44,7 +44,7 @@ pipeline "set_postgres_server_configuration" {
       "--subscription", param.subscription_id
     ]
 
-    env = credential.azure[param.cred].env
+    env = param.conn.env
   }
 
   output "server_configuration" {

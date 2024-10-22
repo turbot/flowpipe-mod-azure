@@ -2,10 +2,10 @@ pipeline "create_servicebus_queue" {
   title       = "Create Service Bus Queue"
   description = "Create a Service Bus queue. This operation is idempotent"
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.azure
+    description = local.conn_param_description
+    default     = connection.azure.default
   }
 
   param "subscription_id" {
@@ -32,7 +32,7 @@ pipeline "create_servicebus_queue" {
     image = "ghcr.io/turbot/flowpipe-image-azure-cli"
     cmd   = ["servicebus", "queue", "create", "-g", param.resource_group, "--subscription", param.subscription_id, "-n", param.queue_name, "--namespace-name", param.namespace_name]
 
-    env = credential.azure[param.cred].env
+    env = param.conn.env
   }
 
   output "queue" {

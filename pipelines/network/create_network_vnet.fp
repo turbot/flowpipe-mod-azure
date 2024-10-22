@@ -2,10 +2,10 @@ pipeline "create_network_vnet" {
   title       = "Create Network VNet"
   description = "Create a virtual network."
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.azure
+    description = local.conn_param_description
+    default     = connection.azure.default
   }
 
   param "subscription_id" {
@@ -27,7 +27,7 @@ pipeline "create_network_vnet" {
     image = "ghcr.io/turbot/flowpipe-image-azure-cli"
     cmd   = ["network", "vnet", "create", "-g", param.resource_group, "--subscription", param.subscription_id, "-n", param.vnet_name]
 
-    env = credential.azure[param.cred].env
+    env = param.conn.env
   }
 
   output "vnet" {

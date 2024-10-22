@@ -2,10 +2,10 @@ pipeline "delete_resource_tag" {
   title       = "Delete Resource Tag"
   description = "Delete tags on a specific resource."
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.azure
+    description = local.conn_param_description
+    default     = connection.azure.default
   }
 
   param "resource_id" {
@@ -25,7 +25,7 @@ pipeline "delete_resource_tag" {
       param.tag != null ? ["--name", param.tag] : []
     )
 
-    env = credential.azure[param.cred].env
+    env = param.conn.env
   }
 
   output "tag" {

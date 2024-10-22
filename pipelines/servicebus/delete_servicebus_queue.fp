@@ -2,10 +2,10 @@ pipeline "delete_servicebus_queue" {
   title       = "Delete Service Bus Queue"
   description = "Delete a queue from the specified namespace in a resource group."
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.azure
+    description = local.conn_param_description
+    default     = connection.azure.default
   }
 
   param "subscription_id" {
@@ -32,7 +32,7 @@ pipeline "delete_servicebus_queue" {
     image = "ghcr.io/turbot/flowpipe-image-azure-cli"
     cmd   = ["servicebus", "queue", "delete", "-g", param.resource_group, "--subscription", param.subscription_id, "-n", param.queue_name, "--namespace-name", param.namespace_name]
 
-    env = credential.azure[param.cred].env
+    env = param.conn.env
   }
 
   output "queue" {

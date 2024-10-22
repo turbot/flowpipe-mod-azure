@@ -2,10 +2,10 @@ pipeline "create_network_firewall" {
   title       = "Create Network Firewall"
   description = "Create an Azure Firewall."
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.azure
+    description = local.conn_param_description
+    default     = connection.azure.default
   }
 
   param "subscription_id" {
@@ -27,7 +27,7 @@ pipeline "create_network_firewall" {
     image = "ghcr.io/turbot/flowpipe-image-azure-cli"
     cmd   = ["network", "firewall", "create", "-g", param.resource_group, "--subscription", param.subscription_id, "-n", param.firewall_name]
 
-    env = credential.azure[param.cred].env
+    env = param.conn.env
   }
 
   output "firewall" {

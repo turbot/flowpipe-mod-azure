@@ -2,10 +2,10 @@ pipeline "get_compute_virtual_machine_instance_view" {
   title       = "Get Compute Virtual Machine Instance View"
   description = "Get instance information about a VM."
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.azure
+    description = local.conn_param_description
+    default     = connection.azure.default
   }
 
   param "subscription_id" {
@@ -37,7 +37,7 @@ pipeline "get_compute_virtual_machine_instance_view" {
       param.query != null ? ["--query", param.query] : [],
     )
 
-    env = credential.azure[param.cred].env
+    env = param.conn.env
   }
 
   output "instance_view" {

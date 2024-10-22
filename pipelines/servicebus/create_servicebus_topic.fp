@@ -2,10 +2,10 @@ pipeline "create_servicebus_topic" {
   title       = "Create Service Bus Topic"
   description = "Create a topic in the specified namespace."
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.azure
+    description = local.conn_param_description
+    default     = connection.azure.default
   }
 
   param "subscription_id" {
@@ -32,7 +32,7 @@ pipeline "create_servicebus_topic" {
     image = "ghcr.io/turbot/flowpipe-image-azure-cli"
     cmd   = ["servicebus", "topic", "create", "-g", param.resource_group, "--subscription", param.subscription_id, "-n", param.topic_name, "--namespace-name", param.namespace_name]
 
-    env = credential.azure[param.cred].env
+    env = param.conn.env
   }
 
   output "topic" {

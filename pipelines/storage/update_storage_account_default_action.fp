@@ -2,10 +2,10 @@ pipeline "update_storage_account_default_action" {
   title       = "Update Storage Account Default Action"
   description = "Update the default action of a storage account to Deny."
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.azure
+    description = local.conn_param_description
+    default     = connection.azure.default
   }
 
   param "subscription_id" {
@@ -41,7 +41,7 @@ pipeline "update_storage_account_default_action" {
       ],
     )
 
-    env = credential.azure[param.cred].env
+    env = param.conn.env
   }
 
   output "default_action" {

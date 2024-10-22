@@ -2,10 +2,10 @@ pipeline "update_storage_account_blob_service_properties" {
   title       = "Update Storage Account Blob Service Properties"
   description = "Update the blob service properties of a storage account."
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.azure
+    description = local.conn_param_description
+    default     = connection.azure.default
   }
 
   param "subscription_id" {
@@ -47,7 +47,7 @@ pipeline "update_storage_account_blob_service_properties" {
         ["--enable-container-delete-retention", "false"]
     )
 
-    env = credential.azure[param.cred].env
+    env = param.conn.env
   }
 
   output "blob_service_properties" {

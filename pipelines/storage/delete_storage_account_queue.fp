@@ -2,10 +2,10 @@ pipeline "delete_storage_queue" {
   title       = "Delete Storage Queue"
   description = "Delete the specified queue and any messages it contains."
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.azure
+    description = local.conn_param_description
+    default     = connection.azure.default
   }
 
   param "subscription_id" {
@@ -27,7 +27,7 @@ pipeline "delete_storage_queue" {
     image = "ghcr.io/turbot/flowpipe-image-azure-cli"
     cmd   = ["storage", "queue", "delete", "--subscription", param.subscription_id, "-n", param.storage_queue_name, "--account-name", param.account_name]
 
-    env = credential.azure[param.cred].env
+    env = param.conn.env
   }
 
   output "queue" {
