@@ -1,4 +1,4 @@
-pipeline "update_sql_server_public_network" {
+pipeline "update_sql_server_public_network_access" {
   title       = "Update SQL Server Public Network Access"
   description = "Enable or disable public network access for the specified SQL server."
 
@@ -28,7 +28,7 @@ pipeline "update_sql_server_public_network" {
     description = "Enable or disable public network access for the SQL server. Accepted values: true, false."
   }
 
-  step "container" "update_sql_server_public_network" {
+  step "container" "update_sql_server_public_network_access" {
     image = "ghcr.io/turbot/flowpipe-image-azure-cli"
     cmd   = [
       "sql", "server", "update",
@@ -43,6 +43,6 @@ pipeline "update_sql_server_public_network" {
 
   output "sql_server_public_network_status" {
     description = "The updated public network access setting for the SQL server."
-    value       = jsondecode(step.container.update_sql_server_public_network.stdout)
+    value       = jsondecode(step.container.update_sql_server_public_network_access.stdout)
   }
 }

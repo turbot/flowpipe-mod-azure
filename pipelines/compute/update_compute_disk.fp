@@ -1,6 +1,6 @@
 pipeline "update_compute_disk" {
-  title       = "Update Compute disk settings"
-  description = "Update an Azure Compute disk's settings."
+  title       = "Update Compute Disk"
+  description = "Update a compute disk."
 
   param "conn" {
     type        = connection.azure
@@ -25,7 +25,7 @@ pipeline "update_compute_disk" {
 
   param "disk_access_id" {
     type        = string
-    description = "The resource ID of the Disk Access resource to associate with the disk."
+    description = "The resource ID of the disk access resource to associate with the disk."
     optional    = true
   }
 
@@ -49,8 +49,8 @@ pipeline "update_compute_disk" {
     env = param.conn.env
   }
 
-  output "update_disk_status" {
-    description = "The updated setting details for the disk."
+  output "disk" {
+    description = "The updated compute disk details."
     value       = jsondecode(step.container.update_compute_disk.stdout)
   }
 }

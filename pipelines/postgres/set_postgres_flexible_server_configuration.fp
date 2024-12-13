@@ -1,6 +1,6 @@
 pipeline "set_postgres_flexible_server_configuration" {
   title       = "Set PostgreSQL Flexible Server Configuration"
-  description = "Set a configuration value for a PostgreSQL flexible server."
+  description = "Set a configuration value for a postgres flexible server."
 
   param "conn" {
     type        = connection.azure

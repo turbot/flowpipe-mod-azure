@@ -1,6 +1,6 @@
 pipeline "update_compute_disk_encryption_with_cmk" {
   title       = "Update Disk Encryption with Customer-Managed Key"
-  description = "Update an Azure disk to use encryption at rest with a customer-managed key from a Disk Encryption Set."
+  description = "Update a compute disk to use encryption at rest with a customer-managed key."
 
   param "conn" {
     type        = connection.azure
@@ -25,7 +25,7 @@ pipeline "update_compute_disk_encryption_with_cmk" {
 
   param "disk_encryption_set_id" {
     type        = string
-    description = "The resource ID of the Disk Encryption Set to use for encryption."
+    description = "The resource ID of the disk encryption set to use for encryption."
   }
 
   step "container" "update_disk_encryption" {

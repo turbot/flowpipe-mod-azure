@@ -1,6 +1,6 @@
-pipeline "update_azure_key_vault_rbac_authorization" {
-  title       = "Update Azure Key Vault RBAC Authorization"
-  description = "Enable or disable RBAC authorization for the specified Azure Key Vault."
+pipeline "update_key_vault_rbac_authorization" {
+  title       = "Update Key Vault RBAC Authorization"
+  description = "Enable or disable RBAC authorization for the specified key vault."
 
   param "conn" {
     type        = connection.azure
@@ -20,7 +20,7 @@ pipeline "update_azure_key_vault_rbac_authorization" {
 
   param "vault_name" {
     type        = string
-    description = "The Azure Key Vault name."
+    description = "The key vault name."
   }
 
   param "enable_rbac_authorization" {
@@ -39,7 +39,7 @@ pipeline "update_azure_key_vault_rbac_authorization" {
   }
 
   output "key_vault" {
-    description = "The updated Azure Key Vault."
+    description = "The updated Key Vault."
     value       = jsondecode(step.container.update_key_vault_rbac_authorization.stdout)
   }
 }

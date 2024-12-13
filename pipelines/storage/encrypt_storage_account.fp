@@ -1,5 +1,5 @@
 pipeline "encrypt_storage_account" {
-  title       = "Encrypt Storage Account with Key Vault Key"
+  title       = "Encrypt Storage Account"
   description = "Encrypt an Azure storage account using a specified Key Vault key."
 
   param "conn" {
@@ -21,7 +21,6 @@ pipeline "encrypt_storage_account" {
   param "account_name" {
     type        = string
     description = "The storage account name."
-    default     = "test732"
   }
 
   param "encryption_key_name" {

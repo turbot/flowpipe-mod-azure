@@ -1,6 +1,6 @@
 pipeline "set_sql_server_tde_key" {
   title       = "Set SQL Server TDE Key"
-  description = "Set the Transparent Data Encryption (TDE) key for the specified SQL server using a Key Vault key."
+  description = "Set the Transparent Data Encryption (TDE) key for the specified SQL server using a key vault key."
 
   param "conn" {
     type        = connection.azure

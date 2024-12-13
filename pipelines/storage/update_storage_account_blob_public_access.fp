@@ -1,5 +1,5 @@
 pipeline "update_storage_account_blob_public_access" {
-  title       = "Update Storage Account blob public access setting"
+  title       = "Update Storage Account Blob Public Access Setting"
   description = "Update the public access setting for blobs in a storage account."
 
   param "conn" {

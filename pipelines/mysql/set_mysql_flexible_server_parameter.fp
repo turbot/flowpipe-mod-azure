@@ -1,5 +1,5 @@
 pipeline "set_mysql_flexible_server_parameter" {
-  title       = "Set MySQL flexible server parameter"
+  title       = "Set MySQL Flexible Server Parameter"
   description = "Set a parameter value for a MySQL flexible server."
 
   param "conn" {
