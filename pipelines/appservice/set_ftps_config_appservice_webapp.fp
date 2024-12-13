@@ -45,13 +45,41 @@ pipeline "set_config_appservice_webapp" {
     optional    = true
   }
 
+  param "python_version" {
+    type        = string
+    description = "Python version to use for the web app."
+    optional    = true
+  }
+
+  param "windows_fx_version" {
+    type        = string
+    description = "Windows FX version for web app."
+    optional    = true
+  }
+
+  param "linux_fx_version" {
+    type        = string
+    description = "Linux FX version for web app."
+    optional    = true
+  }
+
+  param "remote_debugging" {
+    type        = bool
+    description = "Enable or disable remote debugging for the web app."
+    optional    = true
+  }
+
   step "container" "set_config_appservice_webapp" {
     image = "ghcr.io/turbot/flowpipe-image-azure-cli"
      cmd = concat(
       ["webapp", "config", "set", "--resource-group", param.resource_group, "--name", param.app_name],
+      param.python_version != null ? ["--python-version", param.python_version] : [],
+      param.windows_fx_version != null ? ["--windows-fx-version", param.windows_fx_version] : [],
+      param.linux_fx_version != null ? ["--linux-fx-version", param.linux_fx_version] : [],
       param.ftps_state != null ? concat(["--ftps-state", param.ftps_state]) : [],
       param.enable_http2 != null ? ["--http20-enabled", "true"] : [],
-      param.tls_version != null ? concat(["--min-tls-version", param.tls_version]) : []
+      param.tls_version != null ? concat(["--min-tls-version", param.tls_version]) : [],
+      param.remote_debugging != null ? ["--remote-debugging-enabled", param.remote_debugging ? "true" : "false"] : []
     )
     env = param.conn.env
   }

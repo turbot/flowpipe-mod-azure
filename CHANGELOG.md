@@ -1,4 +1,20 @@
-## v1.0.0 (2024-10-22)
+## v1.1.0 [2024-12-13]
+
+_What's new?_
+
+- New pipelines added: ([#22](https://github.com/turbot/flowpipe-mod-azure/pull/22))
+  - `encrypt_storage_account`
+  - `set_mysql_flexible_server_parameter`
+  - `set_postgres_flexible_server_configuration`
+  - `set_postgres_flexible_server_require_secure_transport`
+  - `set_sql_server_tde_key`
+  - `update_compute_disk_encryption_with_cmk`
+  - `update_compute_disk`
+  - `update_key_vault_rbac_authorization`
+  - `update_sql_server_public_network_access`
+  - `update_storage_account_blob_public_access`
+
+## v1.0.0 [2024-10-22]
 
 _Breaking changes_
 
